@@ -1,0 +1,90 @@
+---
+title: "Arbotrix Studio & Web Platform"
+subtitle: "Full-stack web platform for an emerging robotics studio featuring interactive 3D hardware previews, internship enrollment APIs, and relational database persistence."
+tier: 1
+domain: "Web"
+status: "Live Production Platform"
+strongestEvidence: "Public Next.js repository with Prisma schema and Supabase database integrations; live production deployment handling real cohort applications."
+ownershipStatement: "I designed the full-stack architecture, database models, contact & student registration APIs, and built the responsive UI components; our team contributed 3D robot renders and copy."
+observableBehavior: "Visitors explore interactive 3D robot models in the browser, review hardware specifications, and register for ROS2 workshops with instantaneous email confirmations and database persistence."
+stack: ["Next.js 16", "React 19", "Prisma ORM", "Supabase / PostgreSQL", "Spline 3D", "Tailwind CSS", "Resend"]
+repoUrl: "https://github.com/MrShahzaib005/arbotrix-web"
+demoUrl: "https://arbotrix.com"
+isSimulationOnly: false
+date: "2026-10-08"
+---
+
+## 01 / Executive Summary
+
+- **What it does:** Serves as the public web platform and trainee registration engine for Arbotrix, an emerging robotics education and prototype research studio.
+- **Who it serves:** University engineering students applying for structured ROS 2 internship cohorts, hardware hobbyists, and prospective clients.
+- **My contribution:** Complete full-stack engineering: Next.js 16 architecture, Prisma schema modeling, PostgreSQL migrations, server action form validations, Resend email routing, and responsive frontend UI components.
+- **Status:** Live in production.
+- **Strongest evidence:** Public repository (`MrShahzaib005/arbotrix-web`), live domain, and database records from Batch 1 and Batch 2 trainee cohorts.
+
+---
+
+## 02 / Reality Check & Substantive Claim Alignment
+
+> [!NOTE]
+> **Substantiating Claims (The Reality Check):**
+> - **Student Cohort Numbers:** Early marketing drafts contained unverified claims such as "500+ students". In this architecture review, that claim is explicitly adjusted to reflect verified historical data: **45 students graduated across Batches 1 & 2** of the 6-week hands-on ROS 2 training program.
+> - **Product Status:** R&D concepts such as Tera-X are presented as design prototypes with target payload specs, while operational hardware (such as the Dodo Bot differential prototype) is documented with empirical physical test data.
+> - **Stack Definition:** Powered by modern Next.js 16 (App Router), React 19, Prisma ORM, Supabase PostgreSQL, and Tailwind CSS.
+
+---
+
+## 03 / Exact Ownership Statement
+
+> **"I designed the full-stack architecture, database models, contact & student registration APIs, and built the responsive UI components; our team contributed 3D robot renders and copy."**
+
+- **Shahzaib Sami (Full-Stack Engineer):** Prisma schema, PostgreSQL database design, Next.js Server Actions, Resend transactional notifications, responsive layouts, 3D Canvas lazy-loading wrapper.
+- **Studio Collaborators:** 3D robot models in Spline, curriculum documentation, workshop photography.
+- **Third-Party Services:** Supabase (Database), Resend (Email API), Vercel (Hosting).
+
+---
+
+## 04 / Architectural Flow: Student Enrollment Pipeline
+
+```
+[VISITOR BROWSER]
+  │
+  ├─ Explores interactive 3D chassis preview (Lazy-loaded Spline canvas)
+  │
+  └─ Submits ROS 2 Internship Application
+        │
+        ▼ POST via Next.js Server Action
+[BACKEND APPLICATION LAYER]
+  │
+  ├─ Zod Schema Validation (Input sanitization & phone format checks)
+  │
+  ├─ Prisma ORM Database Transaction
+  │     │
+  │     ▼ SQL INSERT
+  │  [SUPABASE POSTGRESQL CLUSTER]
+  │     └─ Enforces unique email constraint & records timestamp
+  │
+  └─ Resend Transactional Email Dispatch
+        │
+        ▼ SMTP Relay
+     [STUDENT INBOX]
+        └─ Delivers confirmation email with syllabus PDF attachment
+```
+
+---
+
+## 05 / Key Technical Decisions & Performance Optimization
+
+### 1. Lazy-Loading Heavy 3D Spline Canvases (LCP Protection)
+- **Problem:** Embedding 3D WebGL runtimes directly in hero sections can inflate bundle size by 1.2MB+, driving Largest Contentful Paint (LCP) above 4.5 seconds on mobile networks.
+- **Decision:** Encapsulated the 3D Spline viewer behind dynamic client-only imports triggered by `IntersectionObserver`. Mobile visitors see an optimized WebP static render initially; the interactive 3D model hydrates only when the user scrolls or interacts. This kept initial mobile LCP under 1.8 seconds.
+
+### 2. Server Actions with Prisma vs. API Route Handlers
+- **Decision:** Utilized Next.js 16 Server Actions to encapsulate mutations directly with database calls, eliminating redundant boilerplate API routes while ensuring end-to-end TypeScript type inference.
+
+---
+
+## 06 / Validation & Production Impact
+
+- **Internship Cohorts Processed:** Successfully handled enrollment pipelines for **Batch 1** and **Batch 2** of the Arbotrix ROS 2 Internship Program, issuing digital acceptance letters to 45 qualified students with zero data loss or registration downtime.
+- **Performance:** Achieved 96+ Lighthouse Performance score on desktop and 92+ on mobile.

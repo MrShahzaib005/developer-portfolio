@@ -1,0 +1,255 @@
+---
+import { PROJECTS } from '../data/projects';
+
+const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
+---
+
+<section class="proof-strip-section" aria-label="Featured Projects Proof Strip">
+  <div class="container">
+    <div class="proof-strip-header">
+      <div class="proof-label-group">
+        <span class="proof-badge font-mono">02 / Fast Track</span>
+        <span class="proof-title">Proof Strip — Bypassing the scrollytelling narrative for immediate technical review</span>
+      </div>
+      <a href="/work" class="view-all-link font-mono">
+        <span>View all 18 repositories</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="proof-cards-grid">
+      {featuredProjects.map((project) => (
+        <article class="proof-card">
+          <div class="card-top">
+            <div class="card-domain-row">
+              <span class={`mono-tag ${project.domain === 'Robotics' ? 'active' : ''}`}>
+                {project.domain}
+              </span>
+              {project.isSimulationOnly && (
+                <span class="mono-tag sim-tag" title="Tested exclusively in Gazebo simulation; no physical hardware manufactured">
+                  Simulation Only
+                </span>
+              )}
+              {project.tier === 1 && (
+                <span class="tier-indicator font-mono">Tier 1 Flagship</span>
+              )}
+            </div>
+
+            <h3 class="card-title">
+              <a href={`/work/${project.slug}`}>
+                {project.title}
+              </a>
+            </h3>
+
+            <p class="card-desc">
+              {project.subtitle}
+            </p>
+          </div>
+
+          <div class="card-middle">
+            <div class="card-ownership font-mono">
+              <span class="ownership-label">Contribution:</span>
+              <p class="ownership-text">{project.ownershipStatement}</p>
+            </div>
+          </div>
+
+          <div class="card-bottom">
+            <div class="card-stack">
+              {project.stack.slice(0, 4).map(tech => (
+                <span class="tech-item font-mono">{tech}</span>
+              ))}
+              {project.stack.length > 4 && (
+                <span class="tech-more font-mono">+{project.stack.length - 4}</span>
+              )}
+            </div>
+
+            <div class="card-actions">
+              <a href={`/work/${project.slug}`} class="case-study-btn font-mono">
+                <span>Read Case Study</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof-strip-section {
+    background-color: var(--bg-subtle);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    padding: 2.25rem 0 2.75rem;
+  }
+
+  .proof-strip-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .proof-strip-header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .proof-label-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .proof-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .proof-title {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .view-all-link {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color var(--transition-fast);
+  }
+
+  .view-all-link:hover {
+    color: var(--accent-orange);
+  }
+
+  .proof-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 960px) {
+    .proof-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .proof-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.25rem;
+    transition: all var(--transition-fast);
+  }
+
+  .proof-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .card-domain-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tier-indicator {
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title a {
+    color: var(--text-main);
+  }
+
+  .card-title a:hover {
+    color: var(--accent-orange);
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .card-ownership {
+    background-color: var(--bg-primary);
+    border-left: 2px solid var(--accent-orange);
+    padding: 0.6rem 0.75rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.75rem;
+  }
+
+  .ownership-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .ownership-text {
+    color: var(--text-main);
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .card-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .tech-item, .tech-more {
+    font-size: 0.6875rem;
+    padding: 0.15rem 0.45rem;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-faint);
+    border-radius: 3px;
+    color: var(--text-muted);
+  }
+
+  .case-study-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 0.15rem;
+    transition: all var(--transition-fast);
+  }
+
+  .case-study-btn:hover {
+    color: var(--accent-orange);
+    border-color: var(--accent-orange);
+  }
+</style>

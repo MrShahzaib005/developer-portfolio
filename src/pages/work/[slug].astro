@@ -1,0 +1,372 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const workEntries = await getCollection('work');
+  return workEntries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const allWorks = await getCollection('work');
+const currentIndex = allWorks.findIndex(w => w.id === entry.id);
+const prevWork = currentIndex > 0 ? allWorks[currentIndex - 1] : null;
+const nextWork = currentIndex < allWorks.length - 1 ? allWorks[currentIndex + 1] : null;
+---
+
+<Layout
+  title={`${entry.data.title} · Case Study`}
+  description={entry.data.subtitle}
+>
+  <article class="case-study-page section-spacing">
+    <div class="container container-narrow">
+      {/* Breadcrumb / Category Row */}
+      <div class="case-study-nav-bar font-mono">
+        <a href="/work" class="back-link">
+          <span aria-hidden="true">←</span>
+          <span>Back to Work Index</span>
+        </a>
+        <div class="meta-tags">
+          <span class={`mono-tag ${entry.data.domain === 'Robotics' ? 'active' : ''}`}>
+            {entry.data.domain}
+          </span>
+          <span class="mono-tag">
+            Tier {entry.data.tier}
+          </span>
+          {entry.data.isSimulationOnly && (
+            <span class="mono-tag sim-tag">
+              Simulation Only
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Header */}
+      <header class="case-header">
+        <h1 class="case-title">{entry.data.title}</h1>
+        <p class="case-lead narrative-lead">{entry.data.subtitle}</p>
+
+        {/* Action Links Bar */}
+        <div class="case-links-bar font-mono">
+          {entry.data.repoUrl && (
+            <a href={entry.data.repoUrl} target="_blank" rel="noopener noreferrer" class="ext-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GitHub Repository</span>
+            </a>
+          )}
+          {entry.data.demoUrl && (
+            <a href={entry.data.demoUrl} target="_blank" rel="noopener noreferrer" class="ext-btn demo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>Live Deployment</span>
+            </a>
+          )}
+          <span class="date-text">Published {entry.data.date}</span>
+        </div>
+      </header>
+
+      {/* Structured Summary Card (Hard Requirement) */}
+      <section class="summary-metadata-card font-mono" aria-label="Project Metadata Summary">
+        <div class="summary-row">
+          <span class="sum-label">Status:</span>
+          <span class="sum-value">{entry.data.status}</span>
+        </div>
+        <div class="summary-row">
+          <span class="sum-label">Strongest Evidence:</span>
+          <span class="sum-value">{entry.data.strongestEvidence}</span>
+        </div>
+        <div class="summary-row highlight">
+          <span class="sum-label">Exact Ownership:</span>
+          <span class="sum-value ownership">{entry.data.ownershipStatement}</span>
+        </div>
+        <div class="summary-row">
+          <span class="sum-label">Technology Stack:</span>
+          <div class="stack-tags">
+            {entry.data.stack.map(tech => (
+              <span class="stack-pill">{tech}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Main MDX Content */}
+      <div class="prose-content">
+        <Content />
+      </div>
+
+      {/* Next / Previous Project Navigation */}
+      <footer class="case-footer-nav font-mono">
+        {prevWork ? (
+          <a href={`/work/${prevWork.id}`} class="nav-prev">
+            <span class="nav-dir">← Previous</span>
+            <span class="nav-title">{prevWork.data.title}</span>
+          </a>
+        ) : <div />}
+
+        {nextWork && (
+          <a href={`/work/${nextWork.id}`} class="nav-next">
+            <span class="nav-dir">Next →</span>
+            <span class="nav-title">{nextWork.data.title}</span>
+          </a>
+        )}
+      </footer>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .case-study-page {
+    background-color: var(--bg-primary);
+  }
+
+  .case-study-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: 0.8125rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+  }
+
+  .back-link:hover {
+    color: var(--accent-orange);
+  }
+
+  .meta-tags {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .case-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .case-title {
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .case-lead {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-links-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .ext-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-main);
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+  }
+
+  .ext-btn:hover {
+    border-color: var(--accent-orange);
+    color: var(--accent-orange);
+  }
+
+  .ext-btn.demo {
+    background-color: var(--accent-orange-tint);
+    border-color: var(--accent-orange);
+    color: var(--accent-orange);
+  }
+
+  .date-text {
+    color: var(--text-faint);
+    margin-left: auto;
+  }
+
+  /* Summary Metadata Card */
+  .summary-metadata-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.8125rem;
+  }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  @media (max-width: 600px) {
+    .summary-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  .summary-row.highlight {
+    background-color: rgba(255, 85, 0, 0.05);
+    margin: 0.25rem -1rem;
+    padding: 0.65rem 1rem;
+    border-left: 3px solid var(--accent-orange);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .sum-label {
+    color: var(--text-faint);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+  }
+
+  .sum-value {
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+
+  .sum-value.ownership {
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .stack-pill {
+    font-size: 0.6875rem;
+    padding: 0.15rem 0.45rem;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-faint);
+    border-radius: 3px;
+    color: var(--text-muted);
+  }
+
+  /* Prose MDX Styles */
+  .prose-content {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+
+  .prose-content :global(h2) {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.4rem;
+  }
+
+  .prose-content :global(h3) {
+    font-size: 1.2rem;
+    color: var(--text-main);
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-content :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(ul), .prose-content :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: 0.45rem;
+  }
+
+  .prose-content :global(pre) {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 1.25rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--bg-dark-border);
+  }
+
+  .prose-content :global(blockquote) {
+    border-left: 3px solid var(--accent-orange);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--text-main);
+    font-style: italic;
+  }
+
+  /* Navigation Footer */
+  .case-footer-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+    gap: 1.5rem;
+  }
+
+  .nav-prev, .nav-next {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    max-width: 45%;
+  }
+
+  .nav-next {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .nav-dir {
+    font-size: 0.75rem;
+    color: var(--accent-orange);
+    font-weight: 600;
+  }
+
+  .nav-title {
+    font-size: 0.9375rem;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  .nav-prev:hover .nav-title, .nav-next:hover .nav-title {
+    color: var(--accent-orange);
+  }
+</style>

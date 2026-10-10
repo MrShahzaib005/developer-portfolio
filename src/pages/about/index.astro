@@ -1,0 +1,377 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AUDITED_REPO_COUNT } from '../../data/projects';
+---
+
+<Layout
+  title="About · Muhammad Shahzaib"
+  description="Bio, curriculum vitae, hardware workbench, and engineering background of Muhammad Shahzaib."
+>
+  <div class="about-page section-spacing">
+    <div class="container">
+      {/* Bio Header */}
+      <div class="asym-grid asym-grid-57" style="margin-bottom: 4rem;">
+        <div>
+          <span class="chapter-num">Biography & Philosophy</span>
+          <h1>Muhammad Shahzaib</h1>
+          <p class="narrative-lead" style="margin-top: 1rem;">
+            Software engineer specializing in robotics software and full-stack systems. Based in Islamabad, building systems that translate logical code into cyber-physical motion.
+          </p>
+
+          <p style="margin-top: 1rem; line-height: 1.7;">
+            My work lives at the intersection of embedded robotics hardware and high-performance web software. I write ROS 2 navigation stacks that run on headless NVIDIA Jetson Linux single-board computers, and the responsive Flutter and Next.js applications that let human operators teleoperate, inspect, and supervise them over local networks.
+          </p>
+
+          <p style="margin-top: 1rem; line-height: 1.7;">
+            I believe that software engineering is not about accumulating framework buzzwords—it is about designing resilient systems under genuine constraints: bandwidth drops, hardware latency, concurrency contention, and thread budgets.
+          </p>
+
+          <div class="about-quick-meta font-mono" style="margin-top: 2rem;">
+            <div class="q-item">
+              <span class="q-label">Current Role:</span>
+              <span class="q-val">Co-Founder & Lead Engineer @ Arbotrix</span>
+            </div>
+            <div class="q-item">
+              <span class="q-label">Education:</span>
+              <span class="q-val">BS Computer Science · Iqra University</span>
+            </div>
+            <div class="q-item">
+              <span class="q-label">Availability:</span>
+              <span class="q-val" style="color: #10B981;">Immediate / Q4 2026 – 2027 Roles</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="profile-card surface-card">
+            <img 
+              src="/images/shahzaib-arbo.webp" 
+              alt="Muhammad Shahzaib" 
+              class="profile-img"
+              loading="eager"
+            />
+            <div class="profile-caption font-mono">
+              <span style="font-weight: 600; color: var(--text-main);">Muhammad Shahzaib</span>
+              <span style="color: var(--text-faint);">Robotics & Full-Stack Systems</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Hardware & Workbench Setup */}
+      <section style="margin-bottom: 5rem; padding-top: 3rem; border-top: 1px solid var(--border-light);">
+        <span class="chapter-num">Hardware & Lab Environment</span>
+        <h2>Physical Workbench & Lab Inventory</h2>
+        <p style="margin-top: 0.5rem; max-width: 680px; margin-bottom: 2rem;">
+          To build software that bridges logic to motion, I maintain an active physical hardware and embedded robotics testing lab:
+        </p>
+
+        <div class="hardware-grid">
+          <div class="hw-item surface-card font-mono">
+            <span class="hw-category">Compute & Edge AI</span>
+            <h4>NVIDIA Jetson Orin Nano</h4>
+            <p>6-core ARM Cortex-A78AE, 1024-core NVIDIA Ampere GPU. Runs headless Ubuntu 22.04 LTS with ROS 2 Humble.</p>
+          </div>
+
+          <div class="hw-item surface-card font-mono">
+            <span class="hw-category">Real-Time Control</span>
+            <h4>ESP32 & STM32 Dual-Core</h4>
+            <p>Dedicated FreeRTOS microcontroller boards handling quadrature encoder pulses, PID interrupts, and motor PWM.</p>
+          </div>
+
+          <div class="hw-item surface-card font-mono">
+            <span class="hw-category">Perception & Sensors</span>
+            <h4>2D 360° LiDAR & IMUs</h4>
+            <p>12m range laser distance scanners, MPU-6050 6-axis inertial measurement units, and Hall-effect wheel encoders.</p>
+          </div>
+
+          <div class="hw-item surface-card font-mono">
+            <span class="hw-category">Chassis & Kinematics</span>
+            <h4>Differential Drive Testbeds</h4>
+            <p>Custom 2-wheel driven prototypes with forward/rear casters for indoor odometry benchmarking and teleoperation.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Résumé / CV Section */}
+      <section id="resume" style="padding-top: 3rem; border-top: 1px solid var(--border-light);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+          <div>
+            <span class="chapter-num">Curriculum Vitae</span>
+            <h2>Professional Experience & Credentials</h2>
+          </div>
+
+          <a 
+            href="mailto:mirzashahzaibsami123456789@gmail.com?subject=Requesting%20Full%20PDF%20Resume%20-%20Muhammad%20Shahzaib" 
+            class="btn btn-primary font-mono"
+            style="font-size: 0.8125rem;"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Request Official PDF Copy</span>
+          </a>
+        </div>
+
+        <div class="resume-sheet surface-card">
+          {/* Header */}
+          <div class="sheet-header">
+            <div>
+              <h3 style="font-size: 1.75rem;">Muhammad Shahzaib</h3>
+              <p class="font-mono" style="font-size: 0.875rem; color: var(--accent-orange); margin-top: 0.25rem;">
+                Software Engineer · Robotics, Systems & Full-Stack
+              </p>
+            </div>
+            <div class="sheet-contact font-mono">
+              <span>mirzashahzaibsami123456789@gmail.com</span>
+              <span>github.com/MrShahzaib005</span>
+              <span>linkedin.com/in/mr-shahzaib</span>
+              <span>Islamabad, Pakistan</span>
+            </div>
+          </div>
+
+          {/* Experience */}
+          <div class="sheet-section">
+            <span class="sheet-sec-title font-mono">Experience & Engineering Leadership</span>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <div>
+                  <strong>Co-Founder & Software Lead</strong> · <span class="font-mono">Arbotrix Studio</span>
+                </div>
+                <span class="exp-date font-mono">2024 — Present</span>
+              </div>
+              <ul class="sheet-bullet-list">
+                <li>Architected full-stack Next.js and PostgreSQL digital platform, delivering registration and syllabus distribution pipelines for 45 verified trainees across Batches 1 & 2.</li>
+                <li>Engineered the cross-platform Flutter teleoperation mobile app for Dodo Bot, bridging touch gestures to Jetson Orin Nano ROS 2 topics via WebSockets with 42ms round-trip latency.</li>
+                <li>Authored hands-on training curricula covering ROS 2 Humble node architecture, TF2 transforms, and differential kinematics for university engineering cohorts.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item" style="margin-top: 1.5rem;">
+              <div class="exp-header">
+                <div>
+                  <strong>Lead Backend Architect (FYP)</strong> · <span class="font-mono">Buddy: Multi-Tenant Agentic AI</span>
+                </div>
+                <span class="exp-date font-mono">2026 — Present</span>
+              </div>
+              <ul class="sheet-bullet-list">
+                <li>Engineered a Java 23 & Spring Boot 3.x multi-agent orchestration architecture using LangChain4j and local Ollama (Llama 3.1 8B) inference.</li>
+                <li>Designed dynamic tenant isolation using Java <code>ThreadLocal</code> security contexts and PostgreSQL pgvector filters, preventing cross-tenant data retrieval across 1,000 synthetic test runs.</li>
+                <li>Implemented prompt-level schema sandboxing to strip tool payloads during general conversation, mathematically eliminating unauthorized writes on small models.</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Education */}
+          <div class="sheet-section" style="margin-top: 2rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+            <span class="sheet-sec-title font-mono">Education</span>
+            <div class="exp-header">
+              <div>
+                <strong>Bachelor of Science in Computer Science (BSCS)</strong> · <span class="font-mono">Iqra University</span>
+              </div>
+              <span class="exp-date font-mono">Expected 2026</span>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.35rem;">
+              Focus: Distributed Systems, Operating Systems, Database Architecture, Machine Learning, and Cyber-Physical Robotics.
+            </p>
+          </div>
+
+          {/* Core Technical Competencies */}
+          <div class="sheet-section" style="margin-top: 2rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+            <span class="sheet-sec-title font-mono">Core Technical Competencies</span>
+            <div class="skills-grid font-mono">
+              <div>
+                <strong style="color: var(--text-main);">Robotics & Middleware:</strong>
+                <p>ROS 2 Humble, Gazebo Garden, Nav2, SLAM Toolbox, URDF/Xacro, rosbridge_suite, TF2</p>
+              </div>
+              <div>
+                <strong style="color: var(--text-main);">Languages:</strong>
+                <p>Python, C++, Java 23, Dart, TypeScript, JavaScript, SQL, Shell Scripting</p>
+              </div>
+              <div>
+                <strong style="color: var(--text-main);">Web & Backend:</strong>
+                <p>Next.js 16, React 19, Spring Boot 3.x, LangChain4j, Flutter, Prisma, PostgreSQL, pgvector</p>
+              </div>
+              <div>
+                <strong style="color: var(--text-main);">Systems & DevOps:</strong>
+                <p>Linux (Ubuntu 22.04 LTS), Git, Docker, FreeRTOS, UART/Serial, SSH, Jetson Orin Nano</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-quick-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 0.8125rem;
+  }
+
+  .q-item {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .q-label {
+    color: var(--text-faint);
+    width: 110px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  .q-val {
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  .profile-card {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+    aspect-ratio: 4/5;
+  }
+
+  .profile-caption {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    padding: 0 0.25rem;
+  }
+
+  .hardware-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .hw-item {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hw-category {
+    font-size: 0.6875rem;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .hw-item h4 {
+    font-size: 1.15rem;
+    color: var(--text-main);
+  }
+
+  .hw-item p {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  /* Resume Sheet */
+  .resume-sheet {
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  .sheet-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 2px solid var(--border-strong);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .sheet-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .sheet-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .sheet-sec-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-date {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
+  .sheet-bullet-list {
+    list-style: square;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    font-size: 0.8125rem;
+  }
+
+  @media (min-width: 640px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .skills-grid p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+</style>

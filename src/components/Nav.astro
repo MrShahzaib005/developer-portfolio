@@ -1,0 +1,180 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Story' },
+  { href: '/work', label: 'Work' },
+  { href: '/lab', label: 'Lab' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-container">
+    <a href="/" class="brand-link" aria-label="Muhammad Shahzaib homepage">
+      <span class="brand-point" aria-hidden="true"></span>
+      <span class="brand-name">Muhammad Shahzaib</span>
+      <span class="brand-role font-mono">Robotics · Full-Stack</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        {navLinks.map((link) => {
+          const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+          return (
+            <li>
+              <a 
+                href={link.href} 
+                class={`nav-link ${isActive ? 'is-active' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a 
+        href="/about#resume" 
+        class="resume-pill font-mono"
+        title="View & Download Résumé"
+      >
+        <span>CV / Résumé</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17l9.2-9.2M17 17V7H7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(248, 247, 244, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-light);
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .brand-point {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-orange);
+    box-shadow: 0 0 8px var(--accent-orange-glow);
+    display: inline-block;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .brand-role {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    padding-left: 0.5rem;
+    border-left: 1px solid var(--border-light);
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .brand-role {
+      display: inline-block;
+    }
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--text-main);
+    background-color: var(--bg-subtle);
+  }
+
+  .nav-link.is-active {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  .nav-link.is-active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-orange);
+    margin-top: 2px;
+    border-radius: 1px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .resume-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    color: var(--text-main);
+    transition: all var(--transition-fast);
+  }
+
+  .resume-pill:hover {
+    border-color: var(--accent-orange);
+    color: var(--accent-orange);
+    background-color: var(--accent-orange-tint);
+  }
+</style>

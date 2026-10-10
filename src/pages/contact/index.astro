@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IntentContact from '../../components/IntentContact';
+---
+
+<Layout
+  title="Contact & Fast-Track Routing · Muhammad Shahzaib"
+  description="Intent-routed contact channels for recruiters, freelance clients, robotics collaborators, and open source."
+>
+  <div class="contact-page section-spacing">
+    <div class="container container-narrow">
+      <header class="contact-header" style="margin-bottom: 2.5rem;">
+        <span class="chapter-num">/contact · Intent Channels</span>
+        <h1>Get in Touch</h1>
+        <p class="narrative-lead" style="margin-top: 0.75rem;">
+          Direct communication channels routed by intent. Choose the pathway matching your context for immediate responses.
+        </p>
+      </header>
+
+      {/* Interactive Intent Router Island */}
+      <IntentContact client:load />
+
+      {/* Hard Gate Accessibility: Static HTML fallback if JS is disabled */}
+      <noscript>
+        <div class="static-contact-fallback surface-card" style="margin-top: 2rem;">
+          <h3>Direct Channels (JavaScript Disabled)</h3>
+          <p style="margin: 0.75rem 0;">
+            You can reach me directly via email at:
+          </p>
+          <p class="font-mono" style="font-weight: 600; color: var(--accent-orange); margin-bottom: 1rem;">
+            mirzashahzaibsami123456789@gmail.com
+          </p>
+          <ul style="padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Recruiters:</strong> Send subject "Engineering Role Inquiry | [Company]" with location and role requirements.</li>
+            <li><strong>Clients:</strong> Include project scope, timeline, and budget estimate.</li>
+            <li><strong>Robotics Collaborators:</strong> State your hardware platform (Jetson/Pi) and navigation challenge.</li>
+          </ul>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</Layout>

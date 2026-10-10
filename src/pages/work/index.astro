@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FilterableWork from '../../components/FilterableWork';
+import { PROJECTS, AUDITED_REPO_COUNT } from '../../data/projects';
+---
+
+<Layout
+  title="Work & Engineering Index · Muhammad Shahzaib"
+  description="Filterable repository index and case studies across Robotics, Full-Stack Web, Agentic AI, and Embedded Systems."
+>
+  <div class="work-page section-spacing">
+    <div class="container">
+      <header class="work-page-header">
+        <span class="chapter-num">Index / Audited Repositories</span>
+        <h1>Engineering Work & Case Studies</h1>
+        <p class="narrative-lead" style="max-width: 720px; margin-top: 0.75rem;">
+          An audited catalog of completed prototypes, live production platforms, and research projects. Categorized into three tiers of architectural maturity with verified ownership statements.
+        </p>
+
+        <div class="tier-legend font-mono">
+          <div class="legend-cell">
+            <span class="tier-bullet tier-1"></span>
+            <span><strong>Tier 1 Flagships:</strong> In-depth case studies with observable proof.</span>
+          </div>
+          <div class="legend-cell">
+            <span class="tier-bullet tier-2"></span>
+            <span><strong>Tier 2 Index:</strong> Substantive projects & active FYP research.</span>
+          </div>
+          <div class="legend-cell">
+            <span class="tier-bullet tier-3"></span>
+            <span><strong>Tier 3 Archive:</strong> Exploratory UI sandboxes & design implementations.</span>
+          </div>
+        </div>
+      </header>
+
+      {/* React Island for dynamic client-side filtering + URL sync */}
+      <FilterableWork client:load projects={PROJECTS} />
+
+      {/* Hard Gate Accessibility: Static HTML fallback if JS is disabled */}
+      <noscript>
+        <div class="static-no-js-list">
+          <h2 style="margin: 2rem 0 1rem;">Complete Project Catalog (Static HTML)</h2>
+          <div class="asym-grid asym-grid-half">
+            {PROJECTS.map(p => (
+              <div class="surface-card">
+                <span class="mono-tag">{p.domain} · Tier {p.tier}</span>
+                <h3 style="margin: 0.5rem 0;"><a href={`/work/${p.slug}`}>{p.title}</a></h3>
+                <p>{p.subtitle}</p>
+                <p style="font-size: 0.8125rem; margin-top: 0.5rem; color: var(--text-faint);"><strong>Ownership:</strong> {p.ownershipStatement}</p>
+                <a href={`/work/${p.slug}`} class="link-inline font-mono" style="margin-top: 0.75rem; display: inline-block;">View Case Study →</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .work-page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .tier-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 860px) {
+    .tier-legend {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .legend-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tier-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .tier-bullet.tier-1 {
+    background-color: var(--accent-orange);
+  }
+
+  .tier-bullet.tier-2 {
+    background-color: #3B82F6;
+  }
+
+  .tier-bullet.tier-3 {
+    background-color: #71717A;
+  }
+
+  .static-no-js-list {
+    margin-top: 2rem;
+  }
+</style>

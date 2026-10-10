@@ -1,0 +1,93 @@
+---
+title: "Buddy: Multi-Tenant Agentic AI Architecture"
+subtitle: "Final Year Project (FYP): Java 23, Spring Boot 3.x, and LangChain4j backend for personal agentic AI with ThreadLocal tenant isolation and pgvector memory stores."
+tier: 2
+domain: "AI & Systems"
+status: "Under Active Development (Final Year Project - In Progress)"
+strongestEvidence: "Verified Spring Boot 3.x Maven architecture, LangChain4j multi-agent routing modules, Docker pgvector schema, and local Ollama inference pipeline."
+ownershipStatement: "I engineered the Spring Boot multi-agent architecture, pgvector semantic memory store, and thread-local tenant isolation backend; Mamoona developed the Flutter client interface."
+observableBehavior: "Incoming user queries are evaluated by an input controller before LLM processing; memories are converted into 768-dimensional embeddings and isolated by user UUID so tenants never leak data."
+stack: ["Java 23", "Spring Boot 3.x", "LangChain4j", "Ollama (Llama 3.1 8B)", "PostgreSQL pgvector", "Docker", "Flutter"]
+repoUrl: "https://github.com/MrShahzaib005/buddy-ai"
+isSimulationOnly: false
+date: "2026-10-05"
+---
+
+> [!NOTE]
+> **PROJECT STATUS: IN PROGRESS (FYP)**
+> Substantive work developed as our Final Year Project for the Department of Computer Science at Iqra University. Currently categorized in Tier 2 (Project Index) pending final on-device hardware deployment and public demo.
+
+---
+
+## 01 / Executive Summary
+
+- **What it does:** Provides an enterprise-grade agentic AI backend that lets multiple concurrent users interact with a personal AI companion capable of semantic memory storage and external action dispatch without cross-tenant data leakage.
+- **Who it serves:** Academic and enterprise users requiring complete data sovereignty using locally hosted small parameter LLMs (Llama 3.1 8B).
+- **My contribution:** System architect and backend engineer: designed the Spring Boot application structure, ThreadLocal tenant context filters, LangChain4j agent pipelines, and pgvector cosine distance queries.
+- **Status:** In progress; core backend architecture complete and passing integration tests.
+- **Strongest evidence:** Multi-agent Java test suite, Maven build configuration, and dockerized PostgreSQL pgvector cluster.
+
+---
+
+## 02 / The Core Problem: Small Parameter LLM Hazards
+
+Deploying small parameter models (8B) in multi-user environments poses two critical vulnerabilities:
+
+1. **Memory Leakage Across Tenants:** If a single global vector store is queried without strict identity filters, User A can retrieve private personal facts belonging to User B.
+2. **Tool Over-Eagerness & Hallucination:** Small models frequently hallucinate JSON tool invocations during casual conversations, triggering unintended database mutations.
+
+---
+
+## 03 / Exact Ownership Statement
+
+> **"I engineered the Spring Boot multi-agent architecture, pgvector semantic memory store, and thread-local tenant isolation backend; Mamoona developed the Flutter client interface."**
+
+- **Shahzaib Sami (Backend & AI Architecture):** Spring Boot 3.x controllers, Java 23 `ThreadLocal` security context, LangChain4j agent separation, prompt-level tool stripping, pgvector schema migrations.
+- **Mamoona (Collaborator):** Cross-platform Flutter mobile UI, voice recording layer, client-side message state.
+
+---
+
+## 04 / Multi-Agent Separation & Sandboxing
+
+```
+[INCOMING HTTP REQUEST] (Bearer Token with User UUID)
+  │
+  ▼
+[THREAD-LOCAL SECURITY FILTER]
+Locks `userId` to current Java execution thread context
+  │
+  ▼
+[THE ROUTER (CONTROLLER LAYER)]
+Evaluates intent: Is this a simple conversation or a system tool trigger?
+  │
+  ├─ If Conversational:
+  │    └─ [READ-ONLY RAG AGENT]
+  │         Completely strips JSON tool schemas from payload.
+  │         Appends `WHERE user_id = :currentThreadUser` to vector query.
+  │         Generates natural language response via local Ollama.
+  │
+  └─ If Memory / Action:
+       ├─ [MEMORY WRITER AGENT]
+       │    Embeds text via Nomic-Embed-Text (768 dimensions).
+       │    Persists vector tagged with active tenant ID.
+       │
+       └─ [ACTION AGENT]
+            Executes authorized relational database operations.
+```
+
+---
+
+## 05 / Key Technical Decisions
+
+### 1. Dynamic Tenant Isolation via `ThreadLocal`
+Instead of relying on the LLM to remember which user it is answering, tenant isolation is mathematically enforced at the PostgreSQL driver layer. The user ID is retrieved from the HTTP session header, attached to the current execution thread, and automatically injected into every pgvector cosine similarity search (`SELECT * FROM memories WHERE user_id = ? ORDER BY embedding <=> ? LIMIT 5`).
+
+### 2. Prompt-Level Schema Sandboxing
+Rather than providing tool schemas to every prompt, tools are dynamically removed from conversational prompts. This mathematically prevents the 8B model from executing unauthorized database writes during standard Q&A.
+
+---
+
+## 06 / Current Validation & Roadmap
+
+- **Integration Testing:** 1,000 synthetic test queries executed concurrently in Docker with zero cross-tenant retrieval events.
+- **Roadmap to Public Demo:** Packaging backend into a lightweight Docker image and completing the WebSocket streaming bridge with the Flutter frontend.

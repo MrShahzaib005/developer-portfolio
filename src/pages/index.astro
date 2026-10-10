@@ -1,0 +1,538 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import ScrollyPathCanvas from '../components/ScrollyPathCanvas';
+import InteractiveDiagram from '../components/InteractiveDiagram';
+import { PROJECTS, AUDITED_REPO_COUNT } from '../data/projects';
+
+const dodoProject = PROJECTS.find(p => p.slug === 'dodo-bot')!;
+const cleaningProject = PROJECTS.find(p => p.slug === 'ros2-cleaning-robot')!;
+const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
+---
+
+<Layout
+  title="Muhammad Shahzaib · Software Engineer, Robotics & Full-Stack"
+  description="I build software for robots, and the resilient apps and web systems around them. From logic to motion."
+>
+  {/* ================= 01 / THE HERO ================= */}
+  <section class="hero-section section-spacing" aria-label="Hero Introduction">
+    <div class="container">
+      <div class="hero-asym-grid">
+        <div class="hero-narrative">
+          <div class="hero-role-line font-mono">
+            <span class="pulse-indicator" aria-hidden="true"></span>
+            <span>Software engineer, robotics and full-stack</span>
+          </div>
+
+          <h1 class="hero-title">
+            Muhammad Shahzaib
+          </h1>
+
+          <p class="hero-tagline narrative-lead">
+            I build software for robots, and the apps and sites around them.
+          </p>
+
+          <p class="hero-subtext">
+            Bridging deterministic cyber-physical systems with responsive, high-performance web architecture. From low-level ROS 2 topic distribution on Jetson hardware to reactive, accessible interfaces in the browser.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="/work" class="btn btn-primary">
+              <span>Explore Audited Work</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a href="/about#resume" class="btn btn-secondary font-mono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>Download Résumé</span>
+            </a>
+            <a href="/contact?intent=recruiter" class="recruiter-fast-btn font-mono">
+              <span>Recruiter Fast-Track</span>
+            </a>
+          </div>
+
+          <div class="hero-meta-row font-mono">
+            <div class="meta-item">
+              <span class="meta-label">Location:</span>
+              <span class="meta-value">Islamabad, PK (Remote Ready)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Public Repos:</span>
+              <span class="meta-value">{AUDITED_REPO_COUNT} Verified</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Target Roles:</span>
+              <span class="meta-value">Robotics / Full-Stack</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Visualizer Island: Point -> Logic -> Interface -> Motion */}
+        <div class="hero-visualizer">
+          <ScrollyPathCanvas client:visible />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 02 / PROOF STRIP ================= */}
+  <ProofStrip />
+
+  {/* ================= 03 / ORIGIN (E-PORTAL) ================= */}
+  <section class="section-spacing origin-section" aria-label="Origin Chapter">
+    <div class="container container-narrow">
+      <span class="chapter-num">03 / Origin Story</span>
+      <h2>The Episode That Shaped My Choices</h2>
+      
+      <p class="narrative-lead" style="margin-top: 1rem;">
+        During my third semester at university, I built a course enrollment and academic portal in Java Spring Boot and MySQL (<code>e-portal</code>). It ran flawlessly in isolation on localhost.
+      </p>
+
+      <div class="story-callout surface-card" style="margin: 2rem 0;">
+        <span class="callout-tag font-mono">The Formative Bug / 3rd Semester Final Project</span>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">The Enrollment Day Deadlock</h3>
+        <p style="font-size: 0.9375rem; line-height: 1.65;">
+          When course registration opened, multiple concurrent requests attempted to decrement course capacity inside synchronous HTTP cycles. Synchronous relational row locks exhausted the Tomcat thread pool. The entire server returned 504 timeouts.
+        </p>
+        <p style="font-size: 0.9375rem; line-height: 1.65; margin-top: 0.5rem;">
+          Debugging that thread starvation taught me that <strong>tightly-coupled synchronous request-response loops are fundamentally fragile</strong>. I redesigned the database transactions with optimistic versioning and asynchronous task queues. That failure forced me to think about concurrency, decoupling, and non-blocking systems—the exact foundation required for asynchronous robotics middleware.
+        </p>
+        <div style="margin-top: 1rem;">
+          <a href="/work/e-portal" class="link-inline font-mono" style="font-size: 0.8125rem;">
+            Read the e-portal origin case study →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 04 / EXPANSION ================= */}
+  <section class="section-spacing expansion-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <div class="asym-grid asym-grid-57">
+        <div>
+          <span class="chapter-num">04 / Expansion</span>
+          <h2>Three Turning Points: From Web to Robotics</h2>
+          <p class="narrative-lead" style="margin-top: 1rem;">
+            Software does not remain confined to database rows. Bridging web applications to physical robots required unlearning static assumptions and embracing cyber-physical realities.
+          </p>
+        </div>
+
+        <div class="turning-points-list">
+          <div class="tp-card">
+            <span class="tp-num font-mono">01 / From Polling to Event Streams</span>
+            <h4>Real-Time WebSocket Telemetry</h4>
+            <p>
+              In traditional web systems, polling every 2 seconds is acceptable. In robotics, polling fails immediately. Adopting <code>rosbridge_suite</code> WebSockets allowed streaming 20Hz velocity vectors and 50Hz wheel odometry with under 45ms latency directly to mobile screens.
+            </p>
+          </div>
+
+          <div class="tp-card">
+            <span class="tp-num font-mono">02 / From State Objects to Coordinate Trees</span>
+            <h4>Spatial Transforms & TF2 Kinematics</h4>
+            <p>
+              A web button has screen coordinates $(x, y)$. A mobile robot has parent-child spatial transforms: <code>map → odom → base_link → laser_frame</code>. Mastering ROS 2 TF2 frames revealed that physical position is not a fixed scalar, but an evolving probabilistic tree.
+            </p>
+          </div>
+
+          <div class="tp-card">
+            <span class="tp-num font-mono">03 / From Unlimited Cloud to Constrained Silicon</span>
+            <h4>Edge Optimization on Jetson Orin Nano</h4>
+            <p>
+              Cloud servers offer elastic RAM. An edge robot has finite wattage and shared thermal ceilings. Profiling Nav2 behavior trees on Ubuntu Linux taught me to write memory-conscious C++ and Python nodes that never saturate thread pools.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 05 / PRESENT: THREE PROJECT CHAPTERS ================= */}
+  <section class="section-spacing present-section" aria-label="Present Work Chapters">
+    <div class="container">
+      <div style="margin-bottom: 3rem;">
+        <span class="chapter-num">05 / Present Work</span>
+        <h2>Substantial Project Chapters</h2>
+        <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem;">
+          Three core initiatives demonstrating full-stack systems engineering: from mobile teleoperation to autonomous simulation and production cloud platforms.
+        </p>
+      </div>
+
+      {/* CHAPTER A: DODO BOT (DARK DEMO SECTION TO CHANGE ATMOSPHERE) */}
+      <div class="dark-demonstration-section" style="border-radius: 8px; padding: clamp(2rem, 5vw, 3.5rem); margin-bottom: 3.5rem;">
+        <div class="asym-grid asym-grid-57">
+          <div>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <span class="mono-tag" style="background-color: rgba(255, 85, 0, 0.15); border-color: var(--accent-orange); color: var(--accent-orange);">
+                Physical Teleoperation & ROS
+              </span>
+              <span class="mono-tag" style="background-color: #282C37; color: #9EABB8;">
+                Tier 1 Flagship
+              </span>
+            </div>
+            <h3 style="font-size: 1.85rem; line-height: 1.25; margin-bottom: 1rem;">
+              Dodo Bot: Mobile Teleoperation & ROS Bridge
+            </h3>
+            <p style="margin-bottom: 1rem;">
+              <strong>The Problem:</strong> Teleoperating physical test robots usually demands lugging heavy Linux laptops running RViz in the field.
+            </p>
+            <p style="margin-bottom: 1rem;">
+              <strong>My Contribution:</strong> I engineered the cross-platform Flutter mobile control client, client-side velocity throttle (20Hz), WebSocket telemetry listener, and heartbeat watchdog.
+            </p>
+            <div class="dark-card font-mono" style="margin-bottom: 1.5rem; font-size: 0.75rem;">
+              <strong style="color: var(--accent-orange); display: block; margin-bottom: 0.25rem;">Exact Ownership:</strong>
+              {dodoProject.ownershipStatement}
+            </div>
+            <a href="/work/dodo-bot" class="btn btn-accent font-mono" style="font-size: 0.8125rem;">
+              <span>Read Dodo Bot Case Study</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div>
+            <InteractiveDiagram client:visible />
+          </div>
+        </div>
+      </div>
+
+      {/* CHAPTER B & C ASYMMETRIC GRID */}
+      <div class="asym-grid asym-grid-half">
+        {/* CHAPTER B: ROS 2 CLEANING ROBOT */}
+        <article class="surface-card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+            <span class="mono-tag active">Robotics</span>
+            <span class="mono-tag sim-tag">Simulation Only</span>
+          </div>
+          <h3 style="font-size: 1.35rem; line-height: 1.3; margin-bottom: 0.5rem;">
+            ROS 2 Cleaning Robot (Gazebo Simulation)
+          </h3>
+          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
+            <strong>The Problem:</strong> Developing autonomous coverage algorithms without hardware risks collision damage.
+          </p>
+          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
+            <strong>My Contribution:</strong> Built URDF differential robot model with simulated LiDAR, configured Nav2 costmap layers, and validated 92% room coverage across 25 Gazebo runs.
+          </p>
+          <div class="font-mono" style="font-size: 0.75rem; background-color: var(--bg-primary); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+            <strong>Ownership:</strong> {cleaningProject.ownershipStatement}
+          </div>
+          <a href="/work/ros2-cleaning-robot" class="link-inline font-mono" style="font-size: 0.8125rem;">
+            Read Simulation Case Study →
+          </a>
+        </article>
+
+        {/* CHAPTER C: ARBOTRIX WEB */}
+        <article class="surface-card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+            <span class="mono-tag">Web & Cloud</span>
+            <span class="mono-tag">Production</span>
+          </div>
+          <h3 style="font-size: 1.35rem; line-height: 1.3; margin-bottom: 0.5rem;">
+            Arbotrix Studio & Web Platform
+          </h3>
+          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
+            <strong>The Problem:</strong> A robotics studio needed a digital home and an internship registration pipeline with substantiated student enrollment tracking.
+          </p>
+          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
+            <strong>My Contribution:</strong> Full-stack Next.js 16 + React 19 + Prisma + Supabase PostgreSQL architecture, processing 45 verified graduates across Batches 1 & 2.
+          </p>
+          <div class="font-mono" style="font-size: 0.75rem; background-color: var(--bg-primary); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+            <strong>Ownership:</strong> {arbotrixProject.ownershipStatement}
+          </div>
+          <a href="/work/arbotrix-web" class="link-inline font-mono" style="font-size: 0.8125rem;">
+            Read Web Platform Case Study →
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 06 / WORKING METHOD ================= */}
+  <section class="section-spacing method-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+      <span class="chapter-num">06 / Working Method</span>
+      <h2>Evidence of How Decisions Are Made</h2>
+      <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem; margin-bottom: 2.5rem;">
+        Rigorous engineering is not about adopting the newest framework; it is a systematic cycle of constraints, reasoned trade-offs, stress testing, and empirical revision.
+      </p>
+
+      <div class="method-steps-grid">
+        <div class="method-step-card font-mono">
+          <span class="step-num">Step 01</span>
+          <h4>Constraint</h4>
+          <p>Isolate physical and network boundaries. Example: 2.4GHz WiFi drops packets; embedded Jetson has limited memory.</p>
+        </div>
+
+        <div class="method-step-card font-mono">
+          <span class="step-num">Step 02</span>
+          <h4>Decision</h4>
+          <p>Choose the simplest architecture that respects physical realities. Example: Throttle touch events to 20Hz; enforce ThreadLocal tenant security.</p>
+        </div>
+
+        <div class="method-step-card font-mono">
+          <span class="step-num">Step 03</span>
+          <h4>Test</h4>
+          <p>Stress test under degraded conditions. Example: Inject 10% packet drop; run 1,000 synthetic vector queries in Docker.</p>
+        </div>
+
+        <div class="method-step-card font-mono">
+          <span class="step-num">Step 04</span>
+          <h4>Revision</h4>
+          <p>Measure observable behavior, remove unverified marketing claims, and harden failsafes before production deployment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 07 / FUTURE ================= */}
+  <section class="section-spacing future-section">
+    <div class="container container-narrow">
+      <span class="chapter-num">07 / Future</span>
+      <h2>Distinguishing Ambition From Completed Work</h2>
+      <p class="narrative-lead" style="margin-top: 0.75rem;">
+        Honesty requires separating what is already verified from what lies on the immediate engineering horizon.
+      </p>
+
+      <div class="future-columns" style="margin-top: 2rem;">
+        <div class="surface-card">
+          <span class="font-mono" style="color: #10B981; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
+            Completed & Verified
+          </span>
+          <ul style="margin-top: 1rem; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
+            <li>Physical differential drive teleoperation over WebSockets (Dodo Bot).</li>
+            <li>Gazebo simulation of autonomous SLAM and Nav2 cleaning paths.</li>
+            <li>Full-stack Next.js production platforms with relational database schemas.</li>
+            <li>Multi-tenant agentic AI memory architecture in Java Spring Boot (FYP).</li>
+          </ul>
+        </div>
+
+        <div class="surface-card">
+          <span class="font-mono" style="color: var(--accent-orange); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
+            Next Ambitions & Roles Sought
+          </span>
+          <ul style="margin-top: 1rem; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
+            <li>Compiling ROS 2 micro-controllers directly onto custom STM32/ESP32 PCBs.</li>
+            <li>Real-time multimodal speech and vision navigation on embedded Orin silicon.</li>
+            <li>Target Roles: <strong>Robotics Software Engineer</strong>, <strong>Full-Stack Systems Engineer</strong>, or <strong>Autonomous Navigation Specialist</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 08 / INVITATION ================= */}
+  <section class="section-spacing invitation-section" style="background-color: var(--bg-subtle); border-top: 1px solid var(--border-light);">
+    <div class="container container-narrow" style="text-align: center;">
+      <span class="chapter-num">08 / Invitation</span>
+      <h2>Let's Start a Conversation</h2>
+      <p class="narrative-lead" style="margin: 0.75rem auto 2rem; max-width: 580px;">
+        Whether you are a hiring team reviewing case studies, a founder scoping a platform, or an engineer building mobile robots—reach out through dedicated intent channels.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="/contact?intent=recruiter" class="btn btn-primary">
+          <span>Discuss a Role (Recruiters)</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="/contact?intent=client" class="btn btn-secondary">
+          <span>Discuss a Project (Clients)</span>
+        </a>
+        <a href="/contact?intent=robotics" class="btn btn-secondary">
+          <span>Robotics Collaboration</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-section {
+    padding-top: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+  }
+
+  .hero-asym-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .hero-asym-grid {
+      grid-template-columns: 6.5fr 5.5fr;
+      gap: 4rem;
+    }
+  }
+
+  .hero-role-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-orange);
+    box-shadow: 0 0 8px var(--accent-orange-glow);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-subtext {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+    max-width: 580px;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .recruiter-fast-btn {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    border-bottom: 1px solid var(--accent-orange);
+    padding-bottom: 0.15rem;
+  }
+
+  .recruiter-fast-btn:hover {
+    color: var(--accent-orange-hover);
+  }
+
+  .hero-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .meta-label {
+    text-transform: uppercase;
+  }
+
+  .meta-value {
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  .turning-points-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tp-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .tp-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .tp-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tp-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .method-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .method-step-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-num {
+    font-size: 0.75rem;
+    color: var(--accent-orange);
+    font-weight: 600;
+  }
+
+  .method-step-card h4 {
+    font-size: 1.15rem;
+    font-family: var(--font-sans);
+  }
+
+  .method-step-card p {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .future-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .future-columns {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .callout-tag {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+</style>

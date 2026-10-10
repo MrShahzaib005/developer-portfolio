@@ -1,0 +1,79 @@
+---
+title: "Origin Story: The Java Spring Boot E-Portal"
+subtitle: "The 3rd-semester academic portal where monolithic concurrency bottlenecks revealed the friction of synchronous web requests and sparked my shift into decoupled, event-driven architectures."
+tier: 1
+domain: "AI & Systems"
+status: "Completed Academic Project (3rd Semester Capstone)"
+strongestEvidence: "Public GitHub repository with full Java Spring Boot source code, Hibernate schema mappings, and relational database migrations."
+ownershipStatement: "I designed the Spring Boot MVC controller structure, user authentication filters, and Hibernate database entities."
+observableBehavior: "Students log in to inspect enrolled courses, view semester transcripts, and download syllabus documents through server-rendered templates."
+stack: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Hibernate / JPA", "Maven"]
+repoUrl: "https://github.com/MrShahzaib005/e-portal"
+isSimulationOnly: false
+date: "2025-05-14"
+---
+
+> [!NOTE]
+> **Resolving the Profile Discrepancy:**
+> In earlier profile summaries, this project was occasionally conflated with later mobile initiatives. To maintain absolute architectural truth: `e-portal` is a classic **Java Spring Boot and MySQL** monolithic web application built in my 3rd semester, whereas subsequent mobile applications (such as `iqra_student_portal`) were standalone Flutter implementations.
+
+---
+
+## 01 / The Episode: The Enrollment Day Deadlock
+
+During my 3rd semester at university, I built `e-portal` to automate course registration, fee slip generation, and attendance management. It was built as a traditional server-rendered Spring Boot MVC application backed by MySQL.
+
+Everything functioned seamlessly in local testing with a single user. But on simulated semester registration day, when multiple students attempted to register for courses with limited seats simultaneously, the system encountered a severe failure:
+
+```
+[HTTP Request: Thread 42] -> Acquires pessimistic lock on Course(CS-301)
+[HTTP Request: Thread 43] -> Waiting for lock...
+[HTTP Request: Thread 44] -> Waiting for lock...
+[Connection Pool Exhaustion] -> Timeout: 504 Gateway Timeout
+```
+
+Because course capacity was validated and decremented synchronously inside a heavy HTTP request-response cycle, concurrent requests caused database lock contention. The Tomcat thread pool exhausted itself, and the entire web application ground to a halt.
+
+---
+
+## 02 / The Realization & Architectural Shift
+
+Fixing that mistake was the single most formative experience in my engineering journey:
+
+1. **The Fragility of Synchronous Monoliths:** I realized that coupling user actions directly to synchronous relational table locks creates fragile software that fails precisely when usage spikes.
+2. **Decoupling State from Transmission:** I redesigned the registration flow using queued state changes and optimistic version checks (`@Version` in JPA).
+3. **The Bridge to Robotics:** More fundamentally, this episode demystified the illusion that software executes in a static, sequential world. Physical hardware and robotics are the ultimate asynchronous, concurrent environments: sensor feeds, motor PWM timers, and camera frames fire continuously at different frequencies. 
+
+Understanding how to decouple state in Java prepared me directly for the asynchronous publish-subscribe model of **ROS 2 topics and middleware nodes**.
+
+---
+
+## 03 / Exact Ownership Statement
+
+> **"I designed the Spring Boot MVC controller structure, user authentication filters, and Hibernate database entities."**
+
+- **Shahzaib Sami (Sole Backend Author):** Spring Boot controllers, Spring Security authentication filter chain, JPA repository definitions, and Thymeleaf UI views.
+- **Academic Context:** 3rd Semester Final Project for Iqra University.
+
+---
+
+## 04 / Approach & Structural Lessons
+
+```
+[TRADITIONAL TIGHTLY-COUPLED MVC]
+Browser Request ──> Controller ──> Synchronous DB Write ──> Response
+(Fails under concurrent load; blocks threads)
+
+          │  EVOLUTION & LESSON LEARNED
+          ▼
+
+[DECOUPLED EVENT-DRIVEN PATTERN]
+Input Trigger ──> Memory Queue ──> Async Consumer ──> State Update
+(The architectural foundation for both microservices and ROS 2 robotics)
+```
+
+---
+
+## 05 / Reflection
+
+Every senior engineer has a specific bug that made them serious about software architecture. For me, it was that enrollment deadlock in `e-portal`. It taught me that writing code that compiles is easy; designing systems that remain resilient when the world pushes against them is what engineering actually means.

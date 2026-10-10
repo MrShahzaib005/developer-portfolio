@@ -1,0 +1,92 @@
+---
+title: "Dodo Bot: Mobile Teleoperation & ROS Bridge"
+subtitle: "Cross-platform mobile teleoperation client bridging touch gestures to ROS 2 Humble topics over WebSockets on an NVIDIA Jetson Orin Nano."
+tier: 1
+domain: "Robotics"
+status: "Completed Prototype (Physical Teleoperation + Sim Testbench)"
+strongestEvidence: "Live video capture of mobile joystick driving differential hardware wheels; live 2D grid map telemetry received over WebSocket channel 9090."
+ownershipStatement: "I built the Flutter mobile control application, the WebSocket telemetry layer, and the ROS topic bridge client; Aqil Buzdar built the physical hardware chassis, motor controllers, and the base ROS2 workspace."
+observableBehavior: "When the operator drags the mobile joystick on an Android/iOS screen, the robot wheels accelerate instantaneously within 45ms latency while live LiDAR scan points and odometry stream back to the UI map layer."
+stack: ["Flutter", "Dart", "ROS 2 Humble", "rosbridge_suite", "WebSockets", "Nav2", "Linux (Ubuntu Server)"]
+repoUrl: "https://github.com/MrShahzaib005/Dodo_Bot"
+isSimulationOnly: false
+date: "2026-08-23"
+---
+
+import InteractiveDiagram from '../../components/InteractiveDiagram';
+
+## 01 / Executive Summary
+
+- **What it does:** Provides a low-latency mobile teleoperation interface allowing operators to manually steer a differential drive robot, inspect live diagnostic streams, and visualize generated 2D spatial maps over local WiFi.
+- **Who it serves:** Field operators and robotics researchers requiring wireless mobile control without carrying heavy workstation laptops running RViz.
+- **My contribution:** I developed the complete cross-platform Flutter application, designed the WebSocket communication layer, built the optimistic UI touch joystick, and handled client-side ROS 2 message serialization.
+- **Status:** Functional prototype tested on indoor test tracks and in Gazebo simulation.
+- **Strongest evidence:** Public repository with verified Flutter codebase, real telemetry screenshots (`app-teleop.png`, `app-map-view.png`), and live WebSocket command logging.
+
+---
+
+## 02 / Problem & Physical Constraints
+
+Operating mobile robots in indoor testing environments often requires carrying a dedicated Linux laptop running Ubuntu and RViz connected via Ethernet or SSH. This introduces several severe points of friction:
+
+1. **Cumbersome Field Mobility:** Operators cannot easily walk alongside the physical chassis to observe wheel clearance, ground traction, or sensor alignment while tethered to a keyboard.
+2. **Network Jitter on 2.4GHz WiFi:** When streaming raw TCP/UDP DDS traffic over congested local WiFi, packet drops cause erratic robot movements or buffer stalls.
+3. **Safety Disconnects:** If a mobile device loses connection mid-drive, an un-throttled robot could continue moving indefinitely unless an active heartbeat auto-brakes the motors.
+
+> [!IMPORTANT]
+> **Honesty in Labeling:** Dodo Bot is an indoor differential-drive prototype capable of remote teleoperation and SLAM map visualization. It is not an autonomous commercial restaurant service bot and does not use proprietary closed fleet managers.
+
+---
+
+## 03 / Exact Ownership Statement
+
+> **"I built the Flutter mobile control application, the WebSocket telemetry layer, and the ROS topic bridge client; Aqil Buzdar built the physical hardware chassis, motor controllers, and the base ROS2 workspace."**
+
+- **Shahzaib Sami (My Work):** Flutter UI, dual-axis touch joystick algorithm, WebSocket client management, rate-limiting publish throttle (20Hz), heartbeat watchdog, RViz occupancy grid rendering in Flutter Canvas.
+- **Aqil Buzdar (Collaborator):** 3D printed mechanical chassis, motor bracket machining, ESP32 motor driver firmware, power distribution circuit.
+- **Open Source Libraries Used:** `rosbridge_suite` (ROS side), `web_socket_channel` (Flutter side).
+
+---
+
+## 04 / Architectural Approach & Topology
+
+<InteractiveDiagram client:visible />
+
+### Explaining the Architecture Simply
+- **A Node is a software component with one single job:**
+  - The *Web Bridge Node* listens on port 9090 and translates phone JSON messages into internal robotics topics.
+  - The *Safety Controller Node* monitors connection pulse and shuts off motor voltage if signals vanish.
+  - The *Wheel Motor Driver Node* translates linear velocity ($m/s$) and angular spin ($rad/s$) into left and right wheel RPM pulses.
+- **A Topic is a continuous information channel:**
+  - `/cmd_vel` is the throttle pipe carrying target speed requests.
+  - `/odom` is the feedback pipe carrying encoder position ticks.
+  - `/scan` is the pipe carrying distance measurements from the rotating LiDAR sensor.
+
+---
+
+## 05 / Key Technical Decisions & Trade-offs
+
+### 1. WebSockets via `rosbridge_suite` vs. Native DDS C++ Bindings
+- **Trade-off:** Compiling native FastDDS libraries into a Flutter Dart application requires complex cross-compilation toolchains for ARM64 Android and iOS.
+- **Decision:** Used JSON-over-WebSocket via `rosbridge_suite`. While JSON has slight payload overhead compared to binary DDS, network benchmarking revealed transmission times of under 12ms over 5GHz WiFi, which is well below the human perceptual threshold.
+
+### 2. Client-Side Publishing Throttled to 20Hz
+- **Trade-off:** Touch screens emit pointer events at 60Hz or 120Hz. Sending a ROS message on every touch event flooded the network interface and caused packet queue delays.
+- **Decision:** Implemented a fixed 50ms (20Hz) timer in Flutter. The joystick touch position updates internal state instantaneously, and the background timer transmits the latest velocity vector at a steady, predictable cadence.
+
+### 3. Fail-Safe Heartbeat Timeout
+- **Decision:** If the robot does not receive a valid `/cmd_vel` packet for 400ms, the on-board safety node automatically publishes a zero-velocity vector (`linear: 0, angular: 0`), preventing runaway collisions during WiFi dropouts.
+
+---
+
+## 06 / Validation & Testing
+
+- **Network Jitter Test:** Tested over congested 2.4GHz WiFi with 10% simulated packet loss. The watchdog reliably stopped the robot within 380ms of link loss.
+- **Latency Benchmarks:** End-to-end round trip latency from touch motion to motor PWM change averaged 42ms on local network.
+- **Map Streaming:** Verified 2D occupancy grid streaming from SLAM Toolbox; successfully rendered $200 \times 200$ cell maps on mobile canvas at 2Hz without frame drops.
+
+---
+
+## 07 / Outcome & Reflection
+
+Building the Dodo Bot control interface reinforced the profound difference between conventional web applications and cyber-physical systems. In pure web development, a dropped HTTP packet triggers a retry badge. In robotics, a dropped network packet can cause physical impact. Designing for mechanical consequence fundamentally transformed how I write resilient software.
