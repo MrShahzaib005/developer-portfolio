@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProofStrip from '../components/ProofStrip.astro';
+import RecruiterDossier from '../components/RecruiterDossier.astro';
 import TechStackSection from '../components/TechStackSection.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import HeroShowcase from '../components/HeroShowcase';
 import Typewriter from '../components/Typewriter';
 import InteractiveDiagram from '../components/InteractiveDiagram';
@@ -92,6 +94,9 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
 
   {/* ================= 02 / PROOF STRIP ================= */}
   <ProofStrip />
+
+  {/* ================= 02.2 / RECRUITER FAST-TRACK DOSSIER ================= */}
+  <RecruiterDossier />
 
   {/* ================= 02.5 / TECH STACK & TOOLING ================= */}
   <TechStackSection />
@@ -264,10 +269,13 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     </div>
   </section>
 
+  {/* ================= 05.5 / EXPERIENCE & LEADERSHIP TIMELINE ================= */}
+  <ExperienceTimeline />
+
   {/* ================= 06 / WORKING METHOD ================= */}
   <section class="section-spacing method-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
     <div class="container">
-      <span class="chapter-num">06 / Working Method</span>
+      <span class="chapter-num">07 / Working Method</span>
       <h2>Evidence of How Decisions Are Made</h2>
       <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem; margin-bottom: 2.5rem;">
         Rigorous engineering is not about adopting the newest framework; it is a systematic cycle of constraints, reasoned trade-offs, stress testing, and empirical revision.
@@ -301,10 +309,10 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     </div>
   </section>
 
-  {/* ================= 07 / FUTURE ================= */}
+  {/* ================= 08 / FUTURE ================= */}
   <section class="section-spacing future-section">
     <div class="container container-narrow">
-      <span class="chapter-num">07 / Future</span>
+      <span class="chapter-num">08 / Future</span>
       <h2>Distinguishing Ambition From Completed Work</h2>
       <p class="narrative-lead" style="margin-top: 0.75rem;">
         Honesty requires separating what is already verified from what lies on the immediate engineering horizon.
@@ -337,10 +345,10 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     </div>
   </section>
 
-  {/* ================= 08 / INVITATION ================= */}
+  {/* ================= 09 / INVITATION ================= */}
   <section class="section-spacing invitation-section" style="background-color: var(--bg-subtle); border-top: 1px solid var(--border-light);">
     <div class="container container-narrow" style="text-align: center;">
-      <span class="chapter-num">08 / Invitation</span>
+      <span class="chapter-num">09 / Invitation</span>
       <h2>Let's Start a Conversation</h2>
       <p class="narrative-lead" style="margin: 0.75rem auto 2rem; max-width: 580px;">
         Whether you are a hiring team reviewing case studies, a founder scoping a platform, or an engineer building mobile robots—reach out through dedicated intent channels.

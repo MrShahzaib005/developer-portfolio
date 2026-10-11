@@ -61,13 +61,6 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
             </p>
           </div>
 
-          <div class="card-middle">
-            <div class="card-ownership font-mono">
-              <span class="ownership-label">Verified Contribution:</span>
-              <p class="ownership-text">{project.ownershipStatement}</p>
-            </div>
-          </div>
-
           <div class="card-bottom">
             <div class="card-stack">
               {project.stack.slice(0, 5).map(tech => (

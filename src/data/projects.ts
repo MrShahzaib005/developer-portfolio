@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     ],
     validation: 'Tested under degraded 2.4GHz WiFi conditions with 10% packet drop; emergency stop triggered reliably within 380ms of link degradation.',
     metricsTruth: 'Physical differential drive prototype with working teleoperation and sensor bridge. Tested on indoor hardwood and tiled test courses.',
-    thumbnail: '/images/dodo-app/app-teleop.png'
+    thumbnail: '/images/dodo-app.png'
   },
   {
     slug: 'ros2-cleaning-robot',
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     ],
     validation: 'Ran 25 simulation runs across 3 Gazebo office floor plans; achieved 92.4% room coverage without getting trapped in corner dead-ends.',
     metricsTruth: 'Simulation-only with ML coverage heuristics. Validated in Gazebo Garden with full ROS 2 navigation stack.',
-    thumbnail: '/images/optic-clean.png'
+    thumbnail: '/images/cleaning-robot.png'
   },
   {
     slug: 'arbotrix-web',
@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
     ],
     validation: 'Successfully handled live enrollment applications for Arbotrix Batch 1 and Batch 2 robotics internship cohorts with zero database errors.',
     metricsTruth: 'Real production site. Stack: Next.js + React 19 + Prisma + Supabase. Real cohort sizes: 45 verified students trained across 2 cohorts.',
-    thumbnail: '/images/arbo-dark.png'
+    thumbnail: '/images/arbotrix-web.png'
   },
 
   // ==================== TIER 2: PROJECT INDEX ====================

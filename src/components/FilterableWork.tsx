@@ -224,12 +224,6 @@ export default function FilterableWork({ projects }: Props) {
                   <span className="box-label">Observable Behavior:</span>
                   <p className="behavior-text">{project.observableBehavior}</p>
                 </div>
-
-                {/* Ownership statement */}
-                <div className="ownership-statement font-mono">
-                  <span className="box-label">Exact Ownership:</span>
-                  <p className="ownership-text">{project.ownershipStatement}</p>
-                </div>
               </div>
 
               <div className="card-footer">
