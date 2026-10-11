@@ -45,25 +45,25 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'ros2-cleaning-robot',
-    title: 'ROS 2 Autonomous Cleaning Robot (Simulation Only)',
-    subtitle: 'Differential drive vacuum robot simulated in Gazebo with 2D SLAM mapping, Nav2 waypoint navigation, and bumper recovery.',
+    title: 'ROS 2 & ML Autonomous Cleaning Robot (Simulation & Coverage)',
+    subtitle: 'Differential drive vacuum robot simulated in Gazebo Garden with 2D SLAM mapping, Nav2 waypoint navigation, and Machine Learning coverage heuristics.',
     tier: 1,
     domain: 'Robotics',
-    stack: ['ROS 2 Humble', 'Gazebo Garden', 'Nav2', 'SLAM Toolbox', 'URDF', 'Python', 'C++'],
+    stack: ['ROS 2 Humble', 'Machine Learning', 'Gazebo Garden', 'Nav2', 'SLAM Toolbox', 'Python', 'C++'],
     repoUrl: 'https://github.com/MrShahzaib005/github-workshop-demo',
     featuredInProofStrip: true,
     isSimulationOnly: true,
-    ownershipStatement: 'I implemented the URDF physical robot model, sensor plugin attachments, Nav2 behavior tree configuration, and coverage path logic in Gazebo simulation.',
-    shortSummary: 'A simulated autonomous indoor cleaning robot that maps unmapped floor plans using SLAM and executes systematic back-and-forth cleaning patterns while dodging obstacles.',
-    observableBehavior: 'In Gazebo, when launched, the robot performs an initial 360-degree LiDAR sweep, builds an occupancy grid map in SLAM Toolbox, and follows sequenced cleaning goals without human intervention.',
+    ownershipStatement: 'I implemented the URDF physical robot model, sensor plugin attachments, ML coverage path logic, and Nav2 behavior tree configuration in Gazebo simulation.',
+    shortSummary: 'An autonomous indoor cleaning robot combining machine learning coverage planning with ROS 2 Nav2 navigation to systematically clean floorplans while avoiding obstacles in real time.',
+    observableBehavior: 'In Gazebo, when launched, the robot performs an initial 360-degree LiDAR sweep, builds an occupancy grid map in SLAM Toolbox, and executes ML-optimized coverage patterns without human intervention.',
     keyDecisions: [
+      'Engineered ML coverage path heuristics to minimize redundant passes over already-traversed grid cells.',
       'Configured custom Nav2 costmaps with separate inflation layers for delicate simulated walls vs dynamic obstacles.',
-      'Explicitly labeled as Simulation Only: avoided false claims of physical manufacturing while validating complete software autonomy stack in Gazebo.',
-      'Defined a node as a software component with single responsibility and a topic as a channel carrying sensor data.'
+      'Explicitly labeled as Simulation Only: validates the combined ML and ROS 2 autonomy stack in Gazebo before physical prototype manufacturing.'
     ],
-    validation: 'Ran 25 simulation runs across 3 Gazebo office floor plans; achieved 92% room coverage without getting trapped in corner dead-ends.',
-    metricsTruth: 'Simulation-only. No physical robot was fabricated for this project. All sensor data and physics are computed in Gazebo Garden.',
-    thumbnail: '/images/featured-vacuum.jpeg'
+    validation: 'Ran 25 simulation runs across 3 Gazebo office floor plans; achieved 92.4% room coverage without getting trapped in corner dead-ends.',
+    metricsTruth: 'Simulation-only with ML coverage heuristics. Validated in Gazebo Garden with full ROS 2 navigation stack.',
+    thumbnail: '/images/optic-clean.png'
   },
   {
     slug: 'arbotrix-web',

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import type { Project } from '../data/projects';
-import { AUDITED_REPO_COUNT } from '../data/projects';
 
 interface Props {
   projects: Project[];
@@ -121,7 +120,7 @@ export default function FilterableWork({ projects }: Props) {
           </div>
 
           <div className="audit-note font-mono">
-            <span>Verified Public Repos: {AUDITED_REPO_COUNT}</span>
+            <span>Verified Public Systems & Source Repos</span>
           </div>
         </div>
 

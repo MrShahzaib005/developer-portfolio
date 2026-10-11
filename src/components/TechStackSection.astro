@@ -1,0 +1,191 @@
+---
+const techCategories = [
+  {
+    name: "Robotics & Middleware",
+    description: "Cyber-physical kinematics, localization, navigation, and message buses",
+    skills: [
+      { name: "ROS 2 Humble", badge: "Core", icon: "🤖" },
+      { name: "Nav2 Navigation", badge: "Autonomy", icon: "🧭" },
+      { name: "Gazebo Garden", badge: "Simulation", icon: "🌐" },
+      { name: "SLAM Toolbox", badge: "Mapping", icon: "🗺️" },
+      { name: "rosbridge_suite", badge: "WebSockets", icon: "⚡" },
+      { name: "URDF / Xacro", badge: "Kinematics", icon: "📐" },
+      { name: "TF2 Transforms", badge: "Spatial", icon: "🔄" },
+      { name: "Differential Drive", badge: "Control", icon: "🏎️" }
+    ]
+  },
+  {
+    name: "Full-Stack Web & Cloud",
+    description: "Production web architecture, reactive state, and relational databases",
+    skills: [
+      { name: "Next.js 16 (App Router)", badge: "Framework", icon: "▲" },
+      { name: "React 19", badge: "UI Library", icon: "⚛️" },
+      { name: "TypeScript", badge: "Type Safety", icon: "TS" },
+      { name: "Spring Boot 3.x", badge: "Enterprise", icon: "🍃" },
+      { name: "Tailwind CSS", badge: "Styling", icon: "🎨" },
+      { name: "Prisma ORM", badge: "Database", icon: "💎" },
+      { name: "PostgreSQL / Supabase", badge: "Persistence", icon: "🐘" },
+      { name: "Flutter / Dart", badge: "Mobile", icon: "📱" }
+    ]
+  },
+  {
+    name: "AI & Machine Learning",
+    description: "Agentic orchestration, local LLM inference, and semantic vector stores",
+    skills: [
+      { name: "LangChain4j", badge: "Agentic AI", icon: "🦜" },
+      { name: "Ollama (Llama 3.1 8B)", badge: "Edge LLMs", icon: "🦙" },
+      { name: "pgvector", badge: "Embeddings", icon: "🧠" },
+      { name: "ML Path Planning", badge: "Algorithms", icon: "📊" },
+      { name: "Semantic Routing", badge: "Security", icon: "🔒" },
+      { name: "Python 3.11", badge: "Core Language", icon: "🐍" }
+    ]
+  },
+  {
+    name: "Embedded Systems & DevOps",
+    description: "Edge compute hardware, headless Linux, and deterministic serial bridges",
+    skills: [
+      { name: "NVIDIA Jetson Orin Nano", badge: "Hardware", icon: "⚡" },
+      { name: "Linux (Ubuntu Server)", badge: "OS", icon: "🐧" },
+      { name: "ESP32 & FreeRTOS", badge: "Microcontrollers", icon: "🔌" },
+      { name: "Docker", badge: "Containers", icon: "🐳" },
+      { name: "UART / Serial Comms", badge: "Protocols", icon: "📡" },
+      { name: "Git & Version Control", badge: "Tooling", icon: "🐙" }
+    ]
+  }
+];
+---
+
+<section class="tech-stack-section" aria-label="Technical Stack & Expertise">
+  <div class="container">
+    <div class="tech-header">
+      <span class="chapter-num font-mono">02 / Technical Foundations</span>
+      <h2>Core Engineering Stack & Tooling</h2>
+      <p class="narrative-lead" style="max-width: 720px; margin-top: 0.5rem;">
+        The languages, frameworks, robotics middleware, and embedded platforms I use to build production systems from low-level silicon to modern browser interfaces.
+      </p>
+    </div>
+
+    <div class="tech-grid">
+      {techCategories.map((cat) => (
+        <div class="tech-card surface-card">
+          <div class="cat-header">
+            <h3 class="cat-title">{cat.name}</h3>
+            <p class="cat-desc">{cat.description}</p>
+          </div>
+
+          <div class="skills-list">
+            {cat.skills.map((skill) => (
+              <div class="skill-item">
+                <span class="skill-icon" aria-hidden="true">{skill.icon}</span>
+                <span class="skill-name">{skill.name}</span>
+                <span class="skill-badge font-mono">{skill.badge}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-stack-section {
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .tech-header {
+    margin-bottom: 2.75rem;
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 860px) {
+    .tech-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .tech-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .tech-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .cat-header {
+    border-bottom: 1px solid var(--border-faint);
+    padding-bottom: 0.85rem;
+  }
+
+  .cat-title {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-bottom: 0.35rem;
+  }
+
+  .cat-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.65rem;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    transition: border-color var(--transition-fast);
+  }
+
+  .skill-item:hover {
+    border-color: var(--accent-orange);
+  }
+
+  .skill-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .skill-name {
+    color: var(--text-main);
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .skill-badge {
+    font-size: 0.6875rem;
+    color: var(--accent-orange);
+    background-color: var(--accent-orange-tint);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+</style>

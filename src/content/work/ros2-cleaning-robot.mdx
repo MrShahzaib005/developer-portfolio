@@ -1,13 +1,13 @@
 ---
-title: "ROS 2 Autonomous Cleaning Robot (Simulation Only)"
-subtitle: "Indoor differential drive vacuum robot modeled in URDF and simulated in Gazebo Garden with SLAM Toolbox mapping and Nav2 waypoint navigation."
+title: "ROS 2 & Machine Learning Autonomous Cleaning Robot"
+subtitle: "Differential drive vacuum robot simulated in Gazebo Garden combining 2D SLAM mapping, Nav2 autonomy, and Machine Learning coverage path planning."
 tier: 1
 domain: "Robotics"
 status: "Completed Simulation Testbench (Gazebo Garden)"
-strongestEvidence: "Reproducible ROS 2 launch scripts, custom Gazebo world floor plans, URDF sensor definitions, and documented simulation runs achieving 92% room coverage."
-ownershipStatement: "I implemented the URDF physical robot model, sensor plugin attachments, Nav2 behavior tree configuration, and coverage path logic in Gazebo simulation."
-observableBehavior: "In Gazebo, when launched, the robot performs an initial 360-degree LiDAR sweep, builds an occupancy grid map in SLAM Toolbox, and follows sequenced cleaning goals without human intervention."
-stack: ["ROS 2 Humble", "Gazebo Garden", "Nav2", "SLAM Toolbox", "URDF / Xacro", "Python", "C++", "Linux"]
+strongestEvidence: "Reproducible ROS 2 launch scripts, custom Gazebo world floor plans, URDF sensor definitions, ML coverage heuristic model, and documented simulation runs achieving 92% room coverage."
+ownershipStatement: "I implemented the URDF physical robot model, sensor plugin attachments, ML coverage path logic, and Nav2 behavior tree configuration in Gazebo simulation."
+observableBehavior: "In Gazebo, when launched, the robot performs an initial 360-degree LiDAR sweep, builds an occupancy grid map in SLAM Toolbox, and follows ML-optimized coverage patterns without human intervention."
+stack: ["ROS 2 Humble", "Machine Learning", "Gazebo Garden", "Nav2", "SLAM Toolbox", "URDF / Xacro", "Python", "C++", "Linux"]
 repoUrl: "https://github.com/MrShahzaib005/github-workshop-demo"
 isSimulationOnly: true
 date: "2026-08-03"
@@ -20,11 +20,11 @@ date: "2026-08-03"
 
 ## 01 / Executive Summary
 
-- **What it does:** Simulates an autonomous indoor cleaning robot equipped with 2D LiDAR and bumper sensors. Builds an occupancy grid map of unknown rooms and plans systematic back-and-forth cleaning paths.
-- **Who it serves:** Robotics software students and developers testing Nav2 recovery behaviors, coverage path planning, and SLAM mapping without requiring physical hardware lab facilities.
-- **My contribution:** I authored the complete URDF robot model with Gazebo physics plugins, tuned the Nav2 costmaps and recovery behavior trees, and authored the waypoint sequencer node.
-- **Status:** Complete simulation package; verified on multiple Gazebo world layouts.
-- **Strongest evidence:** Public repository with verifiable URDF/Xacro files, Gazebo world definitions, and reproducible ROS 2 launch files.
+- **What it does:** Simulates an autonomous indoor cleaning robot equipped with 2D LiDAR and bumper sensors. Combines ROS 2 SLAM Toolbox mapping with Machine Learning coverage heuristics to systematically clean floorplans while avoiding obstacles in real time.
+- **Who it serves:** Robotics software engineers and autonomy researchers testing ML path heuristics, Nav2 recovery behaviors, and SLAM mapping in simulation before hardware deployment.
+- **My contribution:** I authored the complete URDF robot model with Gazebo physics plugins, developed the ML coverage path planning heuristic node in Python, tuned Nav2 costmaps, and configured recovery behavior trees.
+- **Status:** Complete simulation package; verified across multiple Gazebo world layouts.
+- **Strongest evidence:** Public repository with verifiable URDF/Xacro models, Gazebo world definitions, ML path planning scripts, and reproducible ROS 2 launch files.
 
 ---
 

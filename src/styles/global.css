@@ -312,6 +312,16 @@ input, textarea, select {
   color: var(--text-main);
   outline: none;
   transition: border-color var(--transition-fast);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 input:focus, textarea:focus, select:focus {

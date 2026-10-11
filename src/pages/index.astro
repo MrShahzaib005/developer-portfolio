@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProofStrip from '../components/ProofStrip.astro';
-import ScrollyPathCanvas from '../components/ScrollyPathCanvas';
+import TechStackSection from '../components/TechStackSection.astro';
+import HeroShowcase from '../components/HeroShowcase';
+import Typewriter from '../components/Typewriter';
 import InteractiveDiagram from '../components/InteractiveDiagram';
-import { PROJECTS, AUDITED_REPO_COUNT } from '../data/projects';
+import { PROJECTS } from '../data/projects';
 
 const dodoProject = PROJECTS.find(p => p.slug === 'dodo-bot')!;
 const cleaningProject = PROJECTS.find(p => p.slug === 'ros2-cleaning-robot')!;
@@ -11,8 +13,8 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
 ---
 
 <Layout
-  title="Muhammad Shahzaib · Software Engineer, Robotics & Full-Stack"
-  description="I build software for robots, and the resilient apps and web systems around them. From logic to motion."
+  title="Muhammad Shahzaib · Co-Founder & CTO @ Arbotrix · Robotics & Full-Stack"
+  description="I build software for robots, and the resilient apps and web systems around them. Co-Founder & CTO @ Arbotrix. From logic to motion."
 >
   {/* ================= 01 / THE HERO ================= */}
   <section class="hero-section section-spacing" aria-label="Hero Introduction">
@@ -21,7 +23,16 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
         <div class="hero-narrative">
           <div class="hero-role-line font-mono">
             <span class="pulse-indicator" aria-hidden="true"></span>
-            <span>Software engineer, robotics and full-stack</span>
+            <Typewriter
+              words={[
+                "Robotics Software Engineer",
+                "Co-Founder & CTO @ Arbotrix",
+                "Lead Full-Stack Web Engineer",
+                "Embedded AI & Edge Systems Developer",
+                "Agentic AI Architect"
+              ]}
+              client:load
+            />
           </div>
 
           <h1 class="hero-title">
@@ -29,11 +40,11 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
           </h1>
 
           <p class="hero-tagline narrative-lead">
-            I build software for robots, and the apps and sites around them.
+            I build software for robots, and the resilient apps and web systems around them.
           </p>
 
           <p class="hero-subtext">
-            Bridging deterministic cyber-physical systems with responsive, high-performance web architecture. From low-level ROS 2 topic distribution on Jetson hardware to reactive, accessible interfaces in the browser.
+            I am the Co-Founder & CTO and Lead Full-Stack Engineer at Arbotrix. I bridge deterministic cyber-physical systems with responsive, high-performance web architecture—from low-level ROS 2 topic distribution on Jetson hardware to reactive, scalable full-stack applications in the cloud.
           </p>
 
           <div class="hero-cta-group">
@@ -61,19 +72,19 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
               <span class="meta-value">Islamabad, PK (Remote Ready)</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">Public Repos:</span>
-              <span class="meta-value">{AUDITED_REPO_COUNT} Verified</span>
+              <span class="meta-label">Current Role:</span>
+              <span class="meta-value">Co-Founder & CTO @ Arbotrix</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">Target Roles:</span>
-              <span class="meta-value">Robotics / Full-Stack</span>
+              <span class="meta-label">Status:</span>
+              <span class="meta-value" style="color: #10B981;">Available for Global Roles</span>
             </div>
           </div>
         </div>
 
-        {/* Visualizer Island: Point -> Logic -> Interface -> Motion */}
+        {/* Visualizer Island: Hero Showcase */}
         <div class="hero-visualizer">
-          <ScrollyPathCanvas client:visible />
+          <HeroShowcase client:load />
         </div>
       </div>
     </div>
@@ -81,6 +92,9 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
 
   {/* ================= 02 / PROOF STRIP ================= */}
   <ProofStrip />
+
+  {/* ================= 02.5 / TECH STACK & TOOLING ================= */}
+  <TechStackSection />
 
   {/* ================= 03 / ORIGIN (E-PORTAL) ================= */}
   <section class="section-spacing origin-section" aria-label="Origin Chapter">
@@ -208,13 +222,13 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
             <span class="mono-tag sim-tag">Simulation Only</span>
           </div>
           <h3 style="font-size: 1.35rem; line-height: 1.3; margin-bottom: 0.5rem;">
-            ROS 2 Cleaning Robot (Gazebo Simulation)
+            ROS 2 & Machine Learning Autonomous Cleaning Robot
           </h3>
           <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
             <strong>The Problem:</strong> Developing autonomous coverage algorithms without hardware risks collision damage.
           </p>
           <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
-            <strong>My Contribution:</strong> Built URDF differential robot model with simulated LiDAR, configured Nav2 costmap layers, and validated 92% room coverage across 25 Gazebo runs.
+            <strong>My Contribution:</strong> Built URDF differential robot model with simulated LiDAR, developed ML coverage path planning heuristics in Python, configured Nav2 costmap layers, and validated 92% room coverage across 25 Gazebo runs.
           </p>
           <div class="font-mono" style="font-size: 0.75rem; background-color: var(--bg-primary); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
             <strong>Ownership:</strong> {cleaningProject.ownershipStatement}

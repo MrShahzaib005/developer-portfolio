@@ -1,11 +1,72 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import LabPlayground from '../../components/LabPlayground';
+import RosTopicBusSimulator from '../../components/RosTopicBusSimulator';
+
+const archivedPlaygrounds = [
+  {
+    title: "GamesVerse Esports Platform",
+    category: "Web & Gaming Portal",
+    stack: "PHP · MySQL · React",
+    description: "Official university esports platform hosted on gamesverse.net for Valorant and Tekken tournaments with automated brackets and roster registrations.",
+    repoUrl: "https://github.com/MrShahzaib005/Gameverse",
+    demoUrl: "https://gamesverse.net/"
+  },
+  {
+    title: "Foodly Food Ordering Interface",
+    category: "Interactive Web UI",
+    stack: "React · JavaScript · CSS",
+    description: "Mobile-first food delivery frontend exploring client-side cart synchronization, localStorage persistence, and dietary category filtering.",
+    repoUrl: "https://github.com/MrShahzaib005/foodly"
+  },
+  {
+    title: "React E-Commerce Shop",
+    category: "Frontend Showcase",
+    stack: "React · JavaScript · CSS",
+    description: "Modern storefront UI featuring product catalog filters, flyout cart drawer badge animations, and computed item subtotal state management.",
+    repoUrl: "https://github.com/MrShahzaib005/reactjs-ecommerce-shop"
+  },
+  {
+    title: "Iqra Student Portal App",
+    category: "Mobile Companion",
+    stack: "Flutter · Dart · Firebase",
+    description: "Cross-platform student companion app providing mobile access to fee vouchers, timetable schedules, and GPA projections with offline SQLite caching.",
+    repoUrl: "https://github.com/MrShahzaib005/iqra_student_portal"
+  },
+  {
+    title: "Bevensen Restaurant Website",
+    category: "Design to Code",
+    stack: "TypeScript · HTML5 · CSS3",
+    description: "Restaurant menu presentation site in TypeScript. Fixed Figma export title to production branding with categorized meal tabs and responsive photography.",
+    repoUrl: "https://github.com/MrShahzaib005/bevensen-website"
+  },
+  {
+    title: "Dynamics 360 Event Explorer",
+    category: "Single Page Application",
+    stack: "Vanilla JS · Async REST · CSS",
+    description: "Zero-dependency single-page application with asynchronous JSON parsing, real-time debounced filtering, and accessible modal navigation.",
+    repoUrl: "https://github.com/MrShahzaib005/dynamics360-featured-events"
+  },
+  {
+    title: "Code Flow Design System",
+    category: "Typography Sandbox",
+    stack: "Tailwind CSS · JavaScript",
+    description: "Experimental layout engine exploring asymmetric editorial column flow, elevation hover effects, and WCAG AA accessibility token contrasts.",
+    repoUrl: "https://github.com/MrShahzaib005/code-flow"
+  },
+  {
+    title: "University Database Relational Schema",
+    category: "Data Architecture",
+    stack: "SQL · PostgreSQL / MySQL",
+    description: "Relational data modeling exercise enforcing 3rd normal form (3NF) with composite indexes for student registration and transcript calculations.",
+    repoUrl: "https://github.com/MrShahzaib005/university-db"
+  }
+];
 ---
 
 <Layout
   title="The Lab · Interactive Robotics & Systems Experiments"
-  description="Playful and experimental projects: 2D kinematics simulation, PID tuning, and software playgrounds."
+  description="Playful and experimental projects: 2D kinematics simulation, PID tuning, ROS 2 pub/sub message bus, and software playgrounds."
 >
   <div class="lab-page section-spacing">
     <div class="container">
@@ -13,81 +74,56 @@ import LabPlayground from '../../components/LabPlayground';
         <span class="chapter-num">/lab · Playground & Experiments</span>
         <h1>Interactive Systems Lab</h1>
         <p class="narrative-lead" style="max-width: 720px; margin-top: 0.75rem;">
-          Engineering ideas made tangible. A sandbox for differential kinematics, control theory gains, microcontroller circuit design, and unconventional software experiments.
+          Engineering ideas made tangible. A sandbox for differential kinematics, control theory gains, ROS 2 middleware message routing, and front-end software experiments.
         </p>
       </header>
 
-      {/* Main Interactive Experiment: 2D Differential Drive & PID */}
-      <LabPlayground client:load />
+      {/* Main Interactive Experiment 01: 2D Differential Drive & PID */}
+      <div style="margin-bottom: 4.5rem;">
+        <LabPlayground client:load />
+      </div>
 
-      {/* Second Lab Experiment: Hardware Pinout & Circuit Workbench */}
-      <section class="hardware-workbench-section" style="margin-top: 5rem;">
-        <div class="asym-grid asym-grid-57">
+      {/* Second Interactive Experiment 02: ROS 2 Topic & Pub/Sub Visualizer */}
+      <div style="margin-bottom: 5rem;">
+        <RosTopicBusSimulator client:visible />
+      </div>
+
+      {/* Experimental Archives: 8 Audited Projects Grid */}
+      <section class="archived-playgrounds-section">
+        <div class="archive-header">
           <div>
-            <span class="mono-tag" style="margin-bottom: 0.75rem;">Experiment 02 / Hardware Bridge</span>
-            <h2>Jetson Orin Nano to ESP32 Serial Interface</h2>
-            <p style="margin-top: 0.75rem; line-height: 1.65;">
-              In mobile robotics, high-level path planning (Nav2) runs on a Linux SBC, while real-time motor PWM must execute on a deterministic microcontroller. This hardware bridge handles bidirectional serial communications:
-            </p>
-
-            <ul style="margin: 1.25rem 0; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
-              <li><strong>Linux Side:</strong> Custom Python serial publisher streaming normalized wheel ticks over <code>/dev/ttyUSB0</code> at 115200 baud.</li>
-              <li><strong>ESP32 Side:</strong> FreeRTOS dual-core tasks: Core 0 computes PID wheel speeds; Core 1 samples quadrature encoders.</li>
-              <li><strong>Safety Interlock:</strong> Auto-brakes within 250ms if UART serial keep-alive times out.</li>
-            </ul>
+            <span class="chapter-num">Archived Playgrounds</span>
+            <h2>Audited Repositories & Playgrounds</h2>
           </div>
-
-          <div class="surface-card font-mono" style="font-size: 0.75rem; background-color: var(--bg-surface);">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 1rem;">
-              <span style="font-weight: 600; color: var(--text-main);">UART Packet Protocol Frame</span>
-              <span style="color: var(--accent-orange);">CRC-8 Protected</span>
-            </div>
-
-            <pre style="background: var(--bg-primary); padding: 1rem; border-radius: 4px; overflow-x: auto; color: var(--text-main); line-height: 1.5;">
-[BYTE 0] 0xAA (Start of Frame Header)
-[BYTE 1] 0x55 (Sync Marker)
-[BYTE 2] Left Wheel Target Velocity (int16_t, m/s * 1000)
-[BYTE 4] Right Wheel Target Velocity (int16_t, m/s * 1000)
-[BYTE 6] Watchdog Sequence Counter (uint8_t)
-[BYTE 7] CRC-8 Checksum (Dallas/Maxim 1-Wire polynomial)
-            </pre>
-
-            <div style="margin-top: 1rem; display: flex; justify-content: space-between; color: var(--text-faint);">
-              <span>Sample Rate: 50Hz</span>
-              <span>Baud: 115,200</span>
-              <span style="color: #10B981;">Latency: ~1.2ms</span>
-            </div>
-          </div>
+          <p class="archive-subtext">
+            Foundational web platforms, mobile client prototypes, design systems, and data schemas built across university coursework and open-source explorations.
+          </p>
         </div>
-      </section>
 
-      {/* Experimental Archives */}
-      <section style="margin-top: 5rem;">
-        <span class="chapter-num">Archived Playgrounds</span>
-        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Front-End & Creative Experiments</h3>
+        <div class="playgrounds-grid">
+          {archivedPlaygrounds.map((item) => (
+            <article class="playground-card surface-card">
+              <div class="card-meta-top">
+                <span class="mono-tag">{item.category}</span>
+                <span class="stack-badge font-mono">{item.stack}</span>
+              </div>
 
-        <div class="asym-grid asym-grid-half">
-          <div class="surface-card">
-            <span class="mono-tag" style="margin-bottom: 0.5rem;">UI Experiment</span>
-            <h4>Code Flow: Typography & Elevation Sandbox</h4>
-            <p style="font-size: 0.875rem; margin-top: 0.35rem;">
-              Experimental layout engine exploring extreme asymmetric editorial column flow and responsive font scaling without media query breakpoints.
-            </p>
-            <a href="https://github.com/MrShahzaib005/code-flow" target="_blank" rel="noopener noreferrer" class="link-inline font-mono" style="font-size: 0.75rem; margin-top: 0.75rem; display: inline-block;">
-              View Repository →
-            </a>
-          </div>
+              <h3 class="item-title">{item.title}</h3>
+              <p class="item-desc">{item.description}</p>
 
-          <div class="surface-card">
-            <span class="mono-tag" style="margin-bottom: 0.5rem;">Single Page Application</span>
-            <h4>Dynamics 360 Event Explorer</h4>
-            <p style="font-size: 0.875rem; margin-top: 0.35rem;">
-              Zero-dependency JavaScript single-page application with asynchronous JSON parsing, real-time debounced filtering, and accessible modal navigation.
-            </p>
-            <a href="https://github.com/MrShahzaib005/dynamics360-featured-events" target="_blank" rel="noopener noreferrer" class="link-inline font-mono" style="font-size: 0.75rem; margin-top: 0.75rem; display: inline-block;">
-              View Repository →
-            </a>
-          </div>
+              <div class="card-links-row font-mono">
+                <a href={item.repoUrl} target="_blank" rel="noopener noreferrer" class="link-inline">
+                  <span>Source Code</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+                {item.demoUrl && (
+                  <a href={item.demoUrl} target="_blank" rel="noopener noreferrer" class="live-pill" title="Open live production website">
+                    <span>Live Demo ↗</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </div>
@@ -96,6 +132,98 @@ import LabPlayground from '../../components/LabPlayground';
 
 <style>
   .lab-header {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .archive-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .archive-subtext {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .playgrounds-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .playgrounds-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .playgrounds-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
+  .playground-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .playground-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .card-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .stack-badge {
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+  }
+
+  .item-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+  }
+
+  .item-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .card-links-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-faint);
+  }
+
+  .live-pill {
+    color: var(--accent-orange);
+    font-weight: 600;
+  }
+
+  .live-pill:hover {
+    text-decoration: underline;
   }
 </style>

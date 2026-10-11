@@ -477,6 +477,10 @@ export default function IntentContact() {
           flex-direction: column;
           gap: 1.75rem;
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+          overflow: hidden;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
         }
 
         .channel-tag {
@@ -578,17 +582,23 @@ export default function IntentContact() {
           display: flex;
           flex-direction: column;
           gap: 1.25rem;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
         }
 
         .form-row-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 1rem;
+          gap: 1.25rem;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
         }
 
         @media (min-width: 768px) {
           .form-row-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
           }
         }
 
@@ -596,6 +606,18 @@ export default function IntentContact() {
           display: flex;
           flex-direction: column;
           gap: 0.4rem;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .form-field select,
+        .form-field input,
+        .form-field textarea {
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
         }
 
         .field-label {

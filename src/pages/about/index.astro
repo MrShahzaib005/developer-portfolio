@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { AUDITED_REPO_COUNT } from '../../data/projects';
 ---
 
 <Layout
@@ -15,7 +14,7 @@ import { AUDITED_REPO_COUNT } from '../../data/projects';
           <span class="chapter-num">Biography & Philosophy</span>
           <h1>Muhammad Shahzaib</h1>
           <p class="narrative-lead" style="margin-top: 1rem;">
-            Software engineer specializing in robotics software and full-stack systems. Based in Islamabad, building systems that translate logical code into cyber-physical motion.
+            Co-Founder & CTO and Lead Full-Stack Engineer at Arbotrix. Based in Islamabad, building software systems that translate logical code into cyber-physical motion.
           </p>
 
           <p style="margin-top: 1rem; line-height: 1.7;">
@@ -29,7 +28,7 @@ import { AUDITED_REPO_COUNT } from '../../data/projects';
           <div class="about-quick-meta font-mono" style="margin-top: 2rem;">
             <div class="q-item">
               <span class="q-label">Current Role:</span>
-              <span class="q-val">Co-Founder & Lead Engineer @ Arbotrix</span>
+              <span class="q-val">Co-Founder & CTO · Lead Full-Stack Engineer @ Arbotrix</span>
             </div>
             <div class="q-item">
               <span class="q-label">Education:</span>
@@ -46,13 +45,13 @@ import { AUDITED_REPO_COUNT } from '../../data/projects';
           <div class="profile-card surface-card">
             <img 
               src="/images/shahzaib-arbo.webp" 
-              alt="Muhammad Shahzaib" 
+              alt="Muhammad Shahzaib - Co-Founder & CTO @ Arbotrix" 
               class="profile-img"
               loading="eager"
             />
             <div class="profile-caption font-mono">
               <span style="font-weight: 600; color: var(--text-main);">Muhammad Shahzaib</span>
-              <span style="color: var(--text-faint);">Robotics & Full-Stack Systems</span>
+              <span style="color: var(--accent-orange);">Co-Founder & CTO @ Arbotrix</span>
             </div>
           </div>
         </div>
@@ -139,7 +138,7 @@ import { AUDITED_REPO_COUNT } from '../../data/projects';
             <div class="exp-item">
               <div class="exp-header">
                 <div>
-                  <strong>Co-Founder & Software Lead</strong> · <span class="font-mono">Arbotrix Studio</span>
+                  <strong>Co-Founder & CTO · Lead Full-Stack Engineer</strong> · <span class="font-mono">Arbotrix Studio</span>
                 </div>
                 <span class="exp-date font-mono">2024 — Present</span>
               </div>
@@ -246,9 +245,11 @@ import { AUDITED_REPO_COUNT } from '../../data/projects';
   .profile-img {
     width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 6px;
     object-fit: cover;
+    object-position: center 18%;
     aspect-ratio: 4/5;
+    border: 1px solid var(--border-light);
   }
 
   .profile-caption {
