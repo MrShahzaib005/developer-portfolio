@@ -120,11 +120,16 @@ const navLinks = [
 
   .nav-list {
     display: flex;
+    align-items: center;
     list-style: none;
     gap: 0.25rem;
   }
 
   .nav-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 44px;
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--text-muted);
@@ -145,11 +150,12 @@ const navLinks = [
 
   .nav-link.is-active::after {
     content: '';
-    display: block;
-    width: 100%;
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.35rem;
+    left: 0.75rem;
     height: 2px;
     background-color: var(--accent-orange);
-    margin-top: 2px;
     border-radius: 1px;
   }
 

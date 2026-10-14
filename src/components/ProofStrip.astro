@@ -21,7 +21,7 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
       {featuredProjects.map((project) => (
         <article class="proof-card">
           {/* Visual Project Thumbnail */}
-          <div class="card-image-container">
+          <div class={`card-image-container ${project.slug === 'arbotrix-web' ? 'card-image-container-arbotrix' : ''}`}>
             <a href={`/work/${project.slug}`} class="image-link" tabindex="-1" aria-hidden="true">
               <img 
                 src={project.thumbnail} 
@@ -213,6 +213,11 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
     border-bottom: 1px solid var(--border-light);
   }
 
+  .card-image-container-arbotrix {
+    height: auto;
+    aspect-ratio: 1895 / 829;
+  }
+
   .image-link {
     display: block;
     width: 100%;
@@ -227,6 +232,15 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
     transition: transform 0.4s ease;
   }
 
+  .card-image-container-arbotrix .project-thumbnail {
+    object-fit: contain;
+  }
+
+  .card-image-container-arbotrix .project-thumbnail,
+  .proof-card:hover .card-image-container-arbotrix .project-thumbnail {
+    transform: none;
+  }
+
   .proof-card:hover .project-thumbnail {
     transform: scale(1.04);
   }
@@ -238,6 +252,13 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
     display: flex;
     gap: 0.4rem;
     z-index: 2;
+  }
+
+  .thumbnail-overlay-tags .mono-tag.sim-tag {
+    color: #FFFFFF;
+    background-color: #DC2626;
+    border-color: #B91C1C;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .card-top {
