@@ -67,8 +67,8 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'arbotrix-web',
-    title: 'Arbotrix Studio & Web Platform',
-    subtitle: 'Full-stack platform for a robotics research studio featuring 3D product previews, custom curricula, and relational lead capture.',
+    title: 'Arbotrix Company Website',
+    subtitle: 'Website built for Arbotrix, a robotics company.',
     tier: 1,
     domain: 'Web',
     stack: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL / Supabase', 'Spline 3D', 'Tailwind CSS', 'Resend'],
@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     demoUrl: 'https://arbotrix.com',
     featuredInProofStrip: true,
     isSimulationOnly: false,
-    ownershipStatement: 'I designed the full-stack architecture, database models, contact & student registration APIs, and built the responsive UI components; our team contributed 3D robot renders and copy.',
+    ownershipStatement: 'I built the website for Arbotrix, a robotics company.',
     shortSummary: 'The digital platform and enrollment engine for Arbotrix, connecting prospective robotics interns, university students, and enterprise clients with custom hardware specifications.',
     observableBehavior: 'Visitors explore interactive 3D robot models in the browser, review hardware specifications, and register for ROS2 workshops with instantaneous email confirmations and database persistence.',
     keyDecisions: [

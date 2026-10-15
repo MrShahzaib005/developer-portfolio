@@ -35,7 +35,7 @@ This document contains the exact, audited replacement copy for your personal Git
 
 ### Muhammad Shahzaib
 **Software Engineer · Robotics, Cyber-Physical Systems & Full-Stack**  
-*Co-Founder & Software Lead @ Arbotrix*
+*Built the website for Arbotrix, a robotics company*
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mr-shahzaib)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MrShahzaib005)
@@ -74,10 +74,10 @@ I engineer systems where **software coordinates motion and telemetry**—from wr
 - **Stack:** ROS 2 Humble · Gazebo Garden · Nav2 · SLAM Toolbox · Python · C++
 - **Repo:** [`github.com/MrShahzaib005/github-workshop-demo`](https://github.com/MrShahzaib005/github-workshop-demo)
 
-### 3. 🌐 Arbotrix Studio & Web Platform
-*Full-stack web platform for an emerging robotics studio featuring interactive 3D hardware previews and internship enrollment pipelines.*
+### 3. 🌐 Arbotrix Company Website
+*Website built for Arbotrix, a robotics company.*
 - **Substantiated Metric:** Handled application & syllabus pipelines for **45 verified trainee graduates across Batches 1 & 2**.
-- **Exact Ownership:** *"I designed the full-stack architecture, database models, contact & student registration APIs, and built the responsive UI components; our team contributed 3D robot renders and copy."*
+- **Exact Ownership:** *"I built the website for Arbotrix, a robotics company."*
 - **Stack:** Next.js 16 · React 19 · Prisma ORM · Supabase PostgreSQL · Spline 3D · Resend
 - **Repo:** [`github.com/MrShahzaib005/arbotrix-web`](https://github.com/MrShahzaib005/arbotrix-web)
 

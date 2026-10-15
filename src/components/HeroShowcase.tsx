@@ -38,7 +38,7 @@ export default function HeroShowcase() {
             <div className="portrait-container">
               <img
                 src="/images/shahzaib-arbo.webp"
-                alt="Muhammad Shahzaib - Co-Founder & CTO @ Arbotrix"
+                alt="Muhammad Shahzaib"
                 className="showcase-portrait"
                 loading="eager"
               />
@@ -46,7 +46,7 @@ export default function HeroShowcase() {
             </div>
 
             <div className="portrait-meta">
-              <div className="role-chip font-mono">Co-Founder & CTO @ Arbotrix</div>
+              <div className="role-chip font-mono">Built the Arbotrix website</div>
               <h3 className="showcase-name">Muhammad Shahzaib</h3>
               <p className="showcase-role-desc">
                 Lead Full-Stack Web & Robotics Software Engineer
