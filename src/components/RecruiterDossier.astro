@@ -94,16 +94,17 @@
   }
 
   .dossier-card {
-    background: linear-gradient(180deg, #FFFFFF 0%, var(--bg-surface) 100%);
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
+    background: rgba(20, 14, 38, 0.85);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 16px;
     padding: clamp(1.5rem, 4vw, 2.25rem);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(14px);
   }
 
   .dossier-header {
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding-bottom: 1.25rem;
   }
 
@@ -119,13 +120,13 @@
   .dossier-badge {
     font-size: 0.6875rem;
     font-weight: 600;
-    color: var(--accent-orange);
+    color: #D8B4FE;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    background-color: var(--accent-orange-tint);
-    border: 1px solid var(--accent-orange);
+    background-color: rgba(168, 85, 247, 0.15);
+    border: 1px solid var(--accent-purple);
     padding: 0.2rem 0.5rem;
-    border-radius: 3px;
+    border-radius: 4px;
   }
 
   .dossier-read-time {
@@ -166,9 +167,9 @@
   }
 
   .dossier-item {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-faint);
-    border-radius: 6px;
+    background-color: rgba(11, 8, 19, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
     padding: 1.15rem;
     display: flex;
     flex-direction: column;

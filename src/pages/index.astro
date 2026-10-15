@@ -1,85 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProofStrip from '../components/ProofStrip.astro';
-import RecruiterDossier from '../components/RecruiterDossier.astro';
-import ExperienceTimeline from '../components/ExperienceTimeline.astro';
-import HeroShowcase from '../components/HeroShowcase';
-import Typewriter from '../components/Typewriter';
-import InteractiveDiagram from '../components/InteractiveDiagram';
-import UiRenderShowcase from '../components/UiRenderShowcase';
+import Robot3DScene from '../components/Robot3DScene';
 import InteractiveSkills from '../components/InteractiveSkills';
+import RecruiterDossier from '../components/RecruiterDossier.astro';
 import { PROJECTS } from '../data/projects';
 
 const dodoProject = PROJECTS.find(p => p.slug === 'dodo-bot')!;
 const cleaningProject = PROJECTS.find(p => p.slug === 'ros2-cleaning-robot')!;
 const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
+const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
 ---
 
 <Layout
-  title="Muhammad Shahzaib · Robotics & Full-Stack Software Engineer"
-  description="I build software for robots and resilient web systems, including the website for Arbotrix, a robotics company."
+  title="Muhammad Shahzaib · Full-Stack & Robotics Software Engineer"
+  description="Portfolio of Muhammad Shahzaib: Full-Stack Web & Robotics Software Engineer. Built the website for Arbotrix, ROS 2 teleoperation systems, and Next.js applications."
 >
-  {/* ================= 01 / THE HERO ================= */}
-  <section class="hero-section section-spacing" aria-label="Hero Introduction">
-    <div class="ambient-glow-orb" style="top: -100px; right: 10%;"></div>
+  {/* ================= 01 / HERO SECTION (FIGMA STYLE) ================= */}
+  <section class="figma-hero-section section-spacing" aria-label="Hero Introduction">
+    <div class="ambient-glow-orb hero-glow-purple"></div>
+    <div class="ambient-glow-orb hero-glow-cyan"></div>
+
     <div class="container">
-      <div class="hero-asym-grid">
-        <div class="hero-narrative">
-          <div class="hero-role-line font-mono">
-            <span class="pulse-indicator" aria-hidden="true"></span>
-            <Typewriter
-              words={[
-                "Full-Stack Web & Robotics Engineer",
-                "Built the Arbotrix company website",
-                "ROS 2 & Jetson Systems Developer",
-                "Next.js 16 & React 19 Architect",
-                "Agentic AI & Backend Engineer"
-              ]}
-              client:load
-            />
+      <div class="hero-grid">
+        {/* Left: Introduction & CTAs */}
+        <div class="hero-content">
+          <div class="hero-badge font-mono">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>Available for Full-Time & Contract Roles</span>
           </div>
 
-          <h1 class="hero-title">
-            Muhammad Shahzaib
+          <h1 class="hero-headline">
+            Hi, I'm <span class="gradient-text">Muhammad Shahzaib</span>
           </h1>
 
-          <p class="hero-tagline narrative-lead">
-            I engineer high-performance web platforms and software for autonomous robots.
+          <h2 class="hero-subtitle">
+            Full-Stack Web & Robotics Software Engineer
+          </h2>
+
+          <p class="hero-description">
+            I build high-performance web platforms and software for autonomous robots. Built the official company website for <strong>Arbotrix</strong>, real-time ROS 2 robot teleoperation on Jetson hardware, and resilient full-stack systems.
           </p>
 
-          <p class="hero-subtext">
-            I built the official production website for Arbotrix, a robotics company. My work bridges low-level ROS 2 middleware on embedded NVIDIA Jetson Linux hardware with responsive, modern Next.js and Flutter interfaces.
-          </p>
-
-          {/* 3 Quick Proof Highlights for HR & Visitors */}
-          <div class="hero-pillars-grid font-mono">
-            <div class="pillar-card">
-              <span class="pillar-icon">🌐</span>
-              <div>
-                <strong>Arbotrix Web Lead</strong>
-                <span>Next.js 16 · React 19 · 45+ Trainees</span>
-              </div>
-            </div>
-            <div class="pillar-card">
-              <span class="pillar-icon">🤖</span>
-              <div>
-                <strong>Robotics Teleop</strong>
-                <span>Flutter · ROS 2 · &lt;45ms Latency</span>
-              </div>
-            </div>
-            <div class="pillar-card">
-              <span class="pillar-icon">🧹</span>
-              <div>
-                <strong>Autonomous Autonomy</strong>
-                <span>Gazebo · Nav2 · 92.4% SLAM Coverage</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-cta-group">
-            <a href="#ui-renders" class="btn btn-primary">
-              <span>View 3D UI Renders</span>
-              <span aria-hidden="true">↓</span>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <span>Get in touch</span>
+              <span aria-hidden="true">→</span>
             </a>
             <a href="/about#resume" class="btn btn-secondary font-mono">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -88,68 +53,326 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
                 <line x1="16" y1="13" x2="8" y2="13"></line>
                 <line x1="16" y1="17" x2="8" y2="17"></line>
               </svg>
-              <span>Download CV (PDF)</span>
+              <span>Download CV</span>
             </a>
-            <a href="#recruiter-brief" class="recruiter-fast-btn font-mono">
-              <span>30-Sec HR Summary</span>
+            <a href="#recent-work" class="btn btn-secondary font-mono">
+              <span>View Work ↓</span>
             </a>
           </div>
 
-          <div class="hero-meta-row font-mono">
-            <div class="meta-item">
-              <span class="meta-label">Location:</span>
-              <span class="meta-value">Islamabad, PK (Remote Ready)</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Arbotrix:</span>
-              <span class="meta-value">Built company website</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Status:</span>
-              <span class="meta-value" style="color: #10B981;">Available for Global Roles</span>
-            </div>
+          {/* Social Links Row */}
+          <div class="hero-socials font-mono">
+            <a href="https://github.com/MrShahzaib005" target="_blank" rel="noopener noreferrer" class="social-icon-link" title="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/mr-shahzaib" target="_blank" rel="noopener noreferrer" class="social-icon-link" title="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <a href="mailto:mirzashahzaibsami123456789@gmail.com" class="social-icon-link" title="Email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>Email</span>
+            </a>
           </div>
         </div>
 
-        {/* Visualizer Island: 3D Interactive Cyber Robot / HR Snapshot */}
-        <div class="hero-visualizer">
-          <HeroShowcase client:load />
+        {/* Right: Glowing Portrait Frame */}
+        <div class="hero-visual">
+          <div class="avatar-glow-ring">
+            <div class="avatar-inner-frame">
+              <img
+                src="/images/shahzaib-arbo.webp"
+                alt="Muhammad Shahzaib"
+                class="avatar-image"
+                loading="eager"
+              />
+              <div class="avatar-status-tag font-mono">
+                <span class="status-live-dot"></span>
+                <span>Open for Global Roles</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  {/* ================= 02 / PROOF STRIP ================= */}
-  <ProofStrip />
+  {/* ================= 02 / ABOUT SECTION (CENTERED FIGMA STYLE) ================= */}
+  <section class="about-summary-section" id="about" aria-label="About Summary">
+    <div class="container container-narrow text-center">
+      <span class="chapter-num font-mono">About</span>
+      <h2 class="section-title">Bridging Code to Cyber-Physical Motion</h2>
+      
+      <p class="about-lead">
+        I'm a Software Engineer based in Islamabad, Pakistan, specializing in the intersection of <strong>high-performance web architecture</strong> and <strong>embedded robotics systems</strong>.
+      </p>
 
-  {/* ================= 03 / INTERACTIVE 3D UI RENDERS SHOWCASE ================= */}
-  <section class="section-spacing ui-renders-section" id="ui-renders" aria-label="Interactive 3D UI Renders">
+      <p class="about-subtext">
+        I engineered the production website for Arbotrix, a robotics company, managing applicant pipelines for 45 verified graduates. In cyber-physical robotics, I build ROS 2 Humble telemetry stacks on NVIDIA Jetson Linux single-board computers, connecting hardware to intuitive Flutter and Next.js interfaces with under 45ms WebSocket latency.
+      </p>
+
+      {/* Quick 3 Stats Counters */}
+      <div class="stats-counter-grid font-mono">
+        <div class="stat-card">
+          <span class="stat-number gradient-text">3+</span>
+          <span class="stat-label">Flagship Systems Built</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number gradient-text">45+</span>
+          <span class="stat-label">Graduates via Arbotrix</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number gradient-text">&lt;45ms</span>
+          <span class="stat-label">WebSocket Telemetry</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number gradient-text">2026</span>
+          <span class="stat-label">BS CS · Iqra University</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 03 / 3D INTERACTIVE CENTERPIECE ================= */}
+  <section class="center-3d-section" aria-label="3D Interactive Experience">
     <div class="container">
-      <div class="section-header-box">
-        <span class="chapter-num">03 / Interactive UI Renders & Devices</span>
-        <h2>High-Fidelity UI & Cyber-Physical Previews</h2>
-        <p class="narrative-lead" style="max-width: 740px; margin-top: 0.5rem;">
-          Interact with live 3D device mockups of platforms I engineered: from production web platforms with relational schemas to mobile robot teleoperation clients and autonomous simulation radars.
+      <div class="text-center" style="margin-bottom: 2rem;">
+        <span class="chapter-num font-mono">3D Interactive Robot</span>
+        <h2>Explore Cyber-Physical Subsystems</h2>
+        <p class="narrative-lead" style="max-width: 620px; margin: 0.5rem auto 0;">
+          Drag to orbit 360°, inspect LiDAR laser scanning, and toggle CAD wireframe mode.
         </p>
       </div>
 
-      <UiRenderShowcase client:visible />
+      <div class="robot-3d-container">
+        <Robot3DScene client:visible />
+      </div>
     </div>
   </section>
 
-  {/* ================= 04 / RECRUITER FAST-TRACK DOSSIER ================= */}
-  <div id="recruiter-brief">
-    <RecruiterDossier />
-  </div>
-
-  {/* ================= 05 / INTERACTIVE SKILLS MATRIX ================= */}
-  <section class="section-spacing skills-section" aria-label="Technical Stack & Expertise">
+  {/* ================= 04 / RECENT WORK (ALTERNATING ZIG-ZAG LIKE FIGMA) ================= */}
+  <section class="recent-work-section section-spacing" id="recent-work" aria-label="Recent Work">
     <div class="container">
-      <div class="section-header-box">
-        <span class="chapter-num">05 / Skills & Tooling</span>
-        <h2>Core Technical Stack & Practical Proof</h2>
-        <p class="narrative-lead" style="max-width: 720px; margin-top: 0.5rem;">
-          Every skill listed below has been battle-tested in real applications. Filter by category or search by keyword to see exact implementation context.
+      <div class="text-center" style="margin-bottom: 3.5rem;">
+        <span class="chapter-num font-mono">Recent Work</span>
+        <h2>Featured Engineering Projects</h2>
+        <p class="narrative-lead" style="max-width: 650px; margin: 0.5rem auto 0;">
+          Production platforms, cross-platform mobile robot controllers, and autonomous simulation systems.
+        </p>
+      </div>
+
+      <div class="projects-zigzag-list">
+        {/* Project 1: Arbotrix Web (Left details, Right image) */}
+        <article class="project-zigzag-item">
+          <div class="project-info">
+            <span class="project-tag font-mono">Production Web Platform</span>
+            <h3 class="project-heading">Arbotrix Company Website</h3>
+            <p class="project-desc">
+              Designed and developed the official website for Arbotrix, a robotics company. Features interactive 3D Spline model loaders, dynamic syllabus pipelines, and resilient Supabase PostgreSQL persistence that handled verified student applications across Batches 1 & 2.
+            </p>
+
+            <div class="ownership-chip font-mono">
+              <strong>Ownership:</strong> {arbotrixProject.ownershipStatement}
+            </div>
+
+            <div class="tech-pills-row font-mono">
+              <span>Next.js 16</span>
+              <span>React 19</span>
+              <span>TypeScript</span>
+              <span>Prisma ORM</span>
+              <span>Supabase</span>
+              <span>Tailwind CSS</span>
+            </div>
+
+            <div class="project-actions font-mono">
+              <a href="https://arbotrix.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                <span>Live Site ↗</span>
+              </a>
+              <a href="/work/arbotrix-web" class="btn btn-secondary btn-sm">
+                <span>Case Study →</span>
+              </a>
+              <a href="https://github.com/MrShahzaib005/arbotrix-web" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span>GitHub ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-preview-wrap tilt-card-3d">
+            <a href="/work/arbotrix-web" class="preview-link">
+              <img
+                src="/images/arbotrix-web.png"
+                alt="Arbotrix Company Website Render"
+                class="project-preview-img"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </article>
+
+        {/* Project 2: Dodo Bot (Left image, Right details) */}
+        <article class="project-zigzag-item reverse">
+          <div class="project-preview-wrap tilt-card-3d">
+            <a href="/work/dodo-bot" class="preview-link">
+              <img
+                src="/images/dodo-app.png"
+                alt="Dodo Bot Flutter Teleoperation App"
+                class="project-preview-img"
+                loading="lazy"
+              />
+            </a>
+          </div>
+
+          <div class="project-info">
+            <span class="project-tag font-mono">Cyber-Physical Robotics</span>
+            <h3 class="project-heading">Dodo Bot: Mobile Teleoperation & ROS Bridge</h3>
+            <p class="project-desc">
+              Cross-platform Flutter mobile control client connecting operators directly to a Jetson Orin Nano differential robot over local WebSockets. Features 20Hz velocity throttling, real-time odometry streaming, and a 380ms heartbeat emergency stop failsafe.
+            </p>
+
+            <div class="ownership-chip font-mono">
+              <strong>Ownership:</strong> {dodoProject.ownershipStatement}
+            </div>
+
+            <div class="tech-pills-row font-mono">
+              <span>Flutter</span>
+              <span>Dart</span>
+              <span>ROS 2 Humble</span>
+              <span>rosbridge_suite</span>
+              <span>Jetson Orin Nano</span>
+              <span>WebSockets</span>
+            </div>
+
+            <div class="project-actions font-mono">
+              <a href="/work/dodo-bot" class="btn btn-primary btn-sm">
+                <span>Case Study →</span>
+              </a>
+              <a href="https://github.com/MrShahzaib005/Dodo_Bot" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span>GitHub ↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        {/* Project 3: ROS 2 Cleaning Robot (Left details, Right image) */}
+        <article class="project-zigzag-item">
+          <div class="project-info">
+            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+              <span class="project-tag font-mono">Autonomous Robotics</span>
+              <span class="mono-tag sim-tag font-mono">Simulation Only</span>
+            </div>
+            <h3 class="project-heading">ROS 2 & ML Autonomous Cleaning Robot</h3>
+            <p class="project-desc">
+              Differential drive indoor vacuum robot modeled in URDF and simulated in Gazebo Garden. Implements SLAM Toolbox mapping, custom Nav2 costmaps, and Machine Learning coverage heuristics to achieve 92.4% room coverage across 25 verified simulation runs.
+            </p>
+
+            <div class="ownership-chip font-mono">
+              <strong>Ownership:</strong> {cleaningProject.ownershipStatement}
+            </div>
+
+            <div class="tech-pills-row font-mono">
+              <span>ROS 2 Humble</span>
+              <span>Gazebo Garden</span>
+              <span>Nav2</span>
+              <span>SLAM Toolbox</span>
+              <span>Python</span>
+              <span>C++</span>
+            </div>
+
+            <div class="project-actions font-mono">
+              <a href="/work/ros2-cleaning-robot" class="btn btn-primary btn-sm">
+                <span>Simulation Study →</span>
+              </a>
+              <a href="https://github.com/MrShahzaib005/github-workshop-demo" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span>GitHub Demo ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-preview-wrap tilt-card-3d">
+            <a href="/work/ros2-cleaning-robot" class="preview-link">
+              <img
+                src="/images/cleaning-robot.png"
+                alt="ROS 2 Autonomous Cleaning Robot Simulation Render"
+                class="project-preview-img"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </article>
+
+        {/* Project 4: Buddy AI (Left image, Right details) */}
+        <article class="project-zigzag-item reverse">
+          <div class="project-preview-wrap tilt-card-3d">
+            <a href="/work/buddy-ai" class="preview-link">
+              <img
+                src="/images/arbo-dark.png"
+                alt="Buddy Multi-Tenant Agentic AI Architecture"
+                class="project-preview-img"
+                loading="lazy"
+              />
+            </a>
+          </div>
+
+          <div class="project-info">
+            <span class="project-tag font-mono">Agentic AI & Backend</span>
+            <h3 class="project-heading">Buddy: Multi-Tenant Agentic AI Architecture</h3>
+            <p class="project-desc">
+              Enterprise-grade Java 23 & Spring Boot 3.x backend for personal agentic AI with ThreadLocal tenant isolation, LangChain4j, Ollama (Llama 3.1 8B), and PostgreSQL pgvector semantic memory.
+            </p>
+
+            <div class="ownership-chip font-mono">
+              <strong>Ownership:</strong> {buddyProject.ownershipStatement}
+            </div>
+
+            <div class="tech-pills-row font-mono">
+              <span>Java 23</span>
+              <span>Spring Boot 3</span>
+              <span>LangChain4j</span>
+              <span>pgvector</span>
+              <span>Ollama</span>
+              <span>Docker</span>
+            </div>
+
+            <div class="project-actions font-mono">
+              <a href="/work/buddy-ai" class="btn btn-primary btn-sm">
+                <span>Architecture Study →</span>
+              </a>
+              <a href="https://github.com/MrShahzaib005/buddy-ai" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span>GitHub ↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center" style="margin-top: 3rem;">
+        <a href="/work" class="btn btn-secondary font-mono">
+          <span>Explore All 12 Audited Projects Index →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= 05 / INTERACTIVE SKILLS SECTION ================= */}
+  <section class="skills-interactive-section section-spacing" id="skills" aria-label="Skills & Tooling">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 3rem;">
+        <span class="chapter-num font-mono">Skill Sets</span>
+        <h2>Engineering Stack & Tooling</h2>
+        <p class="narrative-lead" style="max-width: 650px; margin: 0.5rem auto 0;">
+          Filterable matrix with proficiency levels and real-world project verification.
         </p>
       </div>
 
@@ -157,404 +380,551 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     </div>
   </section>
 
-  {/* ================= 06 / FLAGSHIP DEEP DIVE: DODO BOT (DARK DEMO) ================= */}
-  <section class="section-spacing dark-flagship-section" aria-label="Dodo Bot Teleoperation Deep Dive">
+  {/* ================= 06 / RECRUITER 30-SEC BRIEF ================= */}
+  <section class="section-spacing" id="recruiter-brief">
+    <RecruiterDossier />
+  </section>
+
+  {/* ================= 07 / CONTACT SECTION (FIGMA STYLE) ================= */}
+  <section class="contact-figma-section section-spacing" id="contact" aria-label="Contact Muhammad Shahzaib">
     <div class="container">
-      <div class="dark-demonstration-section" style="border-radius: 12px; padding: clamp(2rem, 5vw, 3.5rem); box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
-        <div class="asym-grid asym-grid-57">
-          <div>
-            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
-              <span class="mono-tag" style="background-color: rgba(255, 85, 0, 0.15); border-color: var(--accent-orange); color: var(--accent-orange);">
-                Physical Teleoperation & ROS
-              </span>
-              <span class="mono-tag" style="background-color: #282C37; color: #9EABB8;">
-                Tier 1 Flagship
-              </span>
+      <div class="contact-grid">
+        {/* Left: Direct info */}
+        <div class="contact-info-col">
+          <span class="chapter-num font-mono">Contact</span>
+          <h2 class="contact-title">Drop me a message</h2>
+          <p class="contact-lead">
+            I'm currently available for full-time roles, contract opportunities, and robotics collaborations. Let's build something exceptional together.
+          </p>
+
+          <div class="contact-details-list font-mono">
+            <div class="c-detail-item">
+              <span class="c-label">Direct Email</span>
+              <a href="mailto:mirzashahzaibsami123456789@gmail.com" class="c-val-link">
+                mirzashahzaibsami123456789@gmail.com
+              </a>
             </div>
-            <h3 style="font-size: 1.85rem; line-height: 1.25; margin-bottom: 1rem; color: #ffffff;">
-              Dodo Bot: Mobile Teleoperation & ROS Bridge
+
+            <div class="c-detail-item">
+              <span class="c-label">Location</span>
+              <span class="c-val">Islamabad, PK (Global Remote Ready)</span>
+            </div>
+
+            <div class="c-detail-item">
+              <span class="c-label">Availability</span>
+              <span class="c-val" style="color: #10B981;">● Immediate (0 Notice Period)</span>
+            </div>
+          </div>
+
+          <div class="contact-social-pills font-mono">
+            <a href="https://www.linkedin.com/in/mr-shahzaib" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>LinkedIn Profile ↗</span>
+            </a>
+            <a href="https://github.com/MrShahzaib005" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>GitHub Repositories ↗</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Right: Glassmorphic Message Box */}
+        <div class="contact-form-col">
+          <form 
+            action="mailto:mirzashahzaibsami123456789@gmail.com" 
+            method="GET" 
+            class="glassmorphism-form surface-card"
+          >
+            <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem; color: #FFFFFF;">
+              Send an inquiry
             </h3>
-            <p style="margin-bottom: 1rem; color: #9eabb8;">
-              <strong style="color: #ffffff;">The Challenge:</strong> Field operators testing differential drive robots usually need heavy Linux laptops running RViz on noisy network environments.
-            </p>
-            <p style="margin-bottom: 1rem; color: #9eabb8;">
-              <strong style="color: #ffffff;">My Contribution:</strong> Built the Flutter mobile control application with dual-axis touch joystick, throttled 20Hz velocity publishing, WebSocket telemetry listener, and heartbeat watchdog brake failsafe.
-            </p>
-            <div class="dark-card font-mono" style="margin-bottom: 1.5rem; font-size: 0.75rem; background: #14171f; border-color: #282c37;">
-              <strong style="color: var(--accent-orange); display: block; margin-bottom: 0.25rem;">Exact Ownership Statement:</strong>
-              {dodoProject.ownershipStatement}
+
+            <div class="form-group">
+              <label for="name" class="font-mono form-label">Your Name</label>
+              <input type="text" id="name" name="subject" placeholder="Recruiter / Founder Name" required />
             </div>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              <a href="/work/dodo-bot" class="btn btn-accent font-mono" style="font-size: 0.8125rem;">
-                <span>Read Full Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="https://github.com/MrShahzaib005/Dodo_Bot" target="_blank" rel="noopener noreferrer" class="btn btn-secondary font-mono" style="font-size: 0.8125rem; background: #171a21; color: #ffffff; border-color: #282c37;">
-                <span>GitHub Source ↗</span>
-              </a>
+
+            <div class="form-group">
+              <label for="email" class="font-mono form-label">Your Email</label>
+              <input type="email" id="email" placeholder="name@company.com" required />
             </div>
-          </div>
 
-          <div>
-            <InteractiveDiagram client:visible />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 07 / ORIGIN & ARCHITECTURAL FOUNDATION ================= */}
-  <section class="section-spacing origin-section" aria-label="Origin Chapter">
-    <div class="container container-narrow">
-      <span class="chapter-num">07 / Engineering Foundation</span>
-      <h2>Designing for Concurrency & Decoupled Systems</h2>
-      
-      <p class="narrative-lead" style="margin-top: 1rem;">
-        During university, building an academic portal in Java Spring Boot & MySQL (<code>e-portal</code>) taught me early that synchronous request-response cycles are fundamentally fragile under load.
-      </p>
-
-      <div class="story-callout surface-card glow-card" style="margin: 2rem 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-          <span class="callout-tag font-mono">Formative Takeaway · 3rd Semester Project</span>
-          <span class="font-mono" style="font-size: 0.6875rem; color: #10B981;">Architectural Principle</span>
-        </div>
-        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">From Synchronous Locks to Event-Driven Decoupling</h3>
-        <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--text-muted);">
-          When concurrent enrollment requests attempted to decrement course capacity inside synchronous HTTP cycles, relational row locks exhausted the server thread pool. Redesigning the transactions with optimistic versioning and asynchronous task queues sparked my passion for non-blocking, event-driven architectures—the exact foundation required for real-time robotics telemetry.
-        </p>
-        
-        <details class="tech-details-accordion font-mono" style="margin-top: 1rem;">
-          <summary class="details-summary">
-            <span>Inspect Technical Concurrency Notes (Expand)</span>
-            <span class="summary-arrow">▾</span>
-          </summary>
-          <div class="details-content">
-            <p>
-              In traditional web systems, polling every 2 seconds is tolerated. In cyber-physical robotics, polling fails catastrophically. The same lessons from Tomcat thread starvation apply to ROS 2: <code>rosbridge_suite</code> WebSockets stream 20Hz velocity vectors and 50Hz wheel odometry with under 45ms latency without blocking compute cycles.
-            </p>
-            <div style="margin-top: 0.75rem;">
-              <a href="/work/e-portal" class="link-inline font-mono" style="font-size: 0.8125rem;">
-                Read the e-portal origin case study →
-              </a>
+            <div class="form-group">
+              <label for="message" class="font-mono form-label">Message</label>
+              <textarea id="message" name="body" rows="4" placeholder="Tell me about the engineering role, platform, or project scope..." required></textarea>
             </div>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
 
-  {/* ================= 08 / EXPERIENCE & LEADERSHIP TIMELINE ================= */}
-  <ExperienceTimeline />
-
-  {/* ================= 09 / WORKING METHOD ================= */}
-  <section class="section-spacing method-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
-    <div class="container">
-      <span class="chapter-num">09 / Engineering Method</span>
-      <h2>Systematic Decision-Making Under Constraints</h2>
-      <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem; margin-bottom: 2.5rem;">
-        Rigorous engineering is not about adopting the newest framework; it is a systematic cycle of identifying physical constraints, reasoned trade-offs, stress testing, and empirical revision.
-      </p>
-
-      <div class="method-steps-grid">
-        <div class="method-step-card font-mono tilt-card-3d">
-          <span class="step-num">Step 01</span>
-          <h4>Constraint</h4>
-          <p>Isolate physical and network boundaries. Example: 2.4GHz WiFi drops packets; embedded Jetson has limited memory ceilings.</p>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+              <span>Send Message</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
         </div>
-
-        <div class="method-step-card font-mono tilt-card-3d">
-          <span class="step-num">Step 02</span>
-          <h4>Decision</h4>
-          <p>Choose the simplest architecture that respects physical realities. Example: Throttle touch events to 20Hz; enforce ThreadLocal tenant security.</p>
-        </div>
-
-        <div class="method-step-card font-mono tilt-card-3d">
-          <span class="step-num">Step 03</span>
-          <h4>Test</h4>
-          <p>Stress test under degraded conditions. Example: Inject 10% packet drop; run 1,000 synthetic vector queries in Docker.</p>
-        </div>
-
-        <div class="method-step-card font-mono tilt-card-3d">
-          <span class="step-num">Step 04</span>
-          <h4>Revision</h4>
-          <p>Measure observable behavior, remove unverified claims, and harden failsafes before production deployment.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 10 / INVITATION & HIRE ================= */}
-  <section class="section-spacing invitation-section" style="background-color: var(--bg-subtle); border-top: 1px solid var(--border-light);">
-    <div class="container container-narrow" style="text-align: center;">
-      <span class="chapter-num">10 / Get in Touch</span>
-      <h2>Let's Start a Conversation</h2>
-      <p class="narrative-lead" style="margin: 0.75rem auto 2rem; max-width: 580px;">
-        Whether you are a technical recruiter seeking a Full-Stack or Robotics Software Engineer, a founder scoping a platform, or an engineering team building autonomous systems.
-      </p>
-
-      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a 
-          href="mailto:mirzashahzaibsami123456789@gmail.com?subject=Engineering%20Role%20Inquiry%20-%20Muhammad%20Shahzaib" 
-          class="btn btn-primary"
-        >
-          <span>Email Shahzaib Directly</span>
-          <span aria-hidden="true">→</span>
-        </a>
-        <a href="/contact?intent=recruiter" class="btn btn-secondary">
-          <span>Recruiter Intake Channel</span>
-        </a>
-        <a href="/about#resume" class="btn btn-secondary font-mono">
-          <span>Download Résumé PDF</span>
-        </a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .hero-section {
+  /* Hero Section */
+  .figma-hero-section {
     position: relative;
-    padding-top: clamp(2rem, 3.5vw, 3.5rem);
-    padding-bottom: clamp(3rem, 6vw, 6rem);
+    padding-top: clamp(3rem, 6vw, 5.5rem);
+    padding-bottom: clamp(4rem, 8vw, 7rem);
     overflow: hidden;
   }
 
-  .hero-asym-grid {
+  .hero-glow-purple {
+    top: -150px;
+    right: 5%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 65%);
+  }
+
+  .hero-glow-cyan {
+    bottom: -100px;
+    left: 5%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 65%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 6.5fr 5.5fr;
+      gap: 4rem;
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #D8B4FE;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    font-weight: 800;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 580px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-socials {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .social-icon-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .social-icon-link:hover {
+    color: var(--accent-magenta);
+  }
+
+  /* Avatar Frame */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avatar-glow-ring {
+    position: relative;
+    padding: 8px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(217, 70, 239, 0.7) 0%, rgba(139, 92, 246, 0.5) 50%, rgba(6, 182, 212, 0.7) 100%);
+    box-shadow: 0 10px 50px rgba(168, 85, 247, 0.35);
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .avatar-inner-frame {
+    position: relative;
+    background: #0B0813;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .avatar-image {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .avatar-inner-frame:hover .avatar-image {
+    transform: scale(1.03);
+  }
+
+  .avatar-status-tag {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    background: rgba(11, 8, 19, 0.88);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    justify-content: center;
+  }
+
+  .status-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+  }
+
+  /* About Summary Section */
+  .about-summary-section {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(20, 14, 38, 0.4);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+    margin: 0.5rem 0 1.25rem;
+    color: #FFFFFF;
+  }
+
+  .about-lead {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: #FFFFFF;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .about-subtext {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .stats-counter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 680px) {
+    .stats-counter-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stat-card {
+    background: rgba(20, 14, 38, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* 3D Centerpiece */
+  .center-3d-section {
+    padding: clamp(3.5rem, 6vw, 5rem) 0;
+  }
+
+  .robot-3d-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Zig-Zag Projects */
+  .projects-zigzag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+  }
+
+  .project-zigzag-item {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
     align-items: center;
   }
 
-  @media (min-width: 960px) {
-    .hero-asym-grid {
-      grid-template-columns: 6.2fr 5.8fr;
+  @media (min-width: 880px) {
+    .project-zigzag-item {
+      grid-template-columns: 1fr 1fr;
       gap: 3.5rem;
     }
-  }
 
-  .hero-role-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--accent-orange);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-    background: rgba(255, 85, 0, 0.06);
-    border: 1px solid rgba(255, 85, 0, 0.2);
-    padding: 0.35rem 0.75rem;
-    border-radius: 20px;
-  }
+    .project-zigzag-item.reverse .project-info {
+      order: 2;
+    }
 
-  .pulse-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--accent-orange);
-    box-shadow: 0 0 8px var(--accent-orange-glow);
-  }
-
-  .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: var(--text-main);
-  }
-
-  .hero-tagline {
-    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-subtext {
-    font-size: 1rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin-bottom: 1.75rem;
-    max-width: 580px;
-  }
-
-  .hero-pillars-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.65rem;
-    margin-bottom: 1.75rem;
-  }
-
-  @media (min-width: 540px) {
-    .hero-pillars-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .project-zigzag-item.reverse .project-preview-wrap {
+      order: 1;
     }
   }
 
-  .pillar-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.65rem 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-  }
-
-  .pillar-icon {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .pillar-card strong {
+  .project-tag {
+    font-size: 0.6875rem;
+    color: var(--accent-magenta);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .project-heading {
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    color: #FFFFFF;
+    margin-bottom: 0.85rem;
+    line-height: 1.25;
+  }
+
+  .project-desc {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .ownership-chip {
+    background: rgba(20, 14, 38, 0.8);
+    border-left: 3px solid var(--accent-purple);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 6px 6px 0;
     font-size: 0.75rem;
-    color: var(--text-main);
-    line-height: 1.2;
+    color: #D8B4FE;
+    margin-bottom: 1.25rem;
+    line-height: 1.45;
   }
 
-  .pillar-card span {
-    font-size: 0.625rem;
-    color: var(--text-faint);
-    line-height: 1.2;
-  }
-
-  .hero-cta-group {
+  .tech-pills-row {
     display: flex;
-    align-items: center;
-    gap: 0.85rem;
     flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-pills-row span {
+    font-size: 0.6875rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #E2E8F0;
+  }
+
+  .project-actions {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .project-preview-wrap {
+    background: #140E26;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .preview-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .project-preview-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 340px;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+  }
+
+  .project-preview-wrap:hover .project-preview-img {
+    transform: scale(1.03);
+  }
+
+  /* Skills Interactive */
+  .skills-interactive-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(20, 14, 38, 0.3);
+  }
+
+  /* Contact Section */
+  .contact-figma-section {
+    position: relative;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 4rem;
+    }
+  }
+
+  .contact-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    color: #FFFFFF;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .contact-lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
     margin-bottom: 2rem;
   }
 
-  .recruiter-fast-btn {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--accent-orange);
-    border-bottom: 1px solid var(--accent-orange);
-    padding-bottom: 0.15rem;
-    cursor: pointer;
-    transition: color 0.15s ease;
-  }
-
-  .recruiter-fast-btn:hover {
-    color: var(--accent-orange-hover);
-  }
-
-  .hero-meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    font-size: 0.75rem;
-    color: var(--text-faint);
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-light);
-  }
-
-  .meta-item {
-    display: flex;
-    gap: 0.4rem;
-  }
-
-  .meta-label {
-    text-transform: uppercase;
-  }
-
-  .meta-value {
-    color: var(--text-main);
-    font-weight: 500;
-  }
-
-  .section-header-box {
-    margin-bottom: 2.5rem;
-  }
-
-  .ui-renders-section {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .skills-section {
-    background-color: var(--bg-primary);
-  }
-
-  .dark-flagship-section {
-    padding-top: clamp(2rem, 4vw, 3.5rem);
-    padding-bottom: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .method-steps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .method-step-card {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 1.5rem;
+  .contact-details-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
   }
 
-  .step-num {
-    font-size: 0.75rem;
-    color: var(--accent-orange);
-    font-weight: 600;
-  }
-
-  .method-step-card h4 {
-    font-size: 1.15rem;
-    font-family: var(--font-sans);
-  }
-
-  .method-step-card p {
-    font-size: 0.8125rem;
-    line-height: 1.6;
-  }
-
-  .callout-tag {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--accent-orange);
-    text-transform: uppercase;
-    display: block;
-  }
-
-  .tech-details-accordion {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-  }
-
-  .details-summary {
-    cursor: pointer;
+  .c-detail-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.75rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .c-label {
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+  }
+
+  .c-val-link {
+    color: #FFFFFF;
     font-weight: 600;
-    color: var(--text-main);
+    font-size: 0.9375rem;
   }
 
-  .details-summary:hover {
-    color: var(--accent-orange);
+  .c-val-link:hover {
+    color: var(--accent-magenta);
   }
 
-  .summary-arrow {
-    color: var(--accent-orange);
+  .c-val {
+    color: #FFFFFF;
+    font-size: 0.9375rem;
   }
 
-  .details-content {
-    margin-top: 0.75rem;
-    font-size: 0.8125rem;
-    line-height: 1.6;
+  .contact-social-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .glassmorphism-form {
+    background: rgba(20, 14, 38, 0.85);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    border-top: 1px dashed var(--border-light);
-    padding-top: 0.75rem;
+    margin-bottom: 0.4rem;
   }
 </style>

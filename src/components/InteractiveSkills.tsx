@@ -217,34 +217,34 @@ export default function InteractiveSkills() {
           display: flex;
           flex-wrap: wrap;
           gap: 0.4rem;
-          background: var(--bg-surface, #ffffff);
-          border: 1px solid var(--border-light, #e4e1d8);
+          background: rgba(20, 14, 38, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           padding: 0.3rem;
-          border-radius: 6px;
+          border-radius: 9999px;
         }
 
         .cat-pill {
           background: transparent;
           border: none;
-          padding: 0.45rem 0.8rem;
+          padding: 0.45rem 0.9rem;
           font-family: inherit;
           font-size: 0.75rem;
-          color: var(--text-muted, #52555a);
-          border-radius: 4px;
+          color: var(--text-muted);
+          border-radius: 9999px;
           cursor: pointer;
           transition: all 0.15s ease;
           font-weight: 500;
         }
 
         .cat-pill:hover {
-          color: var(--text-main, #18191b);
+          color: #FFFFFF;
         }
 
         .cat-pill.active {
-          background: var(--accent-orange, #ff5500);
+          background: var(--accent-gradient);
           color: #ffffff;
           font-weight: 600;
-          box-shadow: 0 2px 6px rgba(255, 85, 0, 0.25);
+          box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
         }
 
         .skills-search-box {
@@ -256,28 +256,28 @@ export default function InteractiveSkills() {
 
         .search-input {
           width: 100%;
-          padding: 0.5rem 2rem 0.5rem 0.75rem;
-          background: var(--bg-surface, #ffffff);
-          border: 1px solid var(--border-light, #e4e1d8);
-          border-radius: 6px;
+          padding: 0.55rem 2rem 0.55rem 0.85rem;
+          background: rgba(20, 14, 38, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 9999px;
           font-size: 0.75rem;
-          color: var(--text-main, #18191b);
+          color: #FFFFFF;
           outline: none;
           transition: border-color 0.15s ease;
         }
 
         .search-input:focus {
-          border-color: var(--accent-orange, #ff5500);
+          border-color: var(--accent-purple);
         }
 
         .clear-search {
           position: absolute;
-          right: 0.6rem;
+          right: 0.8rem;
           top: 50%;
           transform: translateY(-50%);
           background: none;
           border: none;
-          color: var(--text-faint, #7e8289);
+          color: var(--text-faint);
           cursor: pointer;
           font-size: 0.75rem;
         }
@@ -289,28 +289,28 @@ export default function InteractiveSkills() {
         }
 
         .skill-card {
-          background: var(--bg-surface, #ffffff);
-          border: 1px solid var(--border-light, #e4e1d8);
-          border-radius: 8px;
+          background: rgba(20, 14, 38, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
           padding: 1.25rem;
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
           cursor: pointer;
           transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
           position: relative;
         }
 
         .skill-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--accent-orange, #ff5500);
-          box-shadow: 0 8px 24px rgba(255, 85, 0, 0.08);
+          transform: translateY(-4px);
+          border-color: var(--accent-purple);
+          box-shadow: 0 12px 32px rgba(168, 85, 247, 0.2);
         }
 
         .skill-card.is-selected {
-          border-color: var(--accent-orange, #ff5500);
-          box-shadow: 0 0 0 2px var(--accent-orange, #ff5500);
+          border-color: var(--accent-magenta);
+          box-shadow: 0 0 0 2px var(--accent-magenta);
         }
 
         .skill-card-top {
@@ -325,11 +325,11 @@ export default function InteractiveSkills() {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 36px;
-          height: 36px;
-          background: var(--bg-primary, #f8f7f4);
-          border-radius: 6px;
-          border: 1px solid var(--border-faint, #eceae3);
+          width: 38px;
+          height: 38px;
+          background: rgba(11, 8, 19, 0.9);
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
           flex-shrink: 0;
         }
 
@@ -341,7 +341,7 @@ export default function InteractiveSkills() {
 
         .skill-badge {
           font-size: 0.625rem;
-          color: var(--accent-orange, #ff5500);
+          color: #D8B4FE;
           text-transform: uppercase;
           font-weight: 600;
           letter-spacing: 0.04em;
@@ -350,7 +350,7 @@ export default function InteractiveSkills() {
         .skill-name {
           font-size: 0.9375rem;
           font-weight: 600;
-          color: var(--text-main, #18191b);
+          color: #FFFFFF;
           line-height: 1.25;
         }
 
@@ -364,32 +364,32 @@ export default function InteractiveSkills() {
           display: flex;
           justify-content: space-between;
           font-size: 0.625rem;
-          color: var(--text-faint, #7e8289);
+          color: var(--text-faint);
         }
 
         .meter-val {
-          color: var(--text-main, #18191b);
+          color: #FFFFFF;
           font-weight: 600;
         }
 
         .meter-bar {
           width: 100%;
           height: 5px;
-          background: var(--bg-subtle, #f1efeb);
+          background: rgba(255, 255, 255, 0.08);
           border-radius: 3px;
           overflow: hidden;
         }
 
         .meter-fill {
           height: 100%;
-          background: linear-gradient(90deg, #ff5500 0%, #ff8844 100%);
+          background: var(--accent-gradient);
           border-radius: 3px;
           transition: width 0.6s ease-out;
         }
 
         .skill-highlight {
           font-size: 0.6875rem;
-          color: var(--text-muted, #52555a);
+          color: var(--text-muted);
           line-height: 1.45;
           margin: 0;
         }
@@ -399,20 +399,20 @@ export default function InteractiveSkills() {
           display: flex;
           gap: 0.35rem;
           font-size: 0.625rem;
-          background: var(--bg-primary, #f8f7f4);
-          border: 1px solid var(--border-faint, #eceae3);
+          background: rgba(11, 8, 19, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.06);
           padding: 0.35rem 0.5rem;
-          border-radius: 4px;
+          border-radius: 6px;
           align-items: center;
         }
 
         .proof-label {
-          color: var(--text-faint, #7e8289);
+          color: var(--text-faint);
           text-transform: uppercase;
         }
 
         .proof-project {
-          color: var(--accent-orange, #ff5500);
+          color: var(--accent-magenta);
           font-weight: 600;
           white-space: nowrap;
           overflow: hidden;
