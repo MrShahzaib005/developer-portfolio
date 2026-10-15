@@ -186,7 +186,20 @@ export default function FilterableWork({ projects }: Props) {
       ) : (
         <div className="projects-grid">
           {filteredProjects.map((project) => (
-            <article key={project.slug} className={`project-card tier-${project.tier}`}>
+            <article key={project.slug} className={`project-card tier-${project.tier} tilt-card-3d glow-card`}>
+              {project.thumbnail && (
+                <div className="work-card-thumb-wrap">
+                  <a href={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true">
+                    <img
+                      src={project.thumbnail}
+                      alt={`${project.title} preview`}
+                      className="work-card-img"
+                      loading="lazy"
+                    />
+                  </a>
+                </div>
+              )}
+
               <div className="card-header">
                 <div className="card-badge-row">
                   <span className={`mono-tag ${project.domain === 'Robotics' ? 'active' : ''}`}>
@@ -219,6 +232,12 @@ export default function FilterableWork({ projects }: Props) {
               </div>
 
               <div className="card-body">
+                {/* 1-sentence ownership for HR & Recruiters */}
+                <div className="ownership-quick-box font-mono">
+                  <strong className="ownership-badge">Scope:</strong>
+                  <span>{project.ownershipStatement}</span>
+                </div>
+
                 {/* Observable behavior */}
                 <div className="behavior-box font-mono">
                   <span className="box-label">Observable Behavior:</span>
@@ -455,22 +474,59 @@ export default function FilterableWork({ projects }: Props) {
         .project-card {
           background-color: var(--bg-surface);
           border: 1px solid var(--border-light);
-          border-radius: 6px;
+          border-radius: 8px;
           padding: 1.5rem;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           gap: 1.25rem;
           transition: all var(--transition-fast);
+          overflow: hidden;
         }
 
         .project-card:hover {
-          border-color: var(--border-strong);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+          border-color: var(--accent-orange);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
         }
 
         .project-card.tier-1 {
-          border-left: 3px solid var(--accent-orange);
+          border-left: 4px solid var(--accent-orange);
+        }
+
+        .work-card-thumb-wrap {
+          margin: -1.5rem -1.5rem 1rem -1.5rem;
+          height: 180px;
+          overflow: hidden;
+          background: #11141c;
+          border-bottom: 1px solid var(--border-light);
+        }
+
+        .work-card-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top center;
+          transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .work-card-img {
+          transform: scale(1.04);
+        }
+
+        .ownership-quick-box {
+          background-color: var(--bg-primary);
+          border: 1px solid var(--border-faint);
+          padding: 0.5rem 0.65rem;
+          border-radius: 4px;
+          font-size: 0.6875rem;
+          line-height: 1.45;
+          margin-bottom: 0.75rem;
+        }
+
+        .ownership-badge {
+          color: var(--accent-orange);
+          margin-right: 0.35rem;
+          text-transform: uppercase;
         }
 
         .card-badge-row {

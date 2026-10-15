@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import Robot3DScene from './Robot3DScene';
 import ScrollyPathCanvas from './ScrollyPathCanvas';
 
 export default function HeroShowcase() {
-  const [activeTab, setActiveTab] = useState<'profile' | 'canvas'>('profile');
+  const [activeTab, setActiveTab] = useState<'3d-robot' | 'profile' | 'canvas'>('3d-robot');
 
   return (
     <div className="hero-showcase-island">
@@ -11,12 +12,23 @@ export default function HeroShowcase() {
         <button
           type="button"
           role="tab"
+          aria-selected={activeTab === '3d-robot'}
+          className={`showcase-tab ${activeTab === '3d-robot' ? 'active' : ''}`}
+          onClick={() => setActiveTab('3d-robot')}
+        >
+          <span className="tab-indicator 3d-indicator" aria-hidden="true" />
+          <span>🤖 3D Interactive Robot</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
           aria-selected={activeTab === 'profile'}
           className={`showcase-tab ${activeTab === 'profile' ? 'active' : ''}`}
           onClick={() => setActiveTab('profile')}
         >
           <span className="tab-indicator" aria-hidden="true" />
-          <span>Profile Showcase</span>
+          <span>👤 HR Snapshot</span>
         </button>
 
         <button
@@ -27,13 +39,20 @@ export default function HeroShowcase() {
           onClick={() => setActiveTab('canvas')}
         >
           <span className="tab-indicator" aria-hidden="true" />
-          <span>Theme Canvas: Logic → Motion</span>
+          <span>⚡ Logic → Motion</span>
         </button>
       </div>
 
-      {/* Tab 1: Profile & Credentials Card */}
-      {activeTab === 'profile' ? (
-        <div className="profile-showcase-card surface-card">
+      {/* Tab 1: 3D Interactive Robot Scene (WebGL / Three.js) */}
+      {activeTab === '3d-robot' && (
+        <div className="showcase-tab-content animate-fade-in">
+          <Robot3DScene />
+        </div>
+      )}
+
+      {/* Tab 2: Profile & Credentials Card */}
+      {activeTab === 'profile' && (
+        <div className="profile-showcase-card surface-card animate-fade-in">
           <div className="profile-card-top">
             <div className="portrait-container">
               <img
@@ -49,7 +68,7 @@ export default function HeroShowcase() {
               <div className="role-chip font-mono">Built the Arbotrix website</div>
               <h3 className="showcase-name">Muhammad Shahzaib</h3>
               <p className="showcase-role-desc">
-                Lead Full-Stack Web & Robotics Software Engineer
+                Full-Stack Web & Robotics Software Engineer
               </p>
               <div className="location-pill font-mono">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -63,34 +82,36 @@ export default function HeroShowcase() {
 
           <div className="competency-matrix font-mono">
             <div className="comp-row">
+              <span className="comp-label">Flagship Web:</span>
+              <span className="comp-val">Arbotrix Production Platform (Next.js 16 + React 19)</span>
+            </div>
+            <div className="comp-row">
               <span className="comp-label">Robotics Middleware:</span>
               <span className="comp-val">ROS 2 Humble · Jetson Orin Nano · Nav2 · WebSockets</span>
             </div>
             <div className="comp-row">
-              <span className="comp-label">Full-Stack Web:</span>
-              <span className="comp-val">Next.js 16 · React 19 · Prisma · Supabase · Spring Boot</span>
-            </div>
-            <div className="comp-row">
-              <span className="comp-label">Applied AI:</span>
-              <span className="comp-val">LangChain4j · pgvector · ML Coverage Heuristics</span>
+              <span className="comp-label">Backend & AI:</span>
+              <span className="comp-val">Spring Boot 3.x · PostgreSQL · LangChain4j · pgvector</span>
             </div>
           </div>
 
           <div className="showcase-footer font-mono">
             <div className="availability-tag">
               <span className="avail-dot" />
-              <span>Available for Full-Time Roles & High-Impact Contracts</span>
+              <span>Immediate Availability for Global Engineering Roles</span>
             </div>
             <div className="quick-links">
-              <a href="/work" className="link-inline">
-                View Flagships →
+              <a href="/about#resume" className="link-inline">
+                View Résumé PDF →
               </a>
             </div>
           </div>
         </div>
-      ) : (
-        /* Tab 2: Logic to Motion Canvas */
-        <div className="canvas-wrapper-container">
+      )}
+
+      {/* Tab 3: Logic to Motion Canvas */}
+      {activeTab === 'canvas' && (
+        <div className="canvas-wrapper-container animate-fade-in">
           <ScrollyPathCanvas />
         </div>
       )}
@@ -106,11 +127,12 @@ export default function HeroShowcase() {
 
         .showcase-tabs {
           display: flex;
-          gap: 0.5rem;
-          background-color: var(--bg-subtle);
-          padding: 0.25rem;
-          border-radius: 6px;
-          border: 1px solid var(--border-light);
+          gap: 0.4rem;
+          background-color: var(--bg-surface, #ffffff);
+          padding: 0.3rem;
+          border-radius: 8px;
+          border: 1px solid var(--border-light, #e4e1d8);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
         .showcase-tab {
@@ -119,31 +141,32 @@ export default function HeroShowcase() {
           align-items: center;
           justify-content: center;
           gap: 0.45rem;
-          padding: 0.5rem 0.75rem;
+          padding: 0.5rem 0.65rem;
           font-family: inherit;
           font-size: 0.75rem;
           font-weight: 500;
-          color: var(--text-muted);
+          color: var(--text-muted, #52555a);
           background: transparent;
           border: none;
-          border-radius: 4px;
+          border-radius: 6px;
           cursor: pointer;
           transition: all 0.15s ease;
+          white-space: nowrap;
         }
 
         .showcase-tab:hover {
-          color: var(--text-main);
+          color: var(--text-main, #18191b);
         }
 
         .showcase-tab.active {
-          background-color: var(--bg-surface);
-          color: var(--text-main);
+          background-color: var(--accent-orange, #ff5500);
+          color: #ffffff;
           font-weight: 600;
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
         }
 
         .showcase-tab.active .tab-indicator {
-          background-color: var(--accent-orange);
+          background-color: #ffffff;
         }
 
         .tab-indicator {
@@ -161,8 +184,8 @@ export default function HeroShowcase() {
           gap: 1.25rem;
           background-color: var(--bg-surface);
           border: 1px solid var(--border-light);
-          border-radius: 8px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+          border-radius: 12px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
         }
 
         .profile-card-top {
@@ -173,13 +196,13 @@ export default function HeroShowcase() {
 
         .portrait-container {
           position: relative;
-          width: 100px;
-          height: 100px;
+          width: 95px;
+          height: 95px;
           flex-shrink: 0;
-          border-radius: 8px;
+          border-radius: 10px;
           overflow: hidden;
           border: 2px solid var(--border-light);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
 
         .showcase-portrait {
@@ -199,7 +222,7 @@ export default function HeroShowcase() {
           border-radius: 50%;
           background-color: #10B981;
           border: 2px solid #FFFFFF;
-          box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+          box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
         }
 
         .portrait-meta {
@@ -265,7 +288,7 @@ export default function HeroShowcase() {
         .comp-label {
           color: var(--text-faint);
           font-weight: 600;
-          min-width: 130px;
+          min-width: 140px;
         }
 
         .comp-val {
@@ -300,6 +323,21 @@ export default function HeroShowcase() {
 
         .canvas-wrapper-container {
           width: 100%;
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </div>

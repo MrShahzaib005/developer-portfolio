@@ -19,7 +19,7 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
 
     <div class="proof-cards-grid">
       {featuredProjects.map((project) => (
-        <article class="proof-card">
+        <article class="proof-card tilt-card-3d glow-card">
           {/* Visual Project Thumbnail */}
           <div class={`card-image-container ${project.slug === 'arbotrix-web' ? 'card-image-container-arbotrix' : ''}`}>
             <a href={`/work/${project.slug}`} class="image-link" tabindex="-1" aria-hidden="true">
@@ -44,9 +44,11 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
 
           <div class="card-top">
             <div class="card-header-row">
-              <span class="tier-indicator font-mono">Tier 1 Flagship</span>
-              {project.demoUrl && (
+              <span class="tier-indicator font-mono">Flagship Tier 1</span>
+              {project.demoUrl ? (
                 <span class="live-badge font-mono">● Production Live</span>
+              ) : (
+                <span class="ownership-chip font-mono">Audited System</span>
               )}
             </div>
 
@@ -59,6 +61,11 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
             <p class="card-desc">
               {project.subtitle}
             </p>
+
+            <div class="card-ownership-note font-mono">
+              <span class="ownership-label">Scope:</span>
+              <span class="ownership-text">{project.ownershipStatement}</span>
+            </div>
           </div>
 
           <div class="card-bottom">
@@ -198,9 +205,35 @@ const featuredProjects = PROJECTS.filter(p => p.featuredInProofStrip);
   }
 
   .proof-card:hover {
-    border-color: var(--border-strong);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    transform: translateY(-3px);
+    border-color: var(--accent-orange);
+    box-shadow: 0 12px 32px rgba(255, 85, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .ownership-chip {
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+  }
+
+  .card-ownership-note {
+    margin-top: 0.85rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-faint);
+    padding: 0.5rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.6875rem;
+    line-height: 1.45;
+  }
+
+  .ownership-label {
+    color: var(--accent-orange);
+    font-weight: 600;
+    margin-right: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .ownership-text {
+    color: var(--text-muted);
   }
 
   /* Card Image Container */

@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import ProofStrip from '../components/ProofStrip.astro';
 import RecruiterDossier from '../components/RecruiterDossier.astro';
-import TechStackSection from '../components/TechStackSection.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import HeroShowcase from '../components/HeroShowcase';
 import Typewriter from '../components/Typewriter';
 import InteractiveDiagram from '../components/InteractiveDiagram';
+import UiRenderShowcase from '../components/UiRenderShowcase';
+import InteractiveSkills from '../components/InteractiveSkills';
 import { PROJECTS } from '../data/projects';
 
 const dodoProject = PROJECTS.find(p => p.slug === 'dodo-bot')!;
@@ -20,6 +21,7 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
 >
   {/* ================= 01 / THE HERO ================= */}
   <section class="hero-section section-spacing" aria-label="Hero Introduction">
+    <div class="ambient-glow-orb" style="top: -100px; right: 10%;"></div>
     <div class="container">
       <div class="hero-asym-grid">
         <div class="hero-narrative">
@@ -27,11 +29,11 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
             <span class="pulse-indicator" aria-hidden="true"></span>
             <Typewriter
               words={[
-                "Robotics Software Engineer",
-                "Built the Arbotrix website",
-                "Lead Full-Stack Web Engineer",
-                "Embedded AI & Edge Systems Developer",
-                "Agentic AI Architect"
+                "Full-Stack Web & Robotics Engineer",
+                "Built the Arbotrix company website",
+                "ROS 2 & Jetson Systems Developer",
+                "Next.js 16 & React 19 Architect",
+                "Agentic AI & Backend Engineer"
               ]}
               client:load
             />
@@ -42,29 +44,54 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
           </h1>
 
           <p class="hero-tagline narrative-lead">
-            I build software for robots, and the resilient apps and web systems around them.
+            I engineer high-performance web platforms and software for autonomous robots.
           </p>
 
           <p class="hero-subtext">
-            I built the website for Arbotrix, a robotics company. I also build software for robots and responsive web applications, from ROS 2 systems on Jetson hardware to full-stack applications.
+            I built the official production website for Arbotrix, a robotics company. My work bridges low-level ROS 2 middleware on embedded NVIDIA Jetson Linux hardware with responsive, modern Next.js and Flutter interfaces.
           </p>
 
+          {/* 3 Quick Proof Highlights for HR & Visitors */}
+          <div class="hero-pillars-grid font-mono">
+            <div class="pillar-card">
+              <span class="pillar-icon">🌐</span>
+              <div>
+                <strong>Arbotrix Web Lead</strong>
+                <span>Next.js 16 · React 19 · 45+ Trainees</span>
+              </div>
+            </div>
+            <div class="pillar-card">
+              <span class="pillar-icon">🤖</span>
+              <div>
+                <strong>Robotics Teleop</strong>
+                <span>Flutter · ROS 2 · &lt;45ms Latency</span>
+              </div>
+            </div>
+            <div class="pillar-card">
+              <span class="pillar-icon">🧹</span>
+              <div>
+                <strong>Autonomous Autonomy</strong>
+                <span>Gazebo · Nav2 · 92.4% SLAM Coverage</span>
+              </div>
+            </div>
+          </div>
+
           <div class="hero-cta-group">
-            <a href="/work" class="btn btn-primary">
-              <span>Explore Audited Work</span>
-              <span aria-hidden="true">→</span>
+            <a href="#ui-renders" class="btn btn-primary">
+              <span>View 3D UI Renders</span>
+              <span aria-hidden="true">↓</span>
             </a>
             <a href="/about#resume" class="btn btn-secondary font-mono">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
                 <line x1="16" y1="13" x2="8" y2="13"></line>
                 <line x1="16" y1="17" x2="8" y2="17"></line>
               </svg>
-              <span>Download Résumé</span>
+              <span>Download CV (PDF)</span>
             </a>
-            <a href="/contact?intent=recruiter" class="recruiter-fast-btn font-mono">
-              <span>Recruiter Fast-Track</span>
+            <a href="#recruiter-brief" class="recruiter-fast-btn font-mono">
+              <span>30-Sec HR Summary</span>
             </a>
           </div>
 
@@ -74,8 +101,8 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
               <span class="meta-value">Islamabad, PK (Remote Ready)</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">Arbotrix Project:</span>
-              <span class="meta-value">Built the company website</span>
+              <span class="meta-label">Arbotrix:</span>
+              <span class="meta-value">Built company website</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Status:</span>
@@ -84,7 +111,7 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
           </div>
         </div>
 
-        {/* Visualizer Island: Hero Showcase */}
+        {/* Visualizer Island: 3D Interactive Cyber Robot / HR Snapshot */}
         <div class="hero-visualizer">
           <HeroShowcase client:load />
         </div>
@@ -95,97 +122,48 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
   {/* ================= 02 / PROOF STRIP ================= */}
   <ProofStrip />
 
-  {/* ================= 02.2 / RECRUITER FAST-TRACK DOSSIER ================= */}
-  <RecruiterDossier />
-
-  {/* ================= 02.5 / TECH STACK & TOOLING ================= */}
-  <TechStackSection />
-
-  {/* ================= 03 / ORIGIN (E-PORTAL) ================= */}
-  <section class="section-spacing origin-section" aria-label="Origin Chapter">
-    <div class="container container-narrow">
-      <span class="chapter-num">03 / Origin Story</span>
-      <h2>The Episode That Shaped My Choices</h2>
-      
-      <p class="narrative-lead" style="margin-top: 1rem;">
-        During my third semester at university, I built a course enrollment and academic portal in Java Spring Boot and MySQL (<code>e-portal</code>). It ran flawlessly in isolation on localhost.
-      </p>
-
-      <div class="story-callout surface-card" style="margin: 2rem 0;">
-        <span class="callout-tag font-mono">The Formative Bug / 3rd Semester Final Project</span>
-        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">The Enrollment Day Deadlock</h3>
-        <p style="font-size: 0.9375rem; line-height: 1.65;">
-          When course registration opened, multiple concurrent requests attempted to decrement course capacity inside synchronous HTTP cycles. Synchronous relational row locks exhausted the Tomcat thread pool. The entire server returned 504 timeouts.
+  {/* ================= 03 / INTERACTIVE 3D UI RENDERS SHOWCASE ================= */}
+  <section class="section-spacing ui-renders-section" id="ui-renders" aria-label="Interactive 3D UI Renders">
+    <div class="container">
+      <div class="section-header-box">
+        <span class="chapter-num">03 / Interactive UI Renders & Devices</span>
+        <h2>High-Fidelity UI & Cyber-Physical Previews</h2>
+        <p class="narrative-lead" style="max-width: 740px; margin-top: 0.5rem;">
+          Interact with live 3D device mockups of platforms I engineered: from production web platforms with relational schemas to mobile robot teleoperation clients and autonomous simulation radars.
         </p>
-        <p style="font-size: 0.9375rem; line-height: 1.65; margin-top: 0.5rem;">
-          Debugging that thread starvation taught me that <strong>tightly-coupled synchronous request-response loops are fundamentally fragile</strong>. I redesigned the database transactions with optimistic versioning and asynchronous task queues. That failure forced me to think about concurrency, decoupling, and non-blocking systems—the exact foundation required for asynchronous robotics middleware.
-        </p>
-        <div style="margin-top: 1rem;">
-          <a href="/work/e-portal" class="link-inline font-mono" style="font-size: 0.8125rem;">
-            Read the e-portal origin case study →
-          </a>
-        </div>
       </div>
+
+      <UiRenderShowcase client:visible />
     </div>
   </section>
 
-  {/* ================= 04 / EXPANSION ================= */}
-  <section class="section-spacing expansion-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+  {/* ================= 04 / RECRUITER FAST-TRACK DOSSIER ================= */}
+  <div id="recruiter-brief">
+    <RecruiterDossier />
+  </div>
+
+  {/* ================= 05 / INTERACTIVE SKILLS MATRIX ================= */}
+  <section class="section-spacing skills-section" aria-label="Technical Stack & Expertise">
     <div class="container">
-      <div class="asym-grid asym-grid-57">
-        <div>
-          <span class="chapter-num">04 / Expansion</span>
-          <h2>Three Turning Points: From Web to Robotics</h2>
-          <p class="narrative-lead" style="margin-top: 1rem;">
-            Software does not remain confined to database rows. Bridging web applications to physical robots required unlearning static assumptions and embracing cyber-physical realities.
-          </p>
-        </div>
-
-        <div class="turning-points-list">
-          <div class="tp-card">
-            <span class="tp-num font-mono">01 / From Polling to Event Streams</span>
-            <h4>Real-Time WebSocket Telemetry</h4>
-            <p>
-              In traditional web systems, polling every 2 seconds is acceptable. In robotics, polling fails immediately. Adopting <code>rosbridge_suite</code> WebSockets allowed streaming 20Hz velocity vectors and 50Hz wheel odometry with under 45ms latency directly to mobile screens.
-            </p>
-          </div>
-
-          <div class="tp-card">
-            <span class="tp-num font-mono">02 / From State Objects to Coordinate Trees</span>
-            <h4>Spatial Transforms & TF2 Kinematics</h4>
-            <p>
-              A web button has screen coordinates $(x, y)$. A mobile robot has parent-child spatial transforms: <code>map → odom → base_link → laser_frame</code>. Mastering ROS 2 TF2 frames revealed that physical position is not a fixed scalar, but an evolving probabilistic tree.
-            </p>
-          </div>
-
-          <div class="tp-card">
-            <span class="tp-num font-mono">03 / From Unlimited Cloud to Constrained Silicon</span>
-            <h4>Edge Optimization on Jetson Orin Nano</h4>
-            <p>
-              Cloud servers offer elastic RAM. An edge robot has finite wattage and shared thermal ceilings. Profiling Nav2 behavior trees on Ubuntu Linux taught me to write memory-conscious C++ and Python nodes that never saturate thread pools.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 05 / PRESENT: THREE PROJECT CHAPTERS ================= */}
-  <section class="section-spacing present-section" aria-label="Present Work Chapters">
-    <div class="container">
-      <div style="margin-bottom: 3rem;">
-        <span class="chapter-num">05 / Present Work</span>
-        <h2>Substantial Project Chapters</h2>
-        <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem;">
-          Three core initiatives demonstrating full-stack systems engineering: from mobile teleoperation to autonomous simulation and production cloud platforms.
+      <div class="section-header-box">
+        <span class="chapter-num">05 / Skills & Tooling</span>
+        <h2>Core Technical Stack & Practical Proof</h2>
+        <p class="narrative-lead" style="max-width: 720px; margin-top: 0.5rem;">
+          Every skill listed below has been battle-tested in real applications. Filter by category or search by keyword to see exact implementation context.
         </p>
       </div>
 
-      {/* CHAPTER A: DODO BOT (DARK DEMO SECTION TO CHANGE ATMOSPHERE) */}
-      <div class="dark-demonstration-section" style="border-radius: 8px; padding: clamp(2rem, 5vw, 3.5rem); margin-bottom: 3.5rem;">
+      <InteractiveSkills client:visible />
+    </div>
+  </section>
+
+  {/* ================= 06 / FLAGSHIP DEEP DIVE: DODO BOT (DARK DEMO) ================= */}
+  <section class="section-spacing dark-flagship-section" aria-label="Dodo Bot Teleoperation Deep Dive">
+    <div class="container">
+      <div class="dark-demonstration-section" style="border-radius: 12px; padding: clamp(2rem, 5vw, 3.5rem); box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
         <div class="asym-grid asym-grid-57">
           <div>
-            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
               <span class="mono-tag" style="background-color: rgba(255, 85, 0, 0.15); border-color: var(--accent-orange); color: var(--accent-orange);">
                 Physical Teleoperation & ROS
               </span>
@@ -193,23 +171,28 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
                 Tier 1 Flagship
               </span>
             </div>
-            <h3 style="font-size: 1.85rem; line-height: 1.25; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.85rem; line-height: 1.25; margin-bottom: 1rem; color: #ffffff;">
               Dodo Bot: Mobile Teleoperation & ROS Bridge
             </h3>
-            <p style="margin-bottom: 1rem;">
-              <strong>The Problem:</strong> Teleoperating physical test robots usually demands lugging heavy Linux laptops running RViz in the field.
+            <p style="margin-bottom: 1rem; color: #9eabb8;">
+              <strong style="color: #ffffff;">The Challenge:</strong> Field operators testing differential drive robots usually need heavy Linux laptops running RViz on noisy network environments.
             </p>
-            <p style="margin-bottom: 1rem;">
-              <strong>My Contribution:</strong> I engineered the cross-platform Flutter mobile control client, client-side velocity throttle (20Hz), WebSocket telemetry listener, and heartbeat watchdog.
+            <p style="margin-bottom: 1rem; color: #9eabb8;">
+              <strong style="color: #ffffff;">My Contribution:</strong> Built the Flutter mobile control application with dual-axis touch joystick, throttled 20Hz velocity publishing, WebSocket telemetry listener, and heartbeat watchdog brake failsafe.
             </p>
-            <div class="dark-card font-mono" style="margin-bottom: 1.5rem; font-size: 0.75rem;">
-              <strong style="color: var(--accent-orange); display: block; margin-bottom: 0.25rem;">Exact Ownership:</strong>
+            <div class="dark-card font-mono" style="margin-bottom: 1.5rem; font-size: 0.75rem; background: #14171f; border-color: #282c37;">
+              <strong style="color: var(--accent-orange); display: block; margin-bottom: 0.25rem;">Exact Ownership Statement:</strong>
               {dodoProject.ownershipStatement}
             </div>
-            <a href="/work/dodo-bot" class="btn btn-accent font-mono" style="font-size: 0.8125rem;">
-              <span>Read Dodo Bot Case Study</span>
-              <span aria-hidden="true">→</span>
-            </a>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/work/dodo-bot" class="btn btn-accent font-mono" style="font-size: 0.8125rem;">
+                <span>Read Full Case Study</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <a href="https://github.com/MrShahzaib005/Dodo_Bot" target="_blank" rel="noopener noreferrer" class="btn btn-secondary font-mono" style="font-size: 0.8125rem; background: #171a21; color: #ffffff; border-color: #282c37;">
+                <span>GitHub Source ↗</span>
+              </a>
+            </div>
           </div>
 
           <div>
@@ -217,153 +200,111 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      {/* CHAPTER B & C ASYMMETRIC GRID */}
-      <div class="asym-grid asym-grid-half">
-        {/* CHAPTER B: ROS 2 CLEANING ROBOT */}
-        <article class="surface-card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
-            <span class="mono-tag active">Robotics</span>
-            <span class="mono-tag sim-tag">Simulation Only</span>
-          </div>
-          <h3 style="font-size: 1.35rem; line-height: 1.3; margin-bottom: 0.5rem;">
-            ROS 2 & Machine Learning Autonomous Cleaning Robot
-          </h3>
-          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
-            <strong>The Problem:</strong> Developing autonomous coverage algorithms without hardware risks collision damage.
-          </p>
-          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
-            <strong>My Contribution:</strong> Built URDF differential robot model with simulated LiDAR, developed ML coverage path planning heuristics in Python, configured Nav2 costmap layers, and validated 92% room coverage across 25 Gazebo runs.
-          </p>
-          <div class="font-mono" style="font-size: 0.75rem; background-color: var(--bg-primary); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
-            <strong>Ownership:</strong> {cleaningProject.ownershipStatement}
-          </div>
-          <a href="/work/ros2-cleaning-robot" class="link-inline font-mono" style="font-size: 0.8125rem;">
-            Read Simulation Case Study →
-          </a>
-        </article>
+  {/* ================= 07 / ORIGIN & ARCHITECTURAL FOUNDATION ================= */}
+  <section class="section-spacing origin-section" aria-label="Origin Chapter">
+    <div class="container container-narrow">
+      <span class="chapter-num">07 / Engineering Foundation</span>
+      <h2>Designing for Concurrency & Decoupled Systems</h2>
+      
+      <p class="narrative-lead" style="margin-top: 1rem;">
+        During university, building an academic portal in Java Spring Boot & MySQL (<code>e-portal</code>) taught me early that synchronous request-response cycles are fundamentally fragile under load.
+      </p>
 
-        {/* CHAPTER C: ARBOTRIX WEB */}
-        <article class="surface-card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
-            <span class="mono-tag">Web & Cloud</span>
-            <span class="mono-tag">Production</span>
+      <div class="story-callout surface-card glow-card" style="margin: 2rem 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="callout-tag font-mono">Formative Takeaway · 3rd Semester Project</span>
+          <span class="font-mono" style="font-size: 0.6875rem; color: #10B981;">Architectural Principle</span>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">From Synchronous Locks to Event-Driven Decoupling</h3>
+        <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--text-muted);">
+          When concurrent enrollment requests attempted to decrement course capacity inside synchronous HTTP cycles, relational row locks exhausted the server thread pool. Redesigning the transactions with optimistic versioning and asynchronous task queues sparked my passion for non-blocking, event-driven architectures—the exact foundation required for real-time robotics telemetry.
+        </p>
+        
+        <details class="tech-details-accordion font-mono" style="margin-top: 1rem;">
+          <summary class="details-summary">
+            <span>Inspect Technical Concurrency Notes (Expand)</span>
+            <span class="summary-arrow">▾</span>
+          </summary>
+          <div class="details-content">
+            <p>
+              In traditional web systems, polling every 2 seconds is tolerated. In cyber-physical robotics, polling fails catastrophically. The same lessons from Tomcat thread starvation apply to ROS 2: <code>rosbridge_suite</code> WebSockets stream 20Hz velocity vectors and 50Hz wheel odometry with under 45ms latency without blocking compute cycles.
+            </p>
+            <div style="margin-top: 0.75rem;">
+              <a href="/work/e-portal" class="link-inline font-mono" style="font-size: 0.8125rem;">
+                Read the e-portal origin case study →
+              </a>
+            </div>
           </div>
-          <h3 style="font-size: 1.35rem; line-height: 1.3; margin-bottom: 0.5rem;">
-            Arbotrix Company Website
-          </h3>
-          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
-            <strong>The Problem:</strong> A robotics studio needed a digital home and an internship registration pipeline with substantiated student enrollment tracking.
-          </p>
-          <p style="font-size: 0.9375rem; margin-bottom: 0.75rem;">
-            <strong>My Contribution:</strong> Full-stack Next.js 16 + React 19 + Prisma + Supabase PostgreSQL architecture, processing 45 verified graduates across Batches 1 & 2.
-          </p>
-          <div class="font-mono" style="font-size: 0.75rem; background-color: var(--bg-primary); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
-            <strong>Ownership:</strong> {arbotrixProject.ownershipStatement}
-          </div>
-          <a href="/work/arbotrix-web" class="link-inline font-mono" style="font-size: 0.8125rem;">
-            Read Web Platform Case Study →
-          </a>
-        </article>
+        </details>
       </div>
     </div>
   </section>
 
-  {/* ================= 05.5 / EXPERIENCE & LEADERSHIP TIMELINE ================= */}
+  {/* ================= 08 / EXPERIENCE & LEADERSHIP TIMELINE ================= */}
   <ExperienceTimeline />
 
-  {/* ================= 06 / WORKING METHOD ================= */}
+  {/* ================= 09 / WORKING METHOD ================= */}
   <section class="section-spacing method-section" style="background-color: var(--bg-surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
     <div class="container">
-      <span class="chapter-num">07 / Working Method</span>
-      <h2>Evidence of How Decisions Are Made</h2>
+      <span class="chapter-num">09 / Engineering Method</span>
+      <h2>Systematic Decision-Making Under Constraints</h2>
       <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem; margin-bottom: 2.5rem;">
-        Rigorous engineering is not about adopting the newest framework; it is a systematic cycle of constraints, reasoned trade-offs, stress testing, and empirical revision.
+        Rigorous engineering is not about adopting the newest framework; it is a systematic cycle of identifying physical constraints, reasoned trade-offs, stress testing, and empirical revision.
       </p>
 
       <div class="method-steps-grid">
-        <div class="method-step-card font-mono">
+        <div class="method-step-card font-mono tilt-card-3d">
           <span class="step-num">Step 01</span>
           <h4>Constraint</h4>
-          <p>Isolate physical and network boundaries. Example: 2.4GHz WiFi drops packets; embedded Jetson has limited memory.</p>
+          <p>Isolate physical and network boundaries. Example: 2.4GHz WiFi drops packets; embedded Jetson has limited memory ceilings.</p>
         </div>
 
-        <div class="method-step-card font-mono">
+        <div class="method-step-card font-mono tilt-card-3d">
           <span class="step-num">Step 02</span>
           <h4>Decision</h4>
           <p>Choose the simplest architecture that respects physical realities. Example: Throttle touch events to 20Hz; enforce ThreadLocal tenant security.</p>
         </div>
 
-        <div class="method-step-card font-mono">
+        <div class="method-step-card font-mono tilt-card-3d">
           <span class="step-num">Step 03</span>
           <h4>Test</h4>
           <p>Stress test under degraded conditions. Example: Inject 10% packet drop; run 1,000 synthetic vector queries in Docker.</p>
         </div>
 
-        <div class="method-step-card font-mono">
+        <div class="method-step-card font-mono tilt-card-3d">
           <span class="step-num">Step 04</span>
           <h4>Revision</h4>
-          <p>Measure observable behavior, remove unverified marketing claims, and harden failsafes before production deployment.</p>
+          <p>Measure observable behavior, remove unverified claims, and harden failsafes before production deployment.</p>
         </div>
       </div>
     </div>
   </section>
 
-  {/* ================= 08 / FUTURE ================= */}
-  <section class="section-spacing future-section">
-    <div class="container container-narrow">
-      <span class="chapter-num">08 / Future</span>
-      <h2>Distinguishing Ambition From Completed Work</h2>
-      <p class="narrative-lead" style="margin-top: 0.75rem;">
-        Honesty requires separating what is already verified from what lies on the immediate engineering horizon.
-      </p>
-
-      <div class="future-columns" style="margin-top: 2rem;">
-        <div class="surface-card">
-          <span class="font-mono" style="color: #10B981; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
-            Completed & Verified
-          </span>
-          <ul style="margin-top: 1rem; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
-            <li>Physical differential drive teleoperation over WebSockets (Dodo Bot).</li>
-            <li>Gazebo simulation of autonomous SLAM and Nav2 cleaning paths.</li>
-            <li>Full-stack Next.js production platforms with relational database schemas.</li>
-            <li>Multi-tenant agentic AI memory architecture in Java Spring Boot (FYP).</li>
-          </ul>
-        </div>
-
-        <div class="surface-card">
-          <span class="font-mono" style="color: var(--accent-orange); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
-            Next Ambitions & Roles Sought
-          </span>
-          <ul style="margin-top: 1rem; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
-            <li>Compiling ROS 2 micro-controllers directly onto custom STM32/ESP32 PCBs.</li>
-            <li>Real-time multimodal speech and vision navigation on embedded Orin silicon.</li>
-            <li>Target Roles: <strong>Robotics Software Engineer</strong>, <strong>Full-Stack Systems Engineer</strong>, or <strong>Autonomous Navigation Specialist</strong>.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 09 / INVITATION ================= */}
+  {/* ================= 10 / INVITATION & HIRE ================= */}
   <section class="section-spacing invitation-section" style="background-color: var(--bg-subtle); border-top: 1px solid var(--border-light);">
     <div class="container container-narrow" style="text-align: center;">
-      <span class="chapter-num">09 / Invitation</span>
+      <span class="chapter-num">10 / Get in Touch</span>
       <h2>Let's Start a Conversation</h2>
       <p class="narrative-lead" style="margin: 0.75rem auto 2rem; max-width: 580px;">
-        Whether you are a hiring team reviewing case studies, a founder scoping a platform, or an engineer building mobile robots—reach out through dedicated intent channels.
+        Whether you are a technical recruiter seeking a Full-Stack or Robotics Software Engineer, a founder scoping a platform, or an engineering team building autonomous systems.
       </p>
 
       <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="/contact?intent=recruiter" class="btn btn-primary">
-          <span>Discuss a Role (Recruiters)</span>
+        <a 
+          href="mailto:mirzashahzaibsami123456789@gmail.com?subject=Engineering%20Role%20Inquiry%20-%20Muhammad%20Shahzaib" 
+          class="btn btn-primary"
+        >
+          <span>Email Shahzaib Directly</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="/contact?intent=client" class="btn btn-secondary">
-          <span>Discuss a Project (Clients)</span>
+        <a href="/contact?intent=recruiter" class="btn btn-secondary">
+          <span>Recruiter Intake Channel</span>
         </a>
-        <a href="/contact?intent=robotics" class="btn btn-secondary">
-          <span>Robotics Collaboration</span>
+        <a href="/about#resume" class="btn btn-secondary font-mono">
+          <span>Download Résumé PDF</span>
         </a>
       </div>
     </div>
@@ -372,21 +313,23 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
 
 <style>
   .hero-section {
-    padding-top: clamp(2rem, 3vw, 3rem);
+    position: relative;
+    padding-top: clamp(2rem, 3.5vw, 3.5rem);
     padding-bottom: clamp(3rem, 6vw, 6rem);
+    overflow: hidden;
   }
 
   .hero-asym-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
     align-items: center;
   }
 
   @media (min-width: 960px) {
     .hero-asym-grid {
-      grid-template-columns: 6.5fr 5.5fr;
-      gap: 4rem;
+      grid-template-columns: 6.2fr 5.8fr;
+      gap: 3.5rem;
     }
   }
 
@@ -400,6 +343,10 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 1rem;
+    background: rgba(255, 85, 0, 0.06);
+    border: 1px solid rgba(255, 85, 0, 0.2);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
   }
 
   .pulse-indicator {
@@ -426,8 +373,50 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.65;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     max-width: 580px;
+  }
+
+  .hero-pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: 540px) {
+    .hero-pillars-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .pillar-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.65rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  }
+
+  .pillar-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .pillar-card strong {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-main);
+    line-height: 1.2;
+  }
+
+  .pillar-card span {
+    font-size: 0.625rem;
+    color: var(--text-faint);
+    line-height: 1.2;
   }
 
   .hero-cta-group {
@@ -435,7 +424,7 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     align-items: center;
     gap: 0.85rem;
     flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .recruiter-fast-btn {
@@ -444,6 +433,8 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     color: var(--accent-orange);
     border-bottom: 1px solid var(--accent-orange);
     padding-bottom: 0.15rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
   }
 
   .recruiter-fast-btn:hover {
@@ -474,35 +465,23 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     font-weight: 500;
   }
 
-  .turning-points-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .section-header-box {
+    margin-bottom: 2.5rem;
   }
 
-  .tp-card {
+  .ui-renders-section {
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .skills-section {
     background-color: var(--bg-primary);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 1.5rem;
   }
 
-  .tp-num {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent-orange);
-    display: block;
-    margin-bottom: 0.35rem;
-  }
-
-  .tp-card h4 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .tp-card p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
+  .dark-flagship-section {
+    padding-top: clamp(2rem, 4vw, 3.5rem);
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
   }
 
   .method-steps-grid {
@@ -537,24 +516,45 @@ const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
     line-height: 1.6;
   }
 
-  .future-columns {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .future-columns {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
   .callout-tag {
     font-size: 0.6875rem;
     font-weight: 600;
     color: var(--accent-orange);
     text-transform: uppercase;
     display: block;
-    margin-bottom: 0.4rem;
+  }
+
+  .tech-details-accordion {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+  }
+
+  .details-summary {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .details-summary:hover {
+    color: var(--accent-orange);
+  }
+
+  .summary-arrow {
+    color: var(--accent-orange);
+  }
+
+  .details-content {
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border-light);
+    padding-top: 0.75rem;
   }
 </style>

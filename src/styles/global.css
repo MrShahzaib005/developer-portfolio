@@ -329,6 +329,82 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 2px var(--accent-orange-tint);
 }
 
+/* ================= 3D Animations & Cyber-Physical Visuals ================= */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 85, 0, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 85, 0, 0.65);
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.tilt-card-3d {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+
+.tilt-card-3d:hover {
+  transform: translateY(-5px) scale3d(1.015, 1.015, 1.015);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08), 0 0 20px rgba(255, 85, 0, 0.12);
+  border-color: var(--accent-orange);
+}
+
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* Ambient glow orb for section backgrounds */
+.ambient-glow-orb {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 85, 0, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+  z-index: 0;
+}
+
 /* Hard Gate: Accessibility & Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
