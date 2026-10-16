@@ -1,165 +1,261 @@
 ---
 const experiences = [
   {
-    role: "Website Project",
-    company: "Arbotrix",
-    period: "Project",
-    type: "Company Website",
-    bullets: [
-      "Built the website for Arbotrix, a robotics company."
-    ]
+    role: "Full-Stack Web & Platform Developer",
+    company: "Arbotrix (Robotics Company)",
+    period: "2024 — Present",
+    type: "Production Web Platform",
+    description: "Architected and delivered the official production website for Arbotrix. Built high-performance Next.js 16 (App Router) and React 19 interfaces with Supabase PostgreSQL persistence, interactive 3D Spline model loaders, and automated applicant intake pipelines for 45+ verified robotics graduates.",
+    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "Prisma"]
   },
   {
     role: "Lead Backend & Agentic AI Architect (FYP)",
     company: "Buddy: Multi-Tenant Agentic AI",
     period: "2026 — Present",
-    type: "Systems / Machine Learning",
-    bullets: [
-      "Engineered a Java 23 & Spring Boot 3.x multi-agent orchestration architecture using LangChain4j and local Ollama (Llama 3.1 8B) edge inference.",
-      "Implemented ThreadLocal tenant isolation and pgvector cosine-distance filters, guaranteeing zero cross-tenant retrieval leaks across 1,000 synthetic benchmark queries.",
-      "Designed prompt-level tool schema sandboxing to eliminate hallucinations and unapproved tool invocations on small 8B language models."
-    ]
+    type: "Systems & Agentic AI",
+    description: "Engineered an enterprise multi-agent orchestration architecture using Java 23 & Spring Boot 3.x. Integrated local LLM inference via Ollama (Llama 3.1 8B), LangChain4j, pgvector semantic search, and ThreadLocal tenant isolation guaranteeing zero cross-tenant retrieval leaks across 1,000 synthetic benchmark queries.",
+    stack: ["Java 23", "Spring Boot 3.x", "LangChain4j", "Ollama (8B)", "pgvector", "PostgreSQL", "Docker"]
+  },
+  {
+    role: "Robotics Teleoperation & Systems Engineer",
+    company: "Dodo Bot & Cyber-Physical Platforms",
+    period: "2024 — 2025",
+    type: "Robotics Middleware",
+    description: "Developed the cross-platform Flutter teleoperation client and low-latency ROS 2 bridge for differential drive robots on headless NVIDIA Jetson Orin Nano Linux. Engineered 20Hz velocity throttling, live odometry streaming, and a 380ms failsafe emergency stop.",
+    stack: ["ROS 2 Humble", "Flutter", "Dart", "Jetson Orin Nano", "rosbridge_suite", "WebSockets", "Linux"]
   },
   {
     role: "Bachelor of Science in Computer Science (BSCS)",
-    company: "Iqra University",
-    period: "Expected 2026",
+    company: "Iqra University, Islamabad",
+    period: "2022 — Expected 2026",
     type: "Academic Foundation",
-    bullets: [
-      "Rigorous core curriculum in Operating Systems, Concurrent Programming, Relational Databases, and Cyber-Physical Systems.",
-      "Formative capstone projects including the Java Spring Boot university academic portal (e-portal) and autonomous robotics simulation testbenches."
-    ]
+    description: "Rigorous core curriculum in Operating Systems, Concurrent Programming, Distributed Databases, and Cyber-Physical Robotics. Built formative platforms including the university academic portal (e-portal) and autonomous indoor cleaning robot simulations.",
+    stack: ["Operating Systems", "Distributed Systems", "Python", "C++", "Relational Databases"]
   }
 ];
 ---
 
-<section class="experience-timeline-section" aria-label="Experience & Selected Projects">
+<section class="experience-timeline-section section-spacing" id="experience" aria-label="Professional Experience">
   <div class="container">
-    <div class="timeline-header">
-      <span class="chapter-num">06 / Experience & Projects</span>
-      <h2>Professional Experience & Selected Projects</h2>
-      <p class="narrative-lead" style="max-width: 680px; margin-top: 0.5rem;">
-        Building practical software across web applications, robotics, and AI systems.
+    <div class="timeline-header text-center">
+      <span class="chapter-num font-mono">Career & Milestones</span>
+      <h2 class="timeline-main-title">EXPERIENCE</h2>
+      <p class="narrative-lead" style="max-width: 650px; margin: 0.5rem auto 0;">
+        Engineering software across production web platforms, cyber-physical robotics, and autonomous systems.
       </p>
     </div>
 
-    <div class="timeline-list">
-      {experiences.map((item, idx) => (
-        <article class="timeline-item surface-card">
-          <div class="item-header-row">
-            <div>
-              <div class="item-badge-row">
-                <span class="mono-tag active">{item.type}</span>
-                <span class="item-period font-mono">{item.period}</span>
-              </div>
-              <h3 class="item-title">{item.role}</h3>
-              <div class="item-company font-mono">{item.company}</div>
+    <div class="timeline-wrapper">
+      {/* Vertical glowing timeline connecting line */}
+      <div class="timeline-track" aria-hidden="true"></div>
+
+      <div class="timeline-items-list">
+        {experiences.map((item) => (
+          <div class="timeline-row">
+            {/* Square node marker on the line */}
+            <div class="timeline-node" aria-hidden="true">
+              <span class="node-square"></span>
             </div>
+
+            {/* Experience card */}
+            <article class="timeline-card">
+              <div class="card-top-meta font-mono">
+                <span class="experience-period">{item.period}</span>
+                <span class="experience-type-pill">{item.type}</span>
+              </div>
+
+              <h3 class="experience-role">{item.role}</h3>
+              <div class="experience-company font-mono">{item.company}</div>
+
+              <p class="experience-desc">{item.description}</p>
+
+              <div class="experience-stack font-mono">
+                {item.stack.map((tech) => (
+                  <span class="tech-pill">{tech}</span>
+                ))}
+              </div>
+            </article>
           </div>
-
-          <ul class="item-bullets">
-            {item.bullets.map((b) => (
-              <li>{b}</li>
-            ))}
-          </ul>
-        </article>
-      ))}
-    </div>
-
-    <div class="timeline-footer font-mono">
-      <span>Looking for full CV details, coursework, and physical hardware lab inventory?</span>
-      <a href="/about#resume" class="link-inline">
-        Explore Complete About & CV Page →
-      </a>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .experience-timeline-section {
-    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
-    background-color: var(--bg-surface);
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
   }
 
   .timeline-header {
-    margin-bottom: 2.75rem;
+    margin-bottom: 3.5rem;
   }
 
-  .timeline-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .timeline-item {
-    padding: clamp(1.5rem, 3.5vw, 2.25rem);
-    border-left: 3px solid var(--accent-orange);
-  }
-
-  .item-header-row {
-    margin-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border-faint);
-    padding-bottom: 1rem;
-  }
-
-  .item-badge-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .item-period {
-    font-size: 0.75rem;
-    color: var(--text-faint);
-  }
-
-  .item-title {
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    line-height: 1.3;
-    color: var(--text-main);
-  }
-
-  .item-company {
-    font-size: 0.8125rem;
-    color: var(--accent-orange);
-    font-weight: 600;
+  .timeline-main-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
     margin-top: 0.25rem;
   }
 
-  .item-bullets {
-    list-style: square;
-    padding-left: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: var(--text-muted);
+  .timeline-wrapper {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    padding-left: 2.25rem;
   }
 
-  .timeline-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-    margin-top: 2rem;
-    font-size: 0.8125rem;
-    color: var(--text-faint);
-    padding: 1rem 1.25rem;
-    background-color: var(--bg-primary);
-    border-radius: 6px;
-    border: 1px solid var(--border-faint);
-  }
-
-  @media (min-width: 640px) {
-    .timeline-footer {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+  @media (min-width: 768px) {
+    .timeline-wrapper {
+      padding-left: 3rem;
     }
+  }
+
+  /* Vertical connecting line */
+  .timeline-track {
+    position: absolute;
+    left: 8px;
+    top: 1.5rem;
+    bottom: 2rem;
+    width: 2px;
+    background: linear-gradient(180deg, #A855F7 0%, #D946EF 50%, #06B6D4 100%);
+    opacity: 0.55;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-track {
+      left: 14px;
+    }
+  }
+
+  .timeline-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .timeline-row {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* Node square aligned with timeline track */
+  .timeline-node {
+    position: absolute;
+    left: -2.25rem;
+    top: 1.75rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-node {
+      left: -3rem;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .node-square {
+    width: 12px;
+    height: 12px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.9), 0 0 4px #FFFFFF;
+    transition: all 0.2s ease;
+  }
+
+  .timeline-row:hover .node-square {
+    transform: scale(1.25);
+    background: #D946EF;
+    box-shadow: 0 0 16px rgba(217, 70, 239, 1), 0 0 6px #FFFFFF;
+  }
+
+  /* Timeline Card */
+  .timeline-card {
+    flex: 1;
+    background: rgba(18, 12, 34, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: clamp(1.4rem, 3vw, 1.85rem);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-card:hover {
+    border-color: rgba(168, 85, 247, 0.45);
+    box-shadow: 0 14px 36px rgba(168, 85, 247, 0.16);
+    transform: translateY(-2px);
+  }
+
+  .card-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .experience-period {
+    color: var(--text-faint);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .experience-type-pill {
+    font-size: 0.6875rem;
+    color: #D8B4FE;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: 0.15rem 0.6rem;
+    border-radius: 9999px;
+    font-weight: 600;
+  }
+
+  .experience-role {
+    font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.3;
+  }
+
+  .experience-company {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-magenta);
+    margin-top: 0.25rem;
+  }
+
+  .experience-desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+  }
+
+  .experience-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1.15rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .tech-pill {
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
   }
 </style>

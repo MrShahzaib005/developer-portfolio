@@ -35,9 +35,6 @@ const nextWork = currentIndex < allWorks.length - 1 ? allWorks[currentIndex + 1]
           <span class={`mono-tag ${entry.data.domain === 'Robotics' ? 'active' : ''}`}>
             {entry.data.domain}
           </span>
-          <span class="mono-tag">
-            Tier {entry.data.tier}
-          </span>
           {entry.data.isSimulationOnly && (
             <span class="mono-tag sim-tag">
               Simulation Only

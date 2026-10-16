@@ -101,8 +101,8 @@ export default function HeroShowcase() {
               <span>Immediate Availability for Global Engineering Roles</span>
             </div>
             <div className="quick-links">
-              <a href="/about#resume" className="link-inline">
-                View Résumé PDF →
+              <a href="/Shahzaib_Resume.pdf" download="Shahzaib_Resume.pdf" className="link-inline">
+                Download Résumé PDF ↓
               </a>
             </div>
           </div>

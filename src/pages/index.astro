@@ -3,12 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Robot3DScene from '../components/Robot3DScene';
 import InteractiveSkills from '../components/InteractiveSkills';
 import RecruiterDossier from '../components/RecruiterDossier.astro';
+import FilterableWork from '../components/FilterableWork';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import { PROJECTS } from '../data/projects';
-
-const dodoProject = PROJECTS.find(p => p.slug === 'dodo-bot')!;
-const cleaningProject = PROJECTS.find(p => p.slug === 'ros2-cleaning-robot')!;
-const arbotrixProject = PROJECTS.find(p => p.slug === 'arbotrix-web')!;
-const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
 ---
 
 <Layout
@@ -46,17 +43,16 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
               <span>Get in touch</span>
               <span aria-hidden="true">→</span>
             </a>
-            <a href="/about#resume" class="btn btn-secondary font-mono">
+            <a href="/Shahzaib_Resume.pdf" download="Shahzaib_Resume.pdf" class="btn btn-secondary font-mono" title="Download CV (PDF)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
               <span>Download CV</span>
             </a>
-            <a href="#recent-work" class="btn btn-secondary font-mono">
-              <span>View Work ↓</span>
+            <a href="#projects" class="btn btn-secondary font-mono">
+              <span>View Projects ↓</span>
             </a>
           </div>
 
@@ -78,7 +74,7 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
               <span>LinkedIn</span>
             </a>
 
-            <a href="mailto:mirzashahzaibsami123456789@gmail.com" class="social-icon-link" title="Email">
+            <a href="mailto:mr.shahzaib25005@gmail.com" class="social-icon-link" title="Email">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -162,206 +158,18 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
     </div>
   </section>
 
-  {/* ================= 04 / RECENT WORK (ALTERNATING ZIG-ZAG LIKE FIGMA) ================= */}
-  <section class="recent-work-section section-spacing" id="recent-work" aria-label="Recent Work">
+  {/* ================= 04 / FEATURED PROJECTS & CASE STUDIES (WITH FILTER BAR) ================= */}
+  <section class="projects-section section-spacing" id="projects" aria-label="Featured Projects & Case Studies">
     <div class="container">
-      <div class="text-center" style="margin-bottom: 3.5rem;">
-        <span class="chapter-num font-mono">Recent Work</span>
-        <h2>Featured Engineering Projects</h2>
-        <p class="narrative-lead" style="max-width: 650px; margin: 0.5rem auto 0;">
-          Production platforms, cross-platform mobile robot controllers, and autonomous simulation systems.
+      <div class="text-center" style="margin-bottom: 2.5rem;">
+        <span class="chapter-num font-mono">Portfolio</span>
+        <h2>Engineering Work & Case Studies</h2>
+        <p class="narrative-lead" style="max-width: 680px; margin: 0.5rem auto 0;">
+          Filterable catalog of production platforms, cyber-physical robotics, and autonomous systems with verified public repositories.
         </p>
       </div>
 
-      <div class="projects-zigzag-list">
-        {/* Project 1: Arbotrix Web (Left details, Right image) */}
-        <article class="project-zigzag-item">
-          <div class="project-info">
-            <span class="project-tag font-mono">Production Web Platform</span>
-            <h3 class="project-heading">Arbotrix Company Website</h3>
-            <p class="project-desc">
-              Designed and developed the official website for Arbotrix, a robotics company. Features interactive 3D Spline model loaders, dynamic syllabus pipelines, and resilient Supabase PostgreSQL persistence that handled verified student applications across Batches 1 & 2.
-            </p>
-
-            <div class="ownership-chip font-mono">
-              <strong>Ownership:</strong> {arbotrixProject.ownershipStatement}
-            </div>
-
-            <div class="tech-pills-row font-mono">
-              <span>Next.js 16</span>
-              <span>React 19</span>
-              <span>TypeScript</span>
-              <span>Prisma ORM</span>
-              <span>Supabase</span>
-              <span>Tailwind CSS</span>
-            </div>
-
-            <div class="project-actions font-mono">
-              <a href="https://arbotrix.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-                <span>Live Site ↗</span>
-              </a>
-              <a href="/work/arbotrix-web" class="btn btn-secondary btn-sm">
-                <span>Case Study →</span>
-              </a>
-              <a href="https://github.com/MrShahzaib005/arbotrix-web" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                <span>GitHub ↗</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="project-preview-wrap tilt-card-3d">
-            <a href="/work/arbotrix-web" class="preview-link">
-              <img
-                src="/images/arbotrix-web.png"
-                alt="Arbotrix Company Website Render"
-                class="project-preview-img"
-                loading="lazy"
-              />
-            </a>
-          </div>
-        </article>
-
-        {/* Project 2: Dodo Bot (Left image, Right details) */}
-        <article class="project-zigzag-item reverse">
-          <div class="project-preview-wrap tilt-card-3d">
-            <a href="/work/dodo-bot" class="preview-link">
-              <img
-                src="/images/dodo-app.png"
-                alt="Dodo Bot Flutter Teleoperation App"
-                class="project-preview-img"
-                loading="lazy"
-              />
-            </a>
-          </div>
-
-          <div class="project-info">
-            <span class="project-tag font-mono">Cyber-Physical Robotics</span>
-            <h3 class="project-heading">Dodo Bot: Mobile Teleoperation & ROS Bridge</h3>
-            <p class="project-desc">
-              Cross-platform Flutter mobile control client connecting operators directly to a Jetson Orin Nano differential robot over local WebSockets. Features 20Hz velocity throttling, real-time odometry streaming, and a 380ms heartbeat emergency stop failsafe.
-            </p>
-
-            <div class="ownership-chip font-mono">
-              <strong>Ownership:</strong> {dodoProject.ownershipStatement}
-            </div>
-
-            <div class="tech-pills-row font-mono">
-              <span>Flutter</span>
-              <span>Dart</span>
-              <span>ROS 2 Humble</span>
-              <span>rosbridge_suite</span>
-              <span>Jetson Orin Nano</span>
-              <span>WebSockets</span>
-            </div>
-
-            <div class="project-actions font-mono">
-              <a href="/work/dodo-bot" class="btn btn-primary btn-sm">
-                <span>Case Study →</span>
-              </a>
-              <a href="https://github.com/MrShahzaib005/Dodo_Bot" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                <span>GitHub ↗</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        {/* Project 3: ROS 2 Cleaning Robot (Left details, Right image) */}
-        <article class="project-zigzag-item">
-          <div class="project-info">
-            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
-              <span class="project-tag font-mono">Autonomous Robotics</span>
-              <span class="mono-tag sim-tag font-mono">Simulation Only</span>
-            </div>
-            <h3 class="project-heading">ROS 2 & ML Autonomous Cleaning Robot</h3>
-            <p class="project-desc">
-              Differential drive indoor vacuum robot modeled in URDF and simulated in Gazebo Garden. Implements SLAM Toolbox mapping, custom Nav2 costmaps, and Machine Learning coverage heuristics to achieve 92.4% room coverage across 25 verified simulation runs.
-            </p>
-
-            <div class="ownership-chip font-mono">
-              <strong>Ownership:</strong> {cleaningProject.ownershipStatement}
-            </div>
-
-            <div class="tech-pills-row font-mono">
-              <span>ROS 2 Humble</span>
-              <span>Gazebo Garden</span>
-              <span>Nav2</span>
-              <span>SLAM Toolbox</span>
-              <span>Python</span>
-              <span>C++</span>
-            </div>
-
-            <div class="project-actions font-mono">
-              <a href="/work/ros2-cleaning-robot" class="btn btn-primary btn-sm">
-                <span>Simulation Study →</span>
-              </a>
-              <a href="https://github.com/MrShahzaib005/github-workshop-demo" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                <span>GitHub Demo ↗</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="project-preview-wrap tilt-card-3d">
-            <a href="/work/ros2-cleaning-robot" class="preview-link">
-              <img
-                src="/images/cleaning-robot.png"
-                alt="ROS 2 Autonomous Cleaning Robot Simulation Render"
-                class="project-preview-img"
-                loading="lazy"
-              />
-            </a>
-          </div>
-        </article>
-
-        {/* Project 4: Buddy AI (Left image, Right details) */}
-        <article class="project-zigzag-item reverse">
-          <div class="project-preview-wrap tilt-card-3d">
-            <a href="/work/buddy-ai" class="preview-link">
-              <img
-                src="/images/arbo-dark.png"
-                alt="Buddy Multi-Tenant Agentic AI Architecture"
-                class="project-preview-img"
-                loading="lazy"
-              />
-            </a>
-          </div>
-
-          <div class="project-info">
-            <span class="project-tag font-mono">Agentic AI & Backend</span>
-            <h3 class="project-heading">Buddy: Multi-Tenant Agentic AI Architecture</h3>
-            <p class="project-desc">
-              Enterprise-grade Java 23 & Spring Boot 3.x backend for personal agentic AI with ThreadLocal tenant isolation, LangChain4j, Ollama (Llama 3.1 8B), and PostgreSQL pgvector semantic memory.
-            </p>
-
-            <div class="ownership-chip font-mono">
-              <strong>Ownership:</strong> {buddyProject.ownershipStatement}
-            </div>
-
-            <div class="tech-pills-row font-mono">
-              <span>Java 23</span>
-              <span>Spring Boot 3</span>
-              <span>LangChain4j</span>
-              <span>pgvector</span>
-              <span>Ollama</span>
-              <span>Docker</span>
-            </div>
-
-            <div class="project-actions font-mono">
-              <a href="/work/buddy-ai" class="btn btn-primary btn-sm">
-                <span>Architecture Study →</span>
-              </a>
-              <a href="https://github.com/MrShahzaib005/buddy-ai" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                <span>GitHub ↗</span>
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div class="text-center" style="margin-top: 3rem;">
-        <a href="/work" class="btn btn-secondary font-mono">
-          <span>Explore All 12 Audited Projects Index →</span>
-        </a>
-      </div>
+      <FilterableWork client:load projects={PROJECTS} limit={4} showViewMore={true} />
     </div>
   </section>
 
@@ -380,7 +188,10 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
     </div>
   </section>
 
-  {/* ================= 06 / RECRUITER 30-SEC BRIEF ================= */}
+  {/* ================= 06 / EXPERIENCE TIMELINE ================= */}
+  <ExperienceTimeline />
+
+  {/* ================= 07 / RECRUITER 30-SEC BRIEF ================= */}
   <section class="section-spacing" id="recruiter-brief">
     <RecruiterDossier />
   </section>
@@ -400,8 +211,8 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
           <div class="contact-details-list font-mono">
             <div class="c-detail-item">
               <span class="c-label">Direct Email</span>
-              <a href="mailto:mirzashahzaibsami123456789@gmail.com" class="c-val-link">
-                mirzashahzaibsami123456789@gmail.com
+              <a href="mailto:mr.shahzaib25005@gmail.com" class="c-val-link">
+                mr.shahzaib25005@gmail.com
               </a>
             </div>
 
@@ -429,7 +240,7 @@ const buddyProject = PROJECTS.find(p => p.slug === 'buddy-ai')!;
         {/* Right: Glassmorphic Message Box */}
         <div class="contact-form-col">
           <form 
-            action="mailto:mirzashahzaibsami123456789@gmail.com" 
+            action="mailto:mr.shahzaib25005@gmail.com" 
             method="GET" 
             class="glassmorphism-form surface-card"
           >

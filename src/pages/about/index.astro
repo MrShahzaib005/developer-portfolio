@@ -100,18 +100,34 @@ import Layout from '../../layouts/Layout.astro';
             <h2>Professional Experience & Credentials</h2>
           </div>
 
-          <a 
-            href="mailto:mirzashahzaibsami123456789@gmail.com?subject=Requesting%20Full%20PDF%20Resume%20-%20Muhammad%20Shahzaib" 
-            class="btn btn-primary font-mono"
-            style="font-size: 0.8125rem;"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>Request Official PDF Copy</span>
-          </a>
+          <div class="resume-cta-buttons" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a 
+              href="/Shahzaib_Resume.pdf" 
+              download="Shahzaib_Resume.pdf"
+              class="btn btn-primary font-mono"
+              style="font-size: 0.8125rem;"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download CV (PDF)</span>
+            </a>
+            <a 
+              href="/Shahzaib_Resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn btn-secondary font-mono"
+              style="font-size: 0.8125rem;"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <span>View in Browser</span>
+            </a>
+          </div>
         </div>
 
         <div class="resume-sheet surface-card">
@@ -124,7 +140,7 @@ import Layout from '../../layouts/Layout.astro';
               </p>
             </div>
             <div class="sheet-contact font-mono">
-              <span>mirzashahzaibsami123456789@gmail.com</span>
+              <span>mr.shahzaib25005@gmail.com</span>
               <span>github.com/MrShahzaib005</span>
               <span>linkedin.com/in/mr-shahzaib</span>
               <span>Islamabad, Pakistan</span>

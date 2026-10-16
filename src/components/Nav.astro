@@ -7,7 +7,7 @@ const { currentPath = '/' } = Astro.props;
 
 const navLinks = [
   { href: '/', label: 'Overview' },
-  { href: '/work', label: 'Projects' },
+  { href: '/#experience', label: 'Experience' },
   { href: '/lab', label: '3D & Lab' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
@@ -19,7 +19,6 @@ const navLinks = [
     <a href="/" class="brand-link" aria-label="Muhammad Shahzaib homepage">
       <span class="brand-point" aria-hidden="true"></span>
       <span class="brand-name">Muhammad Shahzaib</span>
-      <span class="brand-role font-mono">Built the Arbotrix website</span>
     </a>
 
     <nav class="main-nav" aria-label="Main Navigation">
@@ -43,13 +42,16 @@ const navLinks = [
 
     <div class="header-actions">
       <a 
-        href="/about#resume" 
+        href="/Shahzaib_Resume.pdf" 
+        download="Shahzaib_Resume.pdf"
         class="resume-pill font-mono"
-        title="View & Download Résumé"
+        title="Download Résumé (PDF)"
       >
         <span>CV / Résumé</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7 17l9.2-9.2M17 17V7H7"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
       </a>
     </div>
@@ -98,20 +100,6 @@ const navLinks = [
     font-size: 1.05rem;
     letter-spacing: -0.01em;
     font-weight: 700;
-  }
-
-  .brand-role {
-    font-size: 0.75rem;
-    color: var(--text-faint);
-    padding-left: 0.5rem;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    display: none;
-  }
-
-  @media (min-width: 640px) {
-    .brand-role {
-      display: inline-block;
-    }
   }
 
   .main-nav {

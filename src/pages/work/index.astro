@@ -1,39 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import FilterableWork from '../../components/FilterableWork';
-import { PROJECTS, AUDITED_REPO_COUNT } from '../../data/projects';
+import { PROJECTS } from '../../data/projects';
 ---
 
 <Layout
-  title="Work & Engineering Index · Muhammad Shahzaib"
-  description="Filterable repository index and case studies across Robotics, Full-Stack Web, Agentic AI, and Embedded Systems."
+  title="Projects & Case Studies · Muhammad Shahzaib"
+  description="Catalog of projects and case studies across Robotics, Full-Stack Web, Agentic AI, and Embedded Systems."
 >
   <div class="work-page section-spacing">
     <div class="container">
-      <header class="work-page-header">
-        <span class="chapter-num">Index / Audited Repositories</span>
-        <h1>Engineering Work & Case Studies</h1>
-        <p class="narrative-lead" style="max-width: 720px; margin-top: 0.75rem;">
-          An audited catalog of completed prototypes, live production platforms, and research projects. Categorized into three tiers of architectural maturity with verified ownership statements.
+      <header class="work-page-header text-center">
+        <span class="chapter-num font-mono">Portfolio</span>
+        <h1>Projects & Case Studies</h1>
+        <p class="narrative-lead" style="max-width: 720px; margin: 0.75rem auto 0;">
+          Production platforms, cyber-physical robotics, and autonomous systems with verified open-source repositories and architectural breakdowns.
         </p>
-
-        <div class="tier-legend font-mono">
-          <div class="legend-cell">
-            <span class="tier-bullet tier-1"></span>
-            <span><strong>Tier 1 Flagships:</strong> In-depth case studies with observable proof.</span>
-          </div>
-          <div class="legend-cell">
-            <span class="tier-bullet tier-2"></span>
-            <span><strong>Tier 2 Index:</strong> Substantive projects & active FYP research.</span>
-          </div>
-          <div class="legend-cell">
-            <span class="tier-bullet tier-3"></span>
-            <span><strong>Tier 3 Archive:</strong> Exploratory UI sandboxes & design implementations.</span>
-          </div>
-        </div>
       </header>
 
-      {/* React Island for dynamic client-side filtering + URL sync */}
+      {/* Simplified React Island for dynamic client-side filtering by professional field */}
       <FilterableWork client:load projects={PROJECTS} />
 
       {/* Hard Gate Accessibility: Static HTML fallback if JS is disabled */}
@@ -43,7 +28,7 @@ import { PROJECTS, AUDITED_REPO_COUNT } from '../../data/projects';
           <div class="asym-grid asym-grid-half">
             {PROJECTS.map(p => (
               <div class="surface-card">
-                <span class="mono-tag">{p.domain} · Tier {p.tier}</span>
+                <span class="mono-tag">{p.domain}</span>
                 <h3 style="margin: 0.5rem 0;"><a href={`/work/${p.slug}`}>{p.title}</a></h3>
                 <p>{p.subtitle}</p>
                 <p style="font-size: 0.8125rem; margin-top: 0.5rem; color: var(--text-faint);"><strong>Ownership:</strong> {p.ownershipStatement}</p>
@@ -59,52 +44,7 @@ import { PROJECTS, AUDITED_REPO_COUNT } from '../../data/projects';
 
 <style>
   .work-page-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .tier-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    padding: 1rem 1.25rem;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  @media (min-width: 860px) {
-    .tier-legend {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  .legend-cell {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .tier-bullet {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .tier-bullet.tier-1 {
-    background-color: var(--accent-orange);
-  }
-
-  .tier-bullet.tier-2 {
-    background-color: #3B82F6;
-  }
-
-  .tier-bullet.tier-3 {
-    background-color: #71717A;
+    margin-bottom: 3rem;
   }
 
   .static-no-js-list {

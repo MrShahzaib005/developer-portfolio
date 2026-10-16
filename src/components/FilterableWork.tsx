@@ -1,76 +1,37 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import type { Project } from '../data/projects';
 
 interface Props {
   projects: Project[];
+  limit?: number;
+  showViewMore?: boolean;
 }
 
-export default function FilterableWork({ projects }: Props) {
-  const [selectedDomain, setSelectedDomain] = useState<string>('All');
-  const [selectedTier, setSelectedTier] = useState<string>('All');
+type ProfessionalField = 'All' | 'Robotics & Embedded' | 'Full-Stack Web' | 'AI & Systems';
+
+const FIELDS: { label: ProfessionalField; icon: string }[] = [
+  { label: 'All', icon: '✦' },
+  { label: 'Robotics & Embedded', icon: '🤖' },
+  { label: 'Full-Stack Web', icon: '🌐' },
+  { label: 'AI & Systems', icon: '🧠' }
+];
+
+export default function FilterableWork({ projects, limit, showViewMore }: Props) {
+  const [selectedField, setSelectedField] = useState<ProfessionalField>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // Hydrate filters from URL search params on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const domainParam = params.get('domain');
-      const tierParam = params.get('tier');
-      const qParam = params.get('q');
-
-      if (domainParam) setSelectedDomain(domainParam);
-      if (tierParam) setSelectedTier(tierParam);
-      if (qParam) setSearchQuery(qParam);
-    }
-  }, []);
-
-  // Sync state changes back to URL search params
-  const updateUrl = (domain: string, tier: string, query: string) => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams();
-      if (domain !== 'All') params.set('domain', domain);
-      if (tier !== 'All') params.set('tier', tier);
-      if (query.trim()) params.set('q', query.trim());
-
-      const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
-      window.history.replaceState(null, '', newRelativePathQuery);
-    }
-  };
-
-  const handleDomainChange = (domain: string) => {
-    setSelectedDomain(domain);
-    updateUrl(domain, selectedTier, searchQuery);
-  };
-
-  const handleTierChange = (tier: string) => {
-    setSelectedTier(tier);
-    updateUrl(selectedDomain, tier, searchQuery);
-  };
-
-  const handleSearchChange = (q: string) => {
-    setSearchQuery(q);
-    updateUrl(selectedDomain, selectedTier, q);
-  };
-
-  const handleReset = () => {
-    setSelectedDomain('All');
-    setSelectedTier('All');
-    setSearchQuery('');
-    updateUrl('All', 'All', '');
-  };
 
   // Filter computation
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      // Domain filter
-      if (selectedDomain !== 'All' && project.domain !== selectedDomain) {
-        return false;
+    let result = projects.filter((project) => {
+      // Professional field filter
+      if (selectedField === 'Robotics & Embedded') {
+        if (project.domain !== 'Robotics' && project.domain !== 'Mobile') return false;
+      } else if (selectedField === 'Full-Stack Web') {
+        if (project.domain !== 'Web') return false;
+      } else if (selectedField === 'AI & Systems') {
+        if (project.domain !== 'AI & Systems') return false;
       }
-      // Tier filter
-      if (selectedTier !== 'All') {
-        const tierNum = parseInt(selectedTier.replace('Tier ', ''));
-        if (project.tier !== tierNum) return false;
-      }
+
       // Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -82,111 +43,78 @@ export default function FilterableWork({ projects }: Props) {
           return false;
         }
       }
+
       return true;
     });
-  }, [projects, selectedDomain, selectedTier, searchQuery]);
 
-  const domains = ['All', 'Robotics', 'Web', 'AI & Systems', 'Mobile'];
-  const tiers = ['All', 'Tier 1', 'Tier 2', 'Tier 3'];
+    if (limit && limit > 0) {
+      result = result.slice(0, limit);
+    }
+
+    return result;
+  }, [projects, selectedField, searchQuery, limit]);
 
   return (
     <div className="work-index-wrapper">
-      {/* Search & Filter Header Bar */}
+      {/* Simplified Professional Fields Filter Bar */}
       <div className="filter-controls-surface">
-        <div className="controls-row-top">
-          <div className="search-input-wrap">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="search-icon" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search by tool, library, domain, or concept (e.g. Nav2, ROS, Next.js, pgvector)..."
-              value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              className="search-field"
-              aria-label="Search projects"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => handleSearchChange('')}
-                className="clear-search-btn"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
-          <div className="audit-note font-mono">
-            <span>Verified Public Systems & Source Repos</span>
-          </div>
+        <div className="fields-pills-row">
+          {FIELDS.map((field) => (
+            <button
+              key={field.label}
+              type="button"
+              onClick={() => setSelectedField(field.label)}
+              className={`field-pill font-mono ${selectedField === field.label ? 'is-active' : ''}`}
+            >
+              <span className="field-icon" aria-hidden="true">{field.icon}</span>
+              <span>{field.label}</span>
+            </button>
+          ))}
         </div>
 
-        <div className="filter-pill-groups">
-          <div className="filter-group">
-            <span className="filter-group-label font-mono">Domain:</span>
-            <div className="pill-row">
-              {domains.map((dom) => (
-                <button
-                  key={dom}
-                  type="button"
-                  onClick={() => handleDomainChange(dom)}
-                  className={`filter-pill font-mono ${selectedDomain === dom ? 'is-active' : ''}`}
-                >
-                  {dom}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="filter-group">
-            <span className="filter-group-label font-mono">Tier:</span>
-            <div className="pill-row">
-              {tiers.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => handleTierChange(t)}
-                  className={`filter-pill font-mono ${selectedTier === t ? 'is-active' : ''}`}
-                >
-                  {t === 'All' ? 'All Tiers' : t === 'Tier 1' ? 'Tier 1: Flagships' : t === 'Tier 2' ? 'Tier 2: Index' : 'Tier 3: Archive'}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {(selectedDomain !== 'All' || selectedTier !== 'All' || searchQuery) && (
+        <div className="search-input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="search-icon" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search by tech or keyword (e.g. ROS 2, Next.js, Jetson, pgvector)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-field font-mono"
+            aria-label="Filter projects by keyword"
+          />
+          {searchQuery && (
             <button
               type="button"
-              onClick={handleReset}
-              className="reset-filters-btn font-mono"
+              onClick={() => setSearchQuery('')}
+              className="clear-search-btn font-mono"
+              aria-label="Clear search"
             >
-              Reset Filters
+              ✕
             </button>
           )}
         </div>
       </div>
 
-      {/* Results Meta */}
-      <div className="results-count-bar font-mono">
-        <span>Showing {filteredProjects.length} of {projects.length} recorded projects</span>
-        <span className="url-sync-hint">Filters synchronized in URL query</span>
-      </div>
-
       {/* Projects Grid */}
       {filteredProjects.length === 0 ? (
         <div className="empty-state font-mono">
-          <p>No projects match your current filter combination.</p>
-          <button type="button" onClick={handleReset} className="btn btn-secondary" style={{ marginTop: '1rem' }}>
-            Clear all filters
+          <p>No projects match the selected field.</p>
+          <button 
+            type="button" 
+            onClick={() => { setSelectedField('All'); setSearchQuery(''); }} 
+            className="btn btn-secondary font-mono" 
+            style={{ marginTop: '1rem' }}
+          >
+            Reset Filters
           </button>
         </div>
       ) : (
         <div className="projects-grid">
           {filteredProjects.map((project) => (
-            <article key={project.slug} className={`project-card tier-${project.tier} tilt-card-3d glow-card`}>
+            <article key={project.slug} className="project-card">
               {project.thumbnail && (
                 <div className="work-card-thumb-wrap">
                   <a href={`/work/${project.slug}`} tabIndex={-1} aria-hidden="true">
@@ -201,12 +129,9 @@ export default function FilterableWork({ projects }: Props) {
               )}
 
               <div className="card-header">
-                <div className="card-badge-row">
-                  <span className={`mono-tag ${project.domain === 'Robotics' ? 'active' : ''}`}>
-                    {project.domain}
-                  </span>
-                  <span className="tier-tag font-mono">
-                    Tier {project.tier}
+                <div className="card-badge-row font-mono">
+                  <span className="domain-pill">
+                    {project.domain === 'Robotics' || project.domain === 'Mobile' ? '🤖 Robotics & Embedded' : project.domain === 'Web' ? '🌐 Full-Stack Web' : '🧠 AI & Systems'}
                   </span>
                   {project.isSimulationOnly && (
                     <span className="mono-tag sim-tag">
@@ -214,7 +139,7 @@ export default function FilterableWork({ projects }: Props) {
                     </span>
                   )}
                   {project.inProgress && (
-                    <span className="mono-tag font-mono" style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
+                    <span className="mono-tag font-mono" style={{ backgroundColor: 'rgba(245, 158, 11, 0.15)', color: '#FBBF24', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
                       In Progress (FYP)
                     </span>
                   )}
@@ -232,28 +157,22 @@ export default function FilterableWork({ projects }: Props) {
               </div>
 
               <div className="card-body">
-                {/* 1-sentence ownership for HR & Recruiters */}
+                {/* Specific 1-Sentence Scope for hiring team & recruiters */}
                 <div className="ownership-quick-box font-mono">
                   <strong className="ownership-badge">Scope:</strong>
                   <span>{project.ownershipStatement}</span>
-                </div>
-
-                {/* Observable behavior */}
-                <div className="behavior-box font-mono">
-                  <span className="box-label">Observable Behavior:</span>
-                  <p className="behavior-text">{project.observableBehavior}</p>
                 </div>
               </div>
 
               <div className="card-footer">
                 <div className="stack-wrap">
-                  {project.stack.map(tech => (
+                  {project.stack.map((tech) => (
                     <span key={tech} className="tech-badge font-mono">{tech}</span>
                   ))}
                 </div>
 
-                <div className="links-row">
-                  <a href={`/work/${project.slug}`} className="view-case-link font-mono">
+                <div className="links-row font-mono">
+                  <a href={`/work/${project.slug}`} className="view-case-link">
                     <span>Read Case Study</span>
                     <span aria-hidden="true">→</span>
                   </a>
@@ -263,13 +182,13 @@ export default function FilterableWork({ projects }: Props) {
                       href={project.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="github-repo-link font-mono"
+                      className="repo-link"
                       title="Inspect GitHub repository"
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                       </svg>
-                      <span>Repository</span>
+                      <span>Repository ↗</span>
                     </a>
                   )}
 
@@ -278,7 +197,7 @@ export default function FilterableWork({ projects }: Props) {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="demo-link font-mono"
+                      className="demo-link"
                       title="Open live deployment"
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -286,7 +205,7 @@ export default function FilterableWork({ projects }: Props) {
                         <polyline points="15 3 21 3 21 9"></polyline>
                         <line x1="10" y1="14" x2="21" y2="3"></line>
                       </svg>
-                      <span>Live Demo</span>
+                      <span>Live Demo ↗</span>
                     </a>
                   )}
                 </div>
@@ -296,41 +215,82 @@ export default function FilterableWork({ projects }: Props) {
         </div>
       )}
 
+      {/* Button below to show more projects if limited on homepage */}
+      {showViewMore && (
+        <div className="view-more-container">
+          <a href="/work" className="btn btn-secondary font-mono view-more-btn">
+            <span>Show More Projects & Full Index →</span>
+          </a>
+        </div>
+      )}
+
       <style>{`
         .work-index-wrapper {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 2rem;
+          width: 100%;
         }
 
         .filter-controls-surface {
-          background-color: var(--bg-surface);
-          border: 1px solid var(--border-light);
-          border-radius: 8px;
-          padding: 1.25rem;
+          background: rgba(18, 12, 34, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
+          padding: 1.25rem 1.5rem;
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: 1rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         }
 
-        .controls-row-top {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-
-        @media (min-width: 768px) {
-          .controls-row-top {
+        @media (min-width: 860px) {
+          .filter-controls-surface {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
           }
         }
 
+        .fields-pills-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          align-items: center;
+        }
+
+        .field-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.8125rem;
+          padding: 0.45rem 1rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background-color: rgba(11, 8, 19, 0.8);
+          color: var(--text-muted);
+          cursor: pointer;
+          transition: all 0.2s ease;
+          font-weight: 500;
+        }
+
+        .field-pill:hover {
+          color: #FFFFFF;
+          border-color: rgba(168, 85, 247, 0.5);
+          transform: translateY(-1px);
+        }
+
+        .field-pill.is-active {
+          background: var(--accent-gradient);
+          color: #FFFFFF;
+          border-color: transparent;
+          font-weight: 600;
+          box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
+        }
+
         .search-input-wrap {
           position: relative;
-          flex: 1;
-          max-width: 640px;
+          width: 100%;
+          max-width: 380px;
         }
 
         .search-icon {
@@ -344,11 +304,24 @@ export default function FilterableWork({ projects }: Props) {
 
         .search-field {
           width: 100%;
-          padding: 0.65rem 2.2rem 0.65rem 2.4rem;
-          font-size: 0.875rem;
-          border-radius: 6px;
-          border: 1px solid var(--border-light);
-          background-color: var(--bg-primary);
+          padding: 0.55rem 2.2rem 0.55rem 2.4rem;
+          font-size: 0.8125rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          background-color: rgba(11, 8, 19, 0.9);
+          color: #FFFFFF;
+          outline: none;
+          transition: all 0.2s ease;
+        }
+
+        .search-field:focus {
+          border-color: var(--accent-purple);
+          box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+        }
+
+        .search-field::placeholder {
+          color: var(--text-faint);
+          font-size: 0.75rem;
         }
 
         .clear-search-btn {
@@ -363,106 +336,19 @@ export default function FilterableWork({ projects }: Props) {
           font-size: 0.875rem;
         }
 
-        .audit-note {
-          font-size: 0.75rem;
-          color: var(--text-faint);
-          background-color: var(--bg-subtle);
-          padding: 0.35rem 0.65rem;
-          border-radius: 4px;
-          border: 1px solid var(--border-faint);
-          white-space: nowrap;
-        }
-
-        .filter-pill-groups {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          padding-top: 0.75rem;
-          border-top: 1px solid var(--border-faint);
-        }
-
-        @media (min-width: 900px) {
-          .filter-pill-groups {
-            flex-direction: row;
-            align-items: center;
-          }
-        }
-
-        .filter-group {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-        }
-
-        .filter-group-label {
-          font-size: 0.75rem;
-          color: var(--text-faint);
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-
-        .pill-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.35rem;
-        }
-
-        .filter-pill {
-          font-size: 0.75rem;
-          padding: 0.3rem 0.65rem;
-          border-radius: 4px;
-          border: 1px solid var(--border-light);
-          background-color: var(--bg-subtle);
+        .empty-state {
+          text-align: center;
+          padding: 3rem 1rem;
+          background: rgba(18, 12, 34, 0.6);
+          border-radius: 12px;
+          border: 1px dashed rgba(255, 255, 255, 0.1);
           color: var(--text-muted);
-          cursor: pointer;
-          transition: all var(--transition-fast);
-        }
-
-        .filter-pill:hover {
-          color: var(--text-main);
-          border-color: var(--border-strong);
-        }
-
-        .filter-pill.is-active {
-          background-color: var(--text-main);
-          color: var(--bg-surface);
-          border-color: var(--text-main);
-          font-weight: 600;
-        }
-
-        .reset-filters-btn {
-          font-size: 0.75rem;
-          color: var(--accent-orange);
-          background: none;
-          border: none;
-          text-decoration: underline;
-          cursor: pointer;
-          margin-left: auto;
-        }
-
-        .results-count-bar {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.75rem;
-          color: var(--text-faint);
-          padding: 0 0.25rem;
-        }
-
-        .url-sync-hint {
-          display: none;
-        }
-
-        @media (min-width: 640px) {
-          .url-sync-hint {
-            display: inline;
-          }
         }
 
         .projects-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 1.5rem;
+          gap: 1.75rem;
         }
 
         @media (min-width: 860px) {
@@ -472,33 +358,31 @@ export default function FilterableWork({ projects }: Props) {
         }
 
         .project-card {
-          background-color: var(--bg-surface);
-          border: 1px solid var(--border-light);
-          border-radius: 8px;
+          background-color: rgba(18, 12, 34, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
           padding: 1.5rem;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           gap: 1.25rem;
-          transition: all var(--transition-fast);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         }
 
         .project-card:hover {
-          border-color: var(--accent-orange);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-        }
-
-        .project-card.tier-1 {
-          border-left: 4px solid var(--accent-orange);
+          border-color: rgba(168, 85, 247, 0.4);
+          box-shadow: 0 14px 36px rgba(168, 85, 247, 0.15);
+          transform: translateY(-3px);
         }
 
         .work-card-thumb-wrap {
           margin: -1.5rem -1.5rem 1rem -1.5rem;
-          height: 180px;
+          height: 190px;
           overflow: hidden;
-          background: #11141c;
-          border-bottom: 1px solid var(--border-light);
+          background: #0B0813;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .work-card-img {
@@ -513,20 +397,10 @@ export default function FilterableWork({ projects }: Props) {
           transform: scale(1.04);
         }
 
-        .ownership-quick-box {
-          background-color: var(--bg-primary);
-          border: 1px solid var(--border-faint);
-          padding: 0.5rem 0.65rem;
-          border-radius: 4px;
-          font-size: 0.6875rem;
-          line-height: 1.45;
-          margin-bottom: 0.75rem;
-        }
-
-        .ownership-badge {
-          color: var(--accent-orange);
-          margin-right: 0.35rem;
-          text-transform: uppercase;
+        .card-header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
         }
 
         .card-badge-row {
@@ -534,122 +408,134 @@ export default function FilterableWork({ projects }: Props) {
           align-items: center;
           gap: 0.5rem;
           flex-wrap: wrap;
-          margin-bottom: 0.75rem;
         }
 
-        .tier-tag {
+        .domain-pill {
           font-size: 0.6875rem;
-          color: var(--text-faint);
-          padding: 0.15rem 0.45rem;
-          background-color: var(--bg-subtle);
-          border-radius: 3px;
+          color: #D8B4FE;
+          background: rgba(168, 85, 247, 0.12);
+          border: 1px solid rgba(168, 85, 247, 0.25);
+          padding: 0.2rem 0.6rem;
+          border-radius: 9999px;
+          font-weight: 600;
         }
 
         .project-title {
-          font-size: 1.25rem;
+          font-size: 1.2rem;
           line-height: 1.35;
-          margin-bottom: 0.5rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          margin-top: 0.25rem;
+        }
+
+        .project-title a {
+          color: #FFFFFF;
+          text-decoration: none;
+          transition: color 0.15s ease;
         }
 
         .project-title a:hover {
-          color: var(--accent-orange);
+          color: #D8B4FE;
         }
 
         .project-subtitle {
-          font-size: 0.9375rem;
-          line-height: 1.6;
+          font-size: 0.875rem;
+          line-height: 1.55;
           color: var(--text-muted);
+          margin: 0;
         }
 
-        .behavior-box {
-          background-color: var(--bg-primary);
-          border: 1px solid var(--border-faint);
-          border-radius: 4px;
-          padding: 0.75rem;
-          margin-bottom: 0.75rem;
+        .ownership-quick-box {
+          background-color: rgba(11, 8, 19, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          padding: 0.65rem 0.85rem;
+          border-radius: 8px;
+          font-size: 0.75rem;
+          line-height: 1.45;
+          color: #E2E8F0;
         }
 
-        .box-label {
-          display: block;
-          font-size: 0.6875rem;
-          font-weight: 600;
-          color: var(--text-faint);
+        .ownership-badge {
+          color: #D8B4FE;
+          margin-right: 0.4rem;
           text-transform: uppercase;
-          margin-bottom: 0.25rem;
+          font-weight: 700;
+          letter-spacing: 0.04em;
         }
 
-        .behavior-text, .ownership-text {
-          font-size: 0.8125rem;
-          color: var(--text-main);
-          line-height: 1.5;
-        }
-
-        .ownership-statement {
-          background-color: rgba(255, 85, 0, 0.04);
-          border-left: 2px solid var(--accent-orange);
-          padding: 0.6rem 0.75rem;
-          border-radius: 0 4px 4px 0;
+        .card-footer {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-top: auto;
+          padding-top: 0.5rem;
         }
 
         .stack-wrap {
           display: flex;
           flex-wrap: wrap;
           gap: 0.35rem;
-          margin-bottom: 1.25rem;
         }
 
         .tech-badge {
           font-size: 0.6875rem;
-          padding: 0.2rem 0.5rem;
-          background-color: var(--bg-subtle);
-          border: 1px solid var(--border-light);
-          border-radius: 3px;
+          padding: 0.2rem 0.55rem;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           color: var(--text-muted);
         }
 
         .links-row {
           display: flex;
           align-items: center;
-          gap: 1.25rem;
+          gap: 1rem;
           flex-wrap: wrap;
-          padding-top: 0.75rem;
-          border-top: 1px solid var(--border-faint);
+          padding-top: 0.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          font-size: 0.8125rem;
         }
 
         .view-case-link {
-          font-size: 0.8125rem;
-          font-weight: 600;
-          color: var(--text-main);
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          border-bottom: 1px solid var(--border-strong);
+          color: #FFFFFF;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.15s ease;
         }
 
         .view-case-link:hover {
-          color: var(--accent-orange);
-          border-color: var(--accent-orange);
+          color: #D8B4FE;
+          transform: translateX(2px);
         }
 
-        .github-repo-link, .demo-link {
-          font-size: 0.75rem;
+        .repo-link, .demo-link {
           color: var(--text-muted);
+          text-decoration: none;
           display: inline-flex;
           align-items: center;
-          gap: 0.35rem;
+          gap: 0.3rem;
+          transition: color 0.15s ease;
         }
 
-        .github-repo-link:hover, .demo-link:hover {
-          color: var(--text-main);
+        .repo-link:hover, .demo-link:hover {
+          color: #FFFFFF;
         }
 
-        .empty-state {
-          padding: 3rem;
+        /* View more button below homepage grid */
+        .view-more-container {
           text-align: center;
-          background-color: var(--bg-surface);
-          border: 1px dashed var(--border-light);
-          border-radius: 8px;
-          color: var(--text-muted);
+          margin-top: 1rem;
+        }
+
+        .view-more-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.85rem 2rem;
+          border-radius: 9999px;
         }
       `}</style>
     </div>

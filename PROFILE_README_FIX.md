@@ -15,7 +15,7 @@ This document contains the exact, audited replacement copy for your personal Git
    - Clearly documented `e-portal` as a **Java Spring Boot & MySQL** monolithic university portal (3rd semester capstone).
    - Documented `iqra_student_portal` as the separate **Flutter** student companion mobile client.
 4. **Updated Contact Email:**
-   - Changed from shared company address (`arbotrixpk@gmail.com`) to direct personal professional address (`mirzashahzaibsami123456789@gmail.com`).
+   - Changed from shared company address (`arbotrixpk@gmail.com`) to direct personal professional address (`mr.shahzaib25005@gmail.com`).
 5. **Exact 1-Sentence Ownership Statements:**
    - Included for every flagship and index project.
 
@@ -40,7 +40,7 @@ This document contains the exact, audited replacement copy for your personal Git
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mr-shahzaib)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MrShahzaib005)
 [![Portfolio](https://img.shields.io/badge/Portfolio-From_Logic_to_Motion-FF5500?style=flat-square)](https://github.com/MrShahzaib005/developer-portfolio)
-[![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:mirzashahzaibsami123456789@gmail.com)
+[![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:mr.shahzaib25005@gmail.com)
 
 </div>
 
@@ -117,7 +117,7 @@ I engineer systems where **software coordinates motion and telemetry**—from wr
 
 ## 📬 Connect & Collaborate
 
-- **Direct Email:** [mirzashahzaibsami123456789@gmail.com](mailto:mirzashahzaibsami123456789@gmail.com)
+- **Direct Email:** [mr.shahzaib25005@gmail.com](mailto:mr.shahzaib25005@gmail.com)
 - **LinkedIn:** [linkedin.com/in/mr-shahzaib](https://www.linkedin.com/in/mr-shahzaib)
 - **Location:** Islamabad, Pakistan (Open to Remote & Relocation)
 - **Open to:** Robotics Software Roles · Full-Stack Systems Engineering · Embedded AI Collaborations

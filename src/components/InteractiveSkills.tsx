@@ -1,479 +1,282 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 
-interface Skill {
+interface SkillItem {
   name: string;
-  category: 'web' | 'robotics' | 'ai' | 'embedded';
-  level: number; // 1-100
-  badge: string;
+  level: number;
   icon: string;
-  highlight: string;
-  usedIn: string;
 }
 
-const SKILLS: Skill[] = [
-  // Full-Stack Web
-  { name: 'Next.js 16 (App Router)', category: 'web', level: 95, badge: 'Production', icon: '▲', highlight: 'Server Actions, SSR, dynamic caching', usedIn: 'Arbotrix Company Website' },
-  { name: 'React 19', category: 'web', level: 94, badge: 'Advanced', icon: '⚛️', highlight: 'Concurrent features, custom hooks, state optimization', usedIn: 'Arbotrix Web & Portfolio' },
-  { name: 'TypeScript', category: 'web', level: 92, badge: 'Core', icon: 'TS', highlight: 'Strict typing, generic schemas, type-safe APIs', usedIn: 'All Web & Middleware projects' },
-  { name: 'Tailwind CSS', category: 'web', level: 90, badge: 'Design', icon: '🎨', highlight: 'Responsive UI, design systems, micro-interactions', usedIn: 'Arbotrix Web' },
-  { name: 'Spring Boot 3.x', category: 'web', level: 88, badge: 'Enterprise', icon: '🍃', highlight: 'MVC, ThreadLocal tenant isolation, Hibernate ORM', usedIn: 'Buddy AI & E-Portal' },
-  { name: 'PostgreSQL & Supabase', category: 'web', level: 90, badge: 'Database', icon: '🐘', highlight: 'Relational schemas, ACID transactions, migrations', usedIn: 'Arbotrix Web & Buddy' },
-  { name: 'Prisma ORM', category: 'web', level: 92, badge: 'Data Layer', icon: '💎', highlight: 'Type-safe queries, relation joins, connection pooling', usedIn: 'Arbotrix Web' },
+interface SkillCategory {
+  title: string;
+  skills: SkillItem[];
+}
 
-  // Robotics & Cyber-Physical
-  { name: 'ROS 2 Humble', category: 'robotics', level: 92, badge: 'Core Middleware', icon: '🤖', highlight: 'Nodes, pub/sub topics, QoS profiles, launch files', usedIn: 'Dodo Bot & Cleaning Robot' },
-  { name: 'Nav2 Navigation Stack', category: 'robotics', level: 88, badge: 'Autonomy', icon: '🧭', highlight: 'Costmap layers, behavior trees, waypoint following', usedIn: 'ROS 2 Cleaning Robot' },
-  { name: 'Gazebo Garden', category: 'robotics', level: 86, badge: 'Simulation', icon: '🌐', highlight: 'Physics simulation, sensor plugins, world modeling', usedIn: 'Cleaning Robot Simulation' },
-  { name: 'SLAM Toolbox', category: 'robotics', level: 85, badge: 'Mapping', icon: '🗺️', highlight: '2D LiDAR mapping, loop closure, occupancy grids', usedIn: 'Cleaning Robot & Dodo' },
-  { name: 'rosbridge_suite & WebSockets', category: 'robotics', level: 94, badge: 'Telemetry', icon: '⚡', highlight: 'JSON protocol, 20Hz cmd_vel throttle, <45ms latency', usedIn: 'Dodo Bot Teleoperation' },
-  { name: 'URDF / Xacro', category: 'robotics', level: 88, badge: 'Kinematics', icon: '📐', highlight: 'Joint limits, inertial matrices, link hierarchies', usedIn: 'Cleaning Robot URDF' },
-  { name: 'Differential Drive Kinematics', category: 'robotics', level: 90, badge: 'Motion', icon: '🏎️', highlight: 'Twist (vx, wz) conversion to wheel RPM', usedIn: 'Dodo Bot & Cleaning Robot' },
-
-  // AI & Systems
-  { name: 'LangChain4j & Edge LLMs', category: 'ai', level: 85, badge: 'Agentic AI', icon: '🦜', highlight: 'Multi-agent orchestration, Ollama Llama 3.1 8B', usedIn: 'Buddy Agentic Architecture' },
-  { name: 'pgvector & Embeddings', category: 'ai', level: 86, badge: 'Vector Search', icon: '🧠', highlight: 'HNSW indexing, cosine similarity, long-term memory', usedIn: 'Buddy Agentic Memory' },
-  { name: 'ML Coverage Heuristics', category: 'ai', level: 84, badge: 'Algorithms', icon: '📊', highlight: 'Path optimization, redundant pass reduction', usedIn: 'Cleaning Robot Autonomy' },
-  { name: 'Python 3.11', category: 'ai', level: 90, badge: 'Language', icon: '🐍', highlight: 'ROS nodes, ML scripts, data serialization', usedIn: 'Robotics & ML Pipelines' },
-
-  // Embedded & Tools
-  { name: 'NVIDIA Jetson Orin Nano', category: 'embedded', level: 88, badge: 'Edge Hardware', icon: '⚡', highlight: 'Headless Ubuntu Linux, GPU acceleration, thermal tuning', usedIn: 'Dodo Bot Hardware' },
-  { name: 'Flutter & Dart', category: 'embedded', level: 88, badge: 'Mobile UI', icon: '📱', highlight: 'Cross-platform app, real-time reactive streams', usedIn: 'Dodo Bot Teleoperation App' },
-  { name: 'Docker & Linux Server', category: 'embedded', level: 88, badge: 'DevOps', icon: '🐳', highlight: 'Containerization, systemd daemons, environment parity', usedIn: 'Buddy & Web Platforms' },
-  { name: 'UART & Serial Protocols', category: 'embedded', level: 85, badge: 'Protocols', icon: '📡', highlight: '115200 baud deterministic byte stream, checksums', usedIn: 'Microcontroller bridges' }
+const CATEGORIES: SkillCategory[] = [
+  {
+    title: 'Frontend',
+    skills: [
+      { name: 'React 19 / Next.js', level: 83, icon: '⚛️' },
+      { name: 'TypeScript', level: 81, icon: 'TS' },
+      { name: 'Tailwind CSS', level: 80, icon: '🎨' },
+      { name: 'Flutter & Dart', level: 71, icon: '📱' },
+    ]
+  },
+  {
+    title: 'Backend & Systems',
+    skills: [
+      { name: 'Python 3.11', level: 81, icon: '🐍' },
+      { name: 'PostgreSQL & Supabase', level: 77, icon: '🐘' },
+      { name: 'Docker & Linux Server', level: 76, icon: '🐳' },
+      { name: 'Prisma ORM', level: 75, icon: '💎' },
+      { name: 'Spring Boot 3.x', level: 74, icon: '🍃' },
+    ]
+  },
+  {
+    title: 'Robotics & Cyber-Physical',
+    skills: [
+      { name: 'ROS 2 Humble', level: 82, icon: '🤖' },
+      { name: 'Differential Drive Kinematics', level: 80, icon: '🏎️' },
+      { name: 'rosbridge_suite & WebSockets', level: 78, icon: '⚡' },
+      { name: 'Nav2 Navigation Stack', level: 74, icon: '🧭' },
+      { name: 'URDF / Xacro', level: 73, icon: '📐' },
+      { name: 'SLAM Toolbox', level: 70, icon: '🗺️' },
+      { name: 'Gazebo Garden', level: 67, icon: '🌐' },
+    ]
+  },
+  {
+    title: 'AI & Embedded Systems',
+    skills: [
+      { name: 'NVIDIA Jetson Orin Nano', level: 73, icon: '⚡' },
+      { name: 'pgvector & Semantic Memory', level: 72, icon: '🧠' },
+      { name: 'LangChain4j & Edge LLMs', level: 68, icon: '🦜' },
+      { name: 'UART & Serial Protocols', level: 66, icon: '📡' },
+      { name: 'ML Coverage Heuristics', level: 65, icon: '📊' },
+    ]
+  }
 ];
 
-type CategoryFilter = 'all' | 'web' | 'robotics' | 'ai' | 'embedded';
+const TECH_STACK: string[] = [
+  'React',
+  'Next.js',
+  'TypeScript',
+  'ROS 2 Humble',
+  'Python',
+  'Spring Boot',
+  'Nav2',
+  'Tailwind CSS',
+  'PostgreSQL',
+  'Supabase',
+  'Prisma ORM',
+  'Docker',
+  'NVIDIA Jetson',
+  'Flutter',
+  'Gazebo',
+  'SLAM Toolbox',
+  'LangChain4j',
+  'pgvector',
+  'WebSockets',
+  'FreeRTOS',
+  'Git',
+  'Linux Server',
+  'FastAPI',
+  'REST APIs'
+];
 
 export default function InteractiveSkills() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSkill, setActiveSkill] = useState<Skill | null>(null);
-
-  const filteredSkills = useMemo(() => {
-    return SKILLS.filter(skill => {
-      if (selectedCategory !== 'all' && skill.category !== selectedCategory) {
-        return false;
-      }
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        return (
-          skill.name.toLowerCase().includes(q) ||
-          skill.highlight.toLowerCase().includes(q) ||
-          skill.usedIn.toLowerCase().includes(q)
-        );
-      }
-      return true;
-    });
-  }, [selectedCategory, searchQuery]);
-
   return (
-    <div className="interactive-skills-wrapper">
-      {/* Search & Category Filter Bar */}
-      <div className="skills-filter-bar font-mono">
-        <div className="category-tabs" role="tablist" aria-label="Skill Categories">
-          <button
-            type="button"
-            className={`cat-pill ${selectedCategory === 'all' ? 'active' : ''}`}
-            onClick={() => setSelectedCategory('all')}
-          >
-            All Skills ({SKILLS.length})
-          </button>
-          <button
-            type="button"
-            className={`cat-pill ${selectedCategory === 'web' ? 'active' : ''}`}
-            onClick={() => setSelectedCategory('web')}
-          >
-            🌐 Web & Full-Stack
-          </button>
-          <button
-            type="button"
-            className={`cat-pill ${selectedCategory === 'robotics' ? 'active' : ''}`}
-            onClick={() => setSelectedCategory('robotics')}
-          >
-            🤖 Robotics & ROS 2
-          </button>
-          <button
-            type="button"
-            className={`cat-pill ${selectedCategory === 'ai' ? 'active' : ''}`}
-            onClick={() => setSelectedCategory('ai')}
-          >
-            🧠 AI & Vector Memory
-          </button>
-          <button
-            type="button"
-            className={`cat-pill ${selectedCategory === 'embedded' ? 'active' : ''}`}
-            onClick={() => setSelectedCategory('embedded')}
-          >
-            ⚡ Edge & Embedded
-          </button>
-        </div>
-
-        <div className="skills-search-box">
-          <input
-            type="text"
-            placeholder="Filter skills (e.g. Next.js, ROS 2, Jetson)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input font-mono"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              className="clear-search font-mono"
-              onClick={() => setSearchQuery('')}
-            >
-              ✕
-            </button>
-          )}
-        </div>
+    <div className="skills-showcase-container">
+      {/* 2x2 Category Cards Grid */}
+      <div className="skills-cards-grid">
+        {CATEGORIES.map((category) => (
+          <div key={category.title} className="skill-category-card">
+            <h3 className="category-title">{category.title}</h3>
+            <div className="category-skills-list">
+              {category.skills.map((skill) => (
+                <div key={skill.name} className="skill-progress-item">
+                  <div className="skill-meta-row">
+                    <span className="skill-identity">
+                      <span className="skill-icon-badge" aria-hidden="true">{skill.icon}</span>
+                      <span className="skill-name">{skill.name}</span>
+                    </span>
+                    <span className="skill-percent font-mono">{skill.level}%</span>
+                  </div>
+                  <div className="skill-track" role="progressbar" aria-valuenow={skill.level} aria-valuemin={0} aria-valuemax={100} aria-label={`${skill.name} proficiency`}>
+                    <div 
+                      className="skill-fill" 
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Skills Grid */}
-      <div className="skills-interactive-grid">
-        {filteredSkills.map((skill) => {
-          const isSelected = activeSkill?.name === skill.name;
-          return (
-            <div
-              key={skill.name}
-              className={`skill-card surface-card ${isSelected ? 'is-selected' : ''}`}
-              onClick={() => setActiveSkill(isSelected ? null : skill)}
-            >
-              <div className="skill-card-top">
-                <span className="skill-icon-box" aria-hidden="true">{skill.icon}</span>
-                <div className="skill-meta-header">
-                  <span className="skill-badge font-mono">{skill.badge}</span>
-                  <h4 className="skill-name">{skill.name}</h4>
-                </div>
-              </div>
-
-              {/* Visual Proficiency Meter */}
-              <div className="skill-level-meter">
-                <div className="meter-header font-mono">
-                  <span className="meter-label">Proficiency</span>
-                  <span className="meter-val">{skill.level}%</span>
-                </div>
-                <div className="meter-bar">
-                  <div
-                    className="meter-fill"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-              </div>
-
-              <p className="skill-highlight font-mono">{skill.highlight}</p>
-
-              <div className="skill-proof-chip font-mono">
-                <span className="proof-label">Proven In:</span>
-                <span className="proof-project">{skill.usedIn}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Skill Detail Modal / Callout if selected */}
-      {activeSkill && (
-        <div className="skill-active-callout surface-card font-mono">
-          <div className="callout-header">
-            <div className="callout-title-row">
-              <span className="callout-icon">{activeSkill.icon}</span>
-              <div>
-                <h4 className="callout-name">{activeSkill.name}</h4>
-                <span className="callout-badge">{activeSkill.badge} · {activeSkill.level}% Proficiency</span>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="callout-close"
-              onClick={() => setActiveSkill(null)}
-            >
-              ✕
-            </button>
-          </div>
-          <div className="callout-body">
-            <p className="callout-text"><strong>Technical Focus:</strong> {activeSkill.highlight}</p>
-            <p className="callout-text"><strong>Project Implementation:</strong> {activeSkill.usedIn}</p>
-          </div>
+      {/* Technology Stack Pill Cloud */}
+      <div className="tech-stack-section">
+        <h3 className="tech-stack-title">Technology Stack</h3>
+        <div className="tech-stack-cloud">
+          {TECH_STACK.map((tech) => (
+            <span key={tech} className="tech-stack-pill font-mono">
+              {tech}
+            </span>
+          ))}
         </div>
-      )}
+      </div>
 
       <style>{`
-        .interactive-skills-wrapper {
+        .skills-showcase-container {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 3.5rem;
           width: 100%;
         }
 
-        .skills-filter-bar {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .category-tabs {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.4rem;
-          background: rgba(20, 14, 38, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 0.3rem;
-          border-radius: 9999px;
-        }
-
-        .cat-pill {
-          background: transparent;
-          border: none;
-          padding: 0.45rem 0.9rem;
-          font-family: inherit;
-          font-size: 0.75rem;
-          color: var(--text-muted);
-          border-radius: 9999px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          font-weight: 500;
-        }
-
-        .cat-pill:hover {
-          color: #FFFFFF;
-        }
-
-        .cat-pill.active {
-          background: var(--accent-gradient);
-          color: #ffffff;
-          font-weight: 600;
-          box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
-        }
-
-        .skills-search-box {
-          position: relative;
-          min-width: 260px;
-          flex-grow: 1;
-          max-width: 380px;
-        }
-
-        .search-input {
-          width: 100%;
-          padding: 0.55rem 2rem 0.55rem 0.85rem;
-          background: rgba(20, 14, 38, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 9999px;
-          font-size: 0.75rem;
-          color: #FFFFFF;
-          outline: none;
-          transition: border-color 0.15s ease;
-        }
-
-        .search-input:focus {
-          border-color: var(--accent-purple);
-        }
-
-        .clear-search {
-          position: absolute;
-          right: 0.8rem;
-          top: 50%;
-          transform: translateY(-50%);
-          background: none;
-          border: none;
-          color: var(--text-faint);
-          cursor: pointer;
-          font-size: 0.75rem;
-        }
-
-        .skills-interactive-grid {
+        .skills-cards-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        @media (min-width: 860px) {
+          .skills-cards-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.75rem;
+          }
+        }
+
+        .skill-category-card {
+          background: rgba(18, 12, 34, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
+          padding: 1.75rem clamp(1.25rem, 3vw, 2rem);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skill-category-card:hover {
+          border-color: rgba(168, 85, 247, 0.35);
+          box-shadow: 0 14px 36px rgba(168, 85, 247, 0.12);
+          transform: translateY(-2px);
+        }
+
+        .category-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.01em;
+        }
+
+        .category-skills-list {
+          display: flex;
+          flex-direction: column;
           gap: 1.25rem;
         }
 
-        .skill-card {
-          background: rgba(20, 14, 38, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 14px;
-          padding: 1.25rem;
+        .skill-progress-item {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
-          cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-          position: relative;
+          gap: 0.45rem;
         }
 
-        .skill-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent-purple);
-          box-shadow: 0 12px 32px rgba(168, 85, 247, 0.2);
-        }
-
-        .skill-card.is-selected {
-          border-color: var(--accent-magenta);
-          box-shadow: 0 0 0 2px var(--accent-magenta);
-        }
-
-        .skill-card-top {
+        .skill-meta-row {
           display: flex;
-          align-items: flex-start;
-          gap: 0.75rem;
+          justify-content: space-between;
+          align-items: center;
         }
 
-        .skill-icon-box {
-          font-size: 1.5rem;
-          line-height: 1;
-          display: flex;
+        .skill-identity {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+        }
+
+        .skill-icon-badge {
+          font-size: 0.95rem;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: 38px;
-          height: 38px;
-          background: rgba(11, 8, 19, 0.9);
-          border-radius: 8px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          width: 20px;
+          height: 20px;
           flex-shrink: 0;
-        }
-
-        .skill-meta-header {
-          display: flex;
-          flex-direction: column;
-          gap: 0.2rem;
-        }
-
-        .skill-badge {
-          font-size: 0.625rem;
-          color: #D8B4FE;
-          text-transform: uppercase;
-          font-weight: 600;
-          letter-spacing: 0.04em;
         }
 
         .skill-name {
           font-size: 0.9375rem;
+          font-weight: 500;
+          color: #FFFFFF;
+          letter-spacing: -0.01em;
+        }
+
+        .skill-percent {
+          font-size: 0.875rem;
           font-weight: 600;
           color: #FFFFFF;
-          line-height: 1.25;
         }
 
-        .skill-level-meter {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-        }
-
-        .meter-header {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.625rem;
-          color: var(--text-faint);
-        }
-
-        .meter-val {
-          color: #FFFFFF;
-          font-weight: 600;
-        }
-
-        .meter-bar {
+        .skill-track {
           width: 100%;
-          height: 5px;
+          height: 6px;
           background: rgba(255, 255, 255, 0.08);
-          border-radius: 3px;
+          border-radius: 9999px;
           overflow: hidden;
         }
 
-        .meter-fill {
+        .skill-fill {
           height: 100%;
-          background: var(--accent-gradient);
-          border-radius: 3px;
-          transition: width 0.6s ease-out;
+          background: #FFFFFF;
+          border-radius: 9999px;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+          transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .skill-highlight {
-          font-size: 0.6875rem;
-          color: var(--text-muted);
-          line-height: 1.45;
-          margin: 0;
-        }
-
-        .skill-proof-chip {
-          margin-top: auto;
-          display: flex;
-          gap: 0.35rem;
-          font-size: 0.625rem;
-          background: rgba(11, 8, 19, 0.8);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          padding: 0.35rem 0.5rem;
-          border-radius: 6px;
-          align-items: center;
-        }
-
-        .proof-label {
-          color: var(--text-faint);
-          text-transform: uppercase;
-        }
-
-        .proof-project {
-          color: var(--accent-magenta);
-          font-weight: 600;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .skill-active-callout {
-          background: var(--bg-dark-surface, #171a21);
-          border: 1px solid var(--accent-orange, #ff5500);
-          color: #ffffff;
-          padding: 1.25rem;
-          border-radius: 8px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .callout-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 0.75rem;
-        }
-
-        .callout-title-row {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-
-        .callout-icon {
-          font-size: 1.75rem;
-        }
-
-        .callout-name {
-          font-size: 1.15rem;
-          color: #ffffff;
-          margin: 0;
-        }
-
-        .callout-badge {
-          font-size: 0.6875rem;
-          color: var(--accent-orange, #ff5500);
-        }
-
-        .callout-close {
-          background: none;
-          border: none;
-          color: #9eabb8;
-          cursor: pointer;
-          font-size: 1rem;
-        }
-
-        .callout-body {
+        /* Technology Stack Pill Cloud */
+        .tech-stack-section {
+          text-align: center;
           display: flex;
           flex-direction: column;
-          gap: 0.35rem;
-          font-size: 0.8125rem;
-          color: #cfcbcd;
+          align-items: center;
+          gap: 1.75rem;
         }
 
-        .callout-body strong {
-          color: #ffffff;
+        .tech-stack-title {
+          font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+          font-weight: 700;
+          color: #FFFFFF;
+          letter-spacing: -0.015em;
+        }
+
+        .tech-stack-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.75rem 0.65rem;
+          max-width: 920px;
+          margin: 0 auto;
+        }
+
+        .tech-stack-pill {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.5rem 1.15rem;
+          border-radius: 9999px;
+          background: rgba(12, 8, 22, 0.9);
+          border: 1px solid rgba(59, 130, 246, 0.5);
+          box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+          color: #FFFFFF;
+          font-size: 0.875rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          user-select: none;
+        }
+
+        .tech-stack-pill:hover {
+          border-color: #38BDF8;
+          box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+          transform: translateY(-2px);
+          color: #FFFFFF;
         }
       `}</style>
     </div>
